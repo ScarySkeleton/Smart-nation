@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 
+import Register from '../../../components/page/register/Register.jsx';
+
 class RegisterContainer extends PureComponent {
     render() {
         return (
-            <div className='container register'>
-                Register page\popup    
-            </div>
+            <Register />
         );
     }
 }
