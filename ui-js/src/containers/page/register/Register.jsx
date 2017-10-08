@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
 
-import Register from '../../../components/page/register/Register.jsx';
-
 class RegisterContainer extends PureComponent {
     // constructor(props) {
     //     super(props);
@@ -9,7 +7,9 @@ class RegisterContainer extends PureComponent {
 
     render() {
         return (
-            <Register />
+            <div className='container register'>
+                Register page
+            </div>
         );
     }
 }

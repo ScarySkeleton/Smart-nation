@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 
-import Footer from '../../components/footer/Footer.jsx';
-
 class FooterContainers extends PureComponent {
     render() {
         return (
-            <Footer />
+            <div className='container footer'>
+                Footer
+            </div>
         );
     };
 };
