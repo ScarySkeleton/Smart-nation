@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Route } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import Home from '../page/home/Home.jsx';
 import Login from '../page/login/Login.jsx';
@@ -22,5 +23,7 @@ class ContentContainer extends PureComponent {
         );
     }
 }
+
+ContentContainer = withRouter(ContentContainer);
 
 export default ContentContainer;

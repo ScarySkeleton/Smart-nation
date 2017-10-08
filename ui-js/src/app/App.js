@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './App.css';
+import './App.scss';
 
 import Header from '../containers/header/Header.jsx';
 import Content from '../containers/content/Content.jsx';
@@ -11,10 +11,25 @@ class App extends Component {
     return (
       <div className="App">
           <Header />
+
+          <br />
+          <br />
+          <hr />
+
+          <br />
+          <br />
+          
           <Content />
+
+          <br />
+          <br />
+          <hr />
+
+          <br />
+          <br />
           <Footer />
       </div>
-    );
+    ); 
   }
 }
 

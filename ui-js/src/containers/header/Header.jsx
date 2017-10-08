@@ -14,11 +14,6 @@ class HeaderContainer extends PureComponent {
                 <Logo />
                 <Nav />
                 <Search />
-
-                <hr />
-                <br />
-                <br />
-
             </div>
         );
     };
