@@ -1,8 +1,9 @@
-
+@import '/style/variables.scss';
 
 body {
-
-    background-color: red;
+    margin: $zero;
+    padding: $zero;
+    background-color: $white;
     font-family: sans-serif;
   }
   
