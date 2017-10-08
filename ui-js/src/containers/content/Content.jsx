@@ -6,6 +6,10 @@ import Login from '../page/login/Login.jsx';
 import Register from '../page/register/Register.jsx';
 
 class ContentContainer extends PureComponent {
+    // constructor(props) {
+    //     super(props);
+    // }
+
     render() {
 
         return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Register = () => {
+const Register = (props) => {
     return (
         <div className='container register'>
             Register page\popup

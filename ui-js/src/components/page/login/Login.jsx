@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Login = () => {
+const Login = (props) => {
     return (
         <div className='container login'>
             Login page\popup
