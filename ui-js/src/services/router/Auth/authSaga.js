@@ -2,7 +2,7 @@ import { call, take, put, fork } from 'redux-saga/effects';
 import * as auth from './authActions';
 
 export default function* authProccess() {
-    const isLogined = false;
+    //const isLogined = false;
     //while(!isLogined) {
         console.log('before login request');
         yield take(auth.LOGIN_REQUEST);
