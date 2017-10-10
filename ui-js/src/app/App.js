@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import './App.scss';
 
 import Header from '../containers/header/Header.jsx';
 import Footer from '../containers/footer/Footer.jsx';
+
 import HomePage from '../containers/page/home/Home';
+import LoginPage from '../containers/page/login/Login';
+import RegistrationPage from '../containers/page/register/Register';
 
 class App extends Component {
   render() {
@@ -19,7 +24,9 @@ class App extends Component {
           <br />
           <br />
           
-          <HomePage />
+          <Route exact path='/' component={HomePage} />
+          <Route path='/login' component={LoginPage} />
+          <Route path='/register' component={RegistrationPage} />
 
           <br />
           <br />
@@ -32,5 +39,7 @@ class App extends Component {
     ); 
   }
 }
+
+App = withRouter(App);
 
 export default App;

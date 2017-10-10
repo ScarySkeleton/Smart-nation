@@ -12,13 +12,12 @@ class Nav extends PureComponent {
                     {
                         (this.props.isLogined) 
                                                 ? 
-                        <li className='nav__li nav__li-notLogined'>
-                            <Link className='nav__link nav__link-logout' to='/logout'> Logout </Link>
+                        <li className='nav__li nav__li-Logined'>
+                            For logined 
                         </li>
                                                 :
-                        <li className='nav__li nav__li-Logined'> 
-                            <Link className='nav__link nav__link-register' to='/register'> Register </Link>
-                            <Link className='nav__link nav__link-login' to='/login'> Login </Link>
+                        <li className='nav__li nav__li-unLogined'> 
+                            For unlogined
                         </li>
                     }
                 </ul>

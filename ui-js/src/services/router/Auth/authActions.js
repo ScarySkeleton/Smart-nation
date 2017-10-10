@@ -9,11 +9,11 @@ export const login = (data) => ({
      data,
 });
 
-export const loginRequest = ({
+export const loginRequest = () => ({
     type: LOGIN_REQUEST,
 });
 
-export const loginFailure = ({
+export const loginFailure = () => ({
     type: LOGIN_FAILURE,
 });
 
