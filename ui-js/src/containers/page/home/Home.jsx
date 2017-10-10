@@ -6,7 +6,6 @@ class HomeContainer extends PureComponent {
      }
 
     render() {
-        console.log("Home page");
         return (
             <div className='container home'>
                 Home page

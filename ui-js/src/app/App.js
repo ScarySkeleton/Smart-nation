@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import './App.scss';
 
 import Header from '../containers/header/Header.jsx';
-import Content from '../containers/content/Content.jsx';
 import Footer from '../containers/footer/Footer.jsx';
+import HomePage from '../containers/page/home/Home';
 
 class App extends Component {
   render() {
@@ -19,7 +19,7 @@ class App extends Component {
           <br />
           <br />
           
-          <Content />
+          <HomePage />
 
           <br />
           <br />
