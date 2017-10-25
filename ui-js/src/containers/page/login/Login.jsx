@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import * as auth from '../../../services/router/Auth/authActions';
+import {
+    loginRequest
+} from './login.actions';
 
 class LoginContainer extends PureComponent {
      constructor(props) {
@@ -10,15 +12,14 @@ class LoginContainer extends PureComponent {
      }
 
      loginRequest() {
-        console.log("btn clicked for login request");
         this.props.loginRequest();
      }
 
     render() {
-        console.log(auth);
         return (
             <div className='container login'>
-                Login page
+                
+                
 
                 <button onClick={this.loginRequest}>
                     Try log in
@@ -31,14 +32,13 @@ class LoginContainer extends PureComponent {
 const mapDispatchToProps = (dispatch) => {
     return {
         loginRequest: () => {
-            dispatch(auth.loginRequest());
+            dispatch(loginRequest());
         },
     }
 }
 
-LoginContainer = connect(
+const Login = connect(
     null,
     mapDispatchToProps,
 )(LoginContainer);
-
-export default LoginContainer;
+export default Login;
