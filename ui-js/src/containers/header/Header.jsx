@@ -8,6 +8,7 @@ import Search from './search/Search.jsx';
 
 class HeaderContainer extends PureComponent {
     render() {
+
         return (
             <div className='container header'>
                 <h3>Header</h3>
@@ -19,7 +20,7 @@ class HeaderContainer extends PureComponent {
                     (this.props.isLogined)
                     ?   
                         <div className='user-header-bar_logined'>
-                            Hello logined user
+                            Hello {this.props.surname} {this.props.name}
                         </div>
                     :
                         <div className='user-header-bar_unlogined'>
@@ -34,6 +35,10 @@ class HeaderContainer extends PureComponent {
 
 const mapStateToProps = (state) => {
     return {
+        name: state.Login.userdata.name,
+        surname: state.Login.userdata.surname,
+        userName: state.Login.userdata.username,
+        role: state.Login.userdata.role,
         isLogined: state.Login.isLogined,
     }
 };
