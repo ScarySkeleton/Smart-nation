@@ -1,9 +1,12 @@
 const API_PATH = '/';
 
-export function fetchUser(userData) {
-    return {
-        login: "beokha",
-        name: "Danil",
-        surname: "Bilokha"
+export function loginRequest(userData) {
+    return function () {
+        return {
+            username: "beokha",
+            name: "Danil",
+            surname: "Bilokha",
+            role: "admin"
+        }
     }
 };

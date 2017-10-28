@@ -1,6 +1,6 @@
 import { all } from 'redux-saga/effects';
 
-import authProccess from './Auth/authSaga';
+import authProccess from '../../containers/page/login/login.saga';
 
 export default function* rootSaga() {
     yield all([
