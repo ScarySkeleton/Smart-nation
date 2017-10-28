@@ -17,6 +17,7 @@ namespace BookSender.Models
         public string Number { get; set; }
         [Required]
         public string Password { get; set; }
+        [Required]
         [Compare("Password", ErrorMessage = "Passwords don`t match")]
         public string PasswordConfirmation { get; set; }
 

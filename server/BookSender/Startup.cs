@@ -43,7 +43,9 @@ namespace BookSender
 				app.UseExceptionHandler("/Home/Error");
 			}
 
-			app.UseStaticFiles();
+            app.UseAuthentication();
+
+            app.UseStaticFiles();
 
 			app.UseMvc(routes =>
 			{
