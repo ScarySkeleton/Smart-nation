@@ -8,24 +8,26 @@ namespace GmailSender
 
         static bool mailSent = false;
 
-        public void SendKey()
+        public void SendKey(string messageTo, string messageFrom, string passwordFrom)
         {
             SmtpClient client = new SmtpClient();
+
             client.Port = 465;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
             client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("cooldudsterr@gmail.com", "Rjirf-vsirf");
-            MailAddress mailFrom = new MailAddress("cooldudsterr@gmail.com", "Pes" + "Blohastyi", System.Text.Encoding.UTF8);
+            client.Credentials = new System.Net.NetworkCredential(messageFrom, passwordFrom);
 
-            MailAddress mailTo = new MailAddress("mr.wokawoka@gmail.com");
+            MailAddress mailFrom = new MailAddress(messageFrom, "Your password for authorization", System.Text.Encoding.UTF8);
+
+            MailAddress mailTo = new MailAddress(messageTo);
 
             MailMessage mailMessage = new MailMessage(mailFrom, mailTo);
 
-            mailMessage.Body = "test";
-            mailMessage.Subject = "Sraka";
+            mailMessage.Body = "Your password for authorization is" + RandomKeyGenerator();
+            mailMessage.Subject = "Your password for authorization";
             mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
             mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
 
