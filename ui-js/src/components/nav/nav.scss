@@ -1,12 +1,15 @@
 .nav__ul {
-	div {
 		display:flex;
 		flex-direction: row;
 		list-style-type: none;
 		li{
+				display:flex;
+				align-items: center;
 				margin-right: 30px;
 				line-height: 50px;
 					a{
+					display:flex;
+					align-items: center;
 					color: black;
 					font-weight: 600;
 					text-decoration: none;
@@ -31,6 +34,5 @@
 					}
 				}
 			}
-		}
 }
 

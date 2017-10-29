@@ -13,15 +13,18 @@ class HeaderContainer extends PureComponent {
         return (
             <div className='container header'>
                 <Logo />
+                <div className='header-title'>
+                    
+                </div>
                 <div className='header-nav'>
                     {
                         (this.props.isLogined)
                         ?   
-                            <div className='user-header-bar_logined'>
+                            <div className='user-header-bar user-header-bar_logined '>
                                 Hello {this.props.surname} {this.props.name}
                             </div>
                         :
-                            <div className='user-header-bar_unlogined'>
+                            <div className='user-header-bar user-header-bar_unlogined'>
                                 Hello guest!
                             </div>
                     }
