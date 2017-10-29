@@ -17,7 +17,6 @@ export default function* watchLogin() {
 export function* fetchLoginRequest(userData) {
     try {
         const response = yield call(loginRequest(userData));
-        console.log(response);
         yield put(loginSuccess(response));
     } catch (error) {
         yield put(loginFailure());

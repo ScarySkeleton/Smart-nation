@@ -19,14 +19,14 @@ const registerReducer = (state = initState, action) => {
                     password: action.payload.password,
                 }
             }
-        case action.REGISTER_SUCCESS: 
+        case actions.REGISTER_SUCCESS: 
             return {
                 ...state,
                 isFetching: false,
                 isRegisteredSuccess: true,
                 isRegisteredFailure: false,
             }
-        case action.REGISTER_FAILURE:
+        case actions.REGISTER_FAILURE:
             return {
                 ...state,
                 isFetching: false,

@@ -8,9 +8,7 @@ import { registrationRequest } from '../../../services/Api'
 
 export default function* watchRegistration() {
     while(true) {
-        console.log("waiting for register");
         const action = yield take(REGISTER_REQUEST);
-        console.log("register request, " , action.payload);
         yield call(fetchRegistrationRequest, action.payload);
     }
 }
@@ -18,7 +16,6 @@ export default function* watchRegistration() {
 export function* fetchRegistrationRequest(userData) {
     try {
         const response = yield call(registrationRequest(userData));
-        console.log("api result", response);
         yield put(registerSuccess());
     } catch (error) {
         yield put(registerFailure());

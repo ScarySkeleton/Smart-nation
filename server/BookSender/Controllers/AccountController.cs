@@ -46,7 +46,7 @@ namespace BookSender.Controllers
                 //    if (userRole != null)
                 //        user.Role = userRole;
 
-                    _context.Users.Add(new Data.Models.User { Number = user.Phone, Password = user.Password });
+                    _context.Users.Add(new Data.Models.User { Number = user.Phone, Password = user.Password, Email = "test@mail.ru" });
 
                     await _context.SaveChangesAsync();
 
