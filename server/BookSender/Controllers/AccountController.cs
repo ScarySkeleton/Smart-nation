@@ -22,18 +22,6 @@ namespace BookSender.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public JsonResult Login()
-        {
-            return Json("");
-        }
-
-        [HttpGet]
-        public JsonResult Register()
-        {
-            return Json("");
-        }
-
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<JsonResult> Register(string request)
