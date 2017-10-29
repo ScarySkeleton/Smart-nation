@@ -13,6 +13,6 @@ namespace BookSender.Data.Models.AccessoryModels
         public string Phone { get; set; }
         //[Required]
         public string Password { get; set; }
-
+        
     }
 }

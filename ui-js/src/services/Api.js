@@ -21,6 +21,12 @@ export function loginRequest(userData) {
         })
         .then(statusChecker)
         .then(response => response.json())
+        .then(json => ({
+            username: json.username
+            , name: json.name
+            , surname: json.surname
+            , role: json.role
+        }));
         //.then(json => console.log(json));
         /* return {
             username: "beokha",
@@ -30,3 +36,20 @@ export function loginRequest(userData) {
         } */
     }
 };
+
+export function registrationRequest(userData) {
+
+    return function() {
+        return fetch("http://localhost:50363/Account/Register", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json, text/javascript, */*; q=0.01',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            mode: "cors",
+            credentials: "include",
+            body: JSON.stringify(userData)
+        })
+        .then(statusChecker);
+    }
+}
