@@ -1,0 +1,9 @@
+C:\Users\prola\Source\Repos\Smart-nation\server\GmailSender\bin\Debug\netcoreapp2.0\GmailSender.deps.json
+C:\Users\prola\Source\Repos\Smart-nation\server\GmailSender\bin\Debug\netcoreapp2.0\GmailSender.dll
+C:\Users\prola\Source\Repos\Smart-nation\server\GmailSender\bin\Debug\netcoreapp2.0\GmailSender.pdb
+C:\Users\prola\Source\Repos\Smart-nation\server\GmailSender\obj\Debug\netcoreapp2.0\GmailSender.csprojResolveAssemblyReference.cache
+C:\Users\prola\Source\Repos\Smart-nation\server\GmailSender\obj\Debug\netcoreapp2.0\GmailSender.csproj.CoreCompileInputs.cache
+C:\Users\prola\Source\Repos\Smart-nation\server\GmailSender\obj\Debug\netcoreapp2.0\GmailSender.AssemblyInfoInputs.cache
+C:\Users\prola\Source\Repos\Smart-nation\server\GmailSender\obj\Debug\netcoreapp2.0\GmailSender.AssemblyInfo.cs
+C:\Users\prola\Source\Repos\Smart-nation\server\GmailSender\obj\Debug\netcoreapp2.0\GmailSender.dll
+C:\Users\prola\Source\Repos\Smart-nation\server\GmailSender\obj\Debug\netcoreapp2.0\GmailSender.pdb
