@@ -14,7 +14,10 @@ class HeaderContainer extends PureComponent {
             <div className='container header'>
                 <Logo />
                 <div className='header-title'>
-                    
+                    <blockquote className='header-title-blockquote'>“A room without books is like a body without a soul.”
+                    <br/>
+                    <span className='header-title-author'>― Marcus Tullius Cicero</span>
+                    </blockquote>
                 </div>
                 <div className='header-nav'>
                     {

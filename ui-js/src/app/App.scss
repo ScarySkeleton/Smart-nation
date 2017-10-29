@@ -1,4 +1,33 @@
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+	 height: 100%;
+}
+
 .header {
 	display: flex;
 	justify-content: space-between;
+	background: rgba(255,255,255,0.5);
+}
+
+
+.body-content {
+	flex: 1 0 auto;
+	position: relative;
+}
+
+.footer {
+	flex: 0 0 auto;
+}
+
+.App {
+	display: flex;
+  	flex-direction: column;
+  	height: 100%;
+	background-image: url(./Resources/back.jpg);
+	background-size: cover;
 }
