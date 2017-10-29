@@ -18,8 +18,6 @@ class LoginContainer extends PureComponent {
              isLogined: this.props.isLogined,
          }
 
-         console.log(this.state);
-
          this.userLogInfoChange = this.userLogInfoChange.bind(this);
          this.userPasswordChange = this.userPasswordChange.bind(this);
          this.loginRequest = this.loginRequest.bind(this);
@@ -42,8 +40,9 @@ class LoginContainer extends PureComponent {
      loginRequest() {
 
         const data = {
-            userLogInfo: this.state.userLogInfo,
-            userPassword: this.state.userPassword,
+            Email: "asd",
+            Phone: this.state.userLogInfo,
+            Password: this.state.userPassword,
         }
 
         const config = {

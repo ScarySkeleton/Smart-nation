@@ -196,6 +196,7 @@ module.exports = {
           // SCSS loader
           {
             test: /\.scss$/,
+
             use: [{
                 loader: "style-loader" // creates style nodes from JS strings
             }, {

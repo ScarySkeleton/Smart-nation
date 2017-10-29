@@ -11,9 +11,13 @@ using GmailSender;
 using BookSender.Data;
 using BookSender.Data.Models;
 using BookSender.Data.Models.AccessoryModels;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
+using LoginData = BookSender.Data.Models.AccessoryModels.LoginModel;
 
 namespace BookSender.Controllers
 {
+    [EnableCors("CorsPolicy")]
     public class AccountController : Controller
     {
         private ApplicationContext _context;
@@ -59,18 +63,13 @@ namespace BookSender.Controllers
             }
         }
 
+        
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<JsonResult> Login(string request)
+        public async Task<IActionResult> Login([FromBody] LoginData model)
         {
             try
             {
-                dynamic requestDyn = JsonConvert.DeserializeObject(request);
-
-                BookSender.Data.Models.AccessoryModels.LoginModel model = 
-                    new BookSender.Data.Models.AccessoryModels.LoginModel
-                    { Email = requestDyn.Email, Password = requestDyn.Password, Phone = requestDyn.Phone };
-
                 if (model != null)
                 {
                     if (String.IsNullOrEmpty(model.Email) == false)
@@ -78,14 +77,36 @@ namespace BookSender.Controllers
                         BookSender.Data.Models.User user = await _context.Users
                             .Include(u => u.Role)
                             .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-                        return Json("'Answer': 'User exists'");
+
+                        AccountLoginResponce acc = new AccountLoginResponce
+                        {
+                            Name = user.FirstName,
+                            Surname = user.LastName,
+                            Role = user.Role.Name,
+                          // StatusCode = StatusCode(500).ToString()
+                        };
+
+                        var json = Newtonsoft.Json.JsonConvert.SerializeObject(acc);
+
+                        return Json(json);
                     }
                     else if (String.IsNullOrEmpty(model.Phone) == false)
                     {
                         BookSender.Data.Models.User user = await _context.Users
                             .Include(u => u.Role)
                             .FirstOrDefaultAsync(u => u.Number == model.Phone && u.Password == model.Password);
-                        return Json("'Answer': 'User exists'");
+
+                        AccountLoginResponce acc = new AccountLoginResponce
+                        {
+                            Name = user.FirstName,
+                            Surname = user.LastName,
+                            Role = user.Role.Name,
+                            // StatusCode = StatusCode(500).ToString()
+                        };
+
+                        var json = Newtonsoft.Json.JsonConvert.SerializeObject(acc);
+
+                        return Json(json);
                     }
                     else
                     {
@@ -93,7 +114,7 @@ namespace BookSender.Controllers
                     }
                 }
                 else
-                    return Json(" 'Answer' : 'Not such a user was found' ");
+                    return Json(new LoginData());
             }
             catch (Exception ex)
             {
