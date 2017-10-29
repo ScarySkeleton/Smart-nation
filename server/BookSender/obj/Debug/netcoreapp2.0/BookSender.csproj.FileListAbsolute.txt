@@ -36,3 +36,5 @@ C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcorea
 C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\BookSender.Services.dll
 C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\BookSender.Data.pdb
 C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\BookSender.Services.pdb
+C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\GmailSender.dll
+C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\GmailSender.pdb

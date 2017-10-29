@@ -11,7 +11,7 @@ namespace BookSender.Services
 	{
 		private ApplicationContext _context;
 
-		BookService(ApplicationContext context)
+		public BookService(ApplicationContext context)
 		{
 			_context = context;
 		}
@@ -65,5 +65,14 @@ namespace BookSender.Services
 			_context.SaveChanges();
 		}
 
-	}
+        public List<Book> BooksSearch(string searchingPhr)
+        {
+            var ans = new List<Book>();
+            if (searchingPhr == "aa")
+            {
+                ans.Add(new Book());
+            }
+            return ans;
+        }
+    }
 }
