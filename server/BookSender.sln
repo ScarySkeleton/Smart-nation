@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSender.Data", "BookSend
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GmailSender", "GmailSender\GmailSender.csproj", "{8A9CC35E-A09A-4B15-BBFA-13224CE614BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XBookSender.Test", "XBookSender.Test\XBookSender.Test.csproj", "{ECC00B3E-8F59-42E8-A3DB-FF07F5B32A0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8A9CC35E-A09A-4B15-BBFA-13224CE614BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A9CC35E-A09A-4B15-BBFA-13224CE614BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A9CC35E-A09A-4B15-BBFA-13224CE614BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECC00B3E-8F59-42E8-A3DB-FF07F5B32A0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECC00B3E-8F59-42E8-A3DB-FF07F5B32A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECC00B3E-8F59-42E8-A3DB-FF07F5B32A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECC00B3E-8F59-42E8-A3DB-FF07F5B32A0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
