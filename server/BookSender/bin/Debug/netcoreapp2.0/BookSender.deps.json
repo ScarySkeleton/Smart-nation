@@ -26,6 +26,7 @@
           "BookSender.Data": "1.0.0",
           "BookSender.Services": "1.0.0",
           "Microsoft.AspNetCore.All": "2.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.0",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.0"
