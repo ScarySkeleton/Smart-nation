@@ -11,8 +11,8 @@ const loginedNav = [
 ];
 
 const unLoginedNav = [
-    "Some", 
-    "Some2"
+    "LOGIN", 
+    "REGISTRATION"
 ]
 
 class Nav extends PureComponent {
