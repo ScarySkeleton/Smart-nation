@@ -1,17 +1,27 @@
 const API_PATH = '/';
 
+function statusChecker(response) {
+    console.log(response);
+    if(response.status >= 200 && response.status < 300)
+        return Promise.resolve(response);
+    return Promise.reject(response);
+}
+
 export function loginRequest(userData) {
     return function () {
-        console.log("api");
-        return fetch("http://localhost:50364/AccountController/Login", {
+        return fetch("http://localhost:50363/Account/Login", {
             method: "POST",
             headers: {
-                Accept: 
-                'application/json, text/plain, */*',
-                'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                Accept: 'application/json, text/javascript, */*; q=0.01',
+                'Content-type': 'application/json; charset=UTF-8',
             },
-            body: userData
-        }).then(response => console.log(response));
+            mode: "cors",
+            credentials: "include",
+            body: JSON.stringify(userData)
+        })
+        .then(statusChecker)
+        .then(response => response.json())
+        //.then(json => console.log(json));
         /* return {
             username: "beokha",
             name: "Danil",

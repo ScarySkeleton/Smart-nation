@@ -40,8 +40,9 @@ class LoginContainer extends PureComponent {
      loginRequest() {
 
         const data = {
-            userLogInfo: this.state.userLogInfo,
-            userPassword: this.state.userPassword,
+            Email: "asd",
+            Phone: this.state.userLogInfo,
+            Password: this.state.userPassword,
         }
 
         const config = {
