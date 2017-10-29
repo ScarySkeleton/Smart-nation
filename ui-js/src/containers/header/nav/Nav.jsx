@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import './nav.scss';
+
 const loginedNav = [
     "Cabinet",
     "Bookshelf"
@@ -31,34 +33,29 @@ class Nav extends PureComponent {
 
     render() {
         return (
-            <div className='container nav'>
                 <ul className='container ul nav__ul'>
-                    <li> <Link to=''> Home </Link> </li>
                     {
                         (this.props.isLogined) 
                                                 ? 
                         <div>
-                             <li className='nav__li nav__li-Logined'
-                             onClick={this.cabinet}>
-                                Cabinet
+                             <li className='nav__li nav__li-Logined'>
+                             <a href="" onClick={this.cabinet}>Cabinet</a>  
                             </li>
-                            <li className='nav__li nav__li-Logined'
-                            onClick={this.bookshelf}>
-                                Bookshelf
+                            <li className='nav__li nav__li-Logined'>
+                            <a href="" onClick={this.bookshelf}>Bookshelf</a>  
                             </li> 
                         </div>
                                                 :
                         <div>
                             <li className='nav__li nav__li-unLogined'> 
-                                Some
+                                <a href='/login'> LOGIN </a>
                             </li>
                             <li className='nav__li nav__li-unLogined'> 
-                                Some2
+                                <a href='/register'> REGISTRATION </a>
                             </li>
                         </div>
                     }
                 </ul>
-            </div>
         );
     }
 };

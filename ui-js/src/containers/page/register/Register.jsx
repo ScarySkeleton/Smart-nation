@@ -8,7 +8,7 @@ class RegisterContainer extends PureComponent {
     render() {
         return (
             <div className='container register'>
-                Register page
+                Register page sadas
             </div>
         );
     }
