@@ -40,6 +40,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
+    "scss-loader": "0.0.1",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.5.9",
@@ -59,7 +60,6 @@
     "enzyme-adapter-react-15": "^1.0.1",
     "node-sass": "^4.5.3",
     "react-test-renderer": "^15.6.2",
-    "scss-loader": "0.0.1",
     "source-map-loader": "^0.2.2",
     "typescript": "^2.5.3"
   },

@@ -197,12 +197,14 @@ module.exports = {
           {
             test: /\.scss$/,
             use: [
-              require.resolve('style-loader'),
               {
-                loader: require.resolve('css-loader'),
-                options: {
-                  importLoaders: 1,
-                },
+                loader: "style-loader"
+              }, 
+              {
+                loader: "css-loader"
+              },
+              {
+                loader: "sass-loader"
               },
             ]
             // include: paths.appSrc,

@@ -18,8 +18,6 @@ class LoginContainer extends PureComponent {
              isLogined: this.props.isLogined,
          }
 
-         console.log(this.state);
-
          this.userLogInfoChange = this.userLogInfoChange.bind(this);
          this.userPasswordChange = this.userPasswordChange.bind(this);
          this.loginRequest = this.loginRequest.bind(this);
