@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './header.scss';
 
 import Logo from '../../components/logo/Logo.jsx';
-import Nav from './nav/Nav.jsx';
+import Nav from '../../components/nav/Nav.jsx';
 
 class HeaderContainer extends PureComponent {
     render() {
