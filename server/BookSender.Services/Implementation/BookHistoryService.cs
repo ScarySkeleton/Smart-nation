@@ -39,8 +39,7 @@ namespace BookSender.Services
 
 			existed.BookId = bookHistoryRecord.BookId;
 			existed.AltitudeCoordinate = bookHistoryRecord.AltitudeCoordinate;
-			existed.LangtitudeCoordinate= bookHistoryRecord.LangtitudeCoordinate;
-			existed.LangtitudeCoordinate = bookHistoryRecord.LangtitudeCoordinate;
+			existed.LongtiudeCoordinate = bookHistoryRecord.LongtiudeCoordinate;
 			existed.UserId = bookHistoryRecord.UserId;
 			existed.GetBookOn = bookHistoryRecord.GetBookOn;
 			existed.GiveBookOn = bookHistoryRecord.GiveBookOn;
