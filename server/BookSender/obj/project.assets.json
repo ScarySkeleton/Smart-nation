@@ -5030,6 +5030,35 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
+      "BookSender.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "2.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BookSender.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BookSender.Data.dll": {}
+        }
+      },
+      "BookSender.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "BookSender.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BookSender.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BookSender.Services.dll": {}
+        }
+      }
+    }
+      },
       "GmailSender/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
@@ -13116,6 +13145,16 @@
         "windowsazure.storage.nuspec"
       ]
     },
+    "BookSender.Data/1.0.0": {
+      "type": "project",
+      "path": "../BookSender.Data/BookSender.Data.csproj",
+      "msbuildProject": "../BookSender.Data/BookSender.Data.csproj"
+    },
+    "BookSender.Services/1.0.0": {
+      "type": "project",
+      "path": "../BookSender.Services/BookSender.Services.csproj",
+      "msbuildProject": "../BookSender.Services/BookSender.Services.csproj"
+    },
     "GmailSender/1.0.0": {
       "type": "project",
       "path": "../GmailSender/GmailSender.csproj",
@@ -13124,6 +13163,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "BookSender.Data >= 1.0.0",
+      "BookSender.Services >= 1.0.0",
       "GmailSender >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.0.0",
@@ -13133,7 +13174,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\coold\\.nuget\\packages\\": {},
+    "C:\\Users\\prola\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13142,17 +13183,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\coold\\source\\repos\\te\\Smart-nation\\server\\BookSender\\BookSender.csproj",
+      "projectUniqueName": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\BookSender\\BookSender.csproj",
       "projectName": "BookSender",
-      "projectPath": "C:\\Users\\coold\\source\\repos\\te\\Smart-nation\\server\\BookSender\\BookSender.csproj",
-      "packagesPath": "C:\\Users\\coold\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\coold\\source\\repos\\te\\Smart-nation\\server\\BookSender\\obj\\",
+      "projectPath": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\BookSender\\BookSender.csproj",
+      "packagesPath": "C:\\Users\\prola\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\BookSender\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\coold\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\prola\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13164,6 +13205,14 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
+          "projectReferences": {
+            "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\BookSender.Data\\BookSender.Data.csproj": {
+              "projectPath": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\BookSender.Data\\BookSender.Data.csproj"
+            },
+            "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\BookSender.Services\\BookSender.Services.csproj": {
+              "projectPath": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\BookSender.Services\\BookSender.Services.csproj"
+            }
+          }
           "projectReferences": {
             "C:\\Users\\coold\\source\\repos\\te\\Smart-nation\\server\\GmailSender\\GmailSender.csproj": {
               "projectPath": "C:\\Users\\coold\\source\\repos\\te\\Smart-nation\\server\\GmailSender\\GmailSender.csproj"

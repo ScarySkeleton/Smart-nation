@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BookSender.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace BookSender.Models
+
+namespace BookSender.Data
 {
 	public class ApplicationContext : DbContext
 	{
@@ -10,7 +12,7 @@ namespace BookSender.Models
 		public DbSet<Review> Reviews { get; set; }
 		public DbSet<Book> Books { get; set; }
 		public DbSet<Genre> Genres { get; set; }
-		public DbSet<BookHistory> BookHistoryRecord { get; set; }
+		public DbSet<BookHistory> BookHistoryRecords { get; set; }
 		public DbSet<Deal> Deals { get; set; }
 		public DbSet<DealStatus> DealStatuses { get; set; }
 		public DbSet<Picture> Pictures { get; set; }

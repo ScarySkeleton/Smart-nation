@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BookSender.Models
+namespace BookSender.Data.Models
 {
 	public class Book
     {

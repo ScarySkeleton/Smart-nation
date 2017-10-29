@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
+using BookSender.Data.Models;
 
-namespace BookSender.Models
+namespace BookSender.Data
 {
 	public static class DbInitializer
 	{
@@ -23,7 +24,7 @@ namespace BookSender.Models
 			new RatingStatus{Name="BookWorm",DemandMinNumberBooksAdded=10,DemandMinNumberBooksGot=4,OrderNumber = 4},
 			new RatingStatus{Name="Master",DemandMinNumberBooksAdded=20,DemandMinNumberBooksGot=15,OrderNumber = 5},
 			};
-			foreach (RatingStatus s  in ratingStatuses)
+			foreach (RatingStatus s in ratingStatuses)
 			{
 				context.RatingStatuses.Add(s);
 			}
@@ -54,7 +55,6 @@ namespace BookSender.Models
 			context.SaveChanges();
 
 
-			var genres = new Genre();
 		}
 	}
 }
