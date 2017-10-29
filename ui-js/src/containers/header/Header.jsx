@@ -24,7 +24,7 @@ class HeaderContainer extends PureComponent {
                         (this.props.isLogined)
                         ?   
                             <div className='user-header-bar user-header-bar_logined '>
-                                Hello <span>{this.props.surname} </span> {this.props.name}
+                                Hello {this.props.surname}, {this.props.name}
                             </div>
                         :
                             <div className='user-header-bar user-header-bar_unlogined'>

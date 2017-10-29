@@ -14,6 +14,7 @@ using BookSender.Data.Models.AccessoryModels;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using LoginData = BookSender.Data.Models.AccessoryModels.LoginModel;
+using RegisterData = BookSender.Data.Models.AccessoryModels.RegisterModel;
 
 namespace BookSender.Controllers
 {
@@ -28,24 +29,24 @@ namespace BookSender.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<JsonResult> Register(string request)
+        public async Task<JsonResult> Register([FromBody] RegisterData user)
         {
             try
             {
-                dynamic requestDyn = JsonConvert.DeserializeObject(request);
+                //dynamic requestDyn = JsonConvert.DeserializeObject(request);
 
-                RegisterModel model = new RegisterModel { Phone = requestDyn.Phone, Password = requestDyn.Password };
+                //RegisterModel model = new RegisterModel { Phone = requestDyn.Phone, Password = requestDyn.Password };
 
-                BookSender.Data.Models.User user = await _context.Users.FirstOrDefaultAsync(u => u.Number == model.Phone);
-                if (user == null)
-                {
-                    user = new BookSender.Data.Models.User { Number = model.Phone, Password = model.Password };
-                    BookSender.Data.Models.Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                //BookSender.Data.Models.User user = await _context.Users.FirstOrDefaultAsync(u => u.Number == model.Phone);
+                //if (user == null)
+                //{
+                //    user = new BookSender.Data.Models.User { Number = model.Phone, Password = model.Password };
+                //    BookSender.Data.Models.Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
 
-                    if (userRole != null)
-                        user.Role = userRole;
+                //    if (userRole != null)
+                //        user.Role = userRole;
 
-                    _context.Users.Add(user);
+                    _context.Users.Add(new Data.Models.User { Number = user.Phone, Password = user.Password });
 
                     await _context.SaveChangesAsync();
 
@@ -53,9 +54,9 @@ namespace BookSender.Controllers
                     //await Authenticate(user);
 
                     return Json($" 'Answer' : 'Successful user creation'");
-                }
-                else
-                    return Json(" 'Answer' : 'Unsuccessful user creation' ");
+                //}
+                //else
+                //    return Json(" 'Answer' : 'Unsuccessful user creation' ");
             }
             catch (Exception ex)
             {
@@ -81,15 +82,16 @@ namespace BookSender.Controllers
 
                         AccountLoginResponce acc = new AccountLoginResponce
                         {
+                            Login = "voviKAVE",
                             Name = user.FirstName,
                             Surname = user.LastName,
                             Role = user.Role.Name,
                           // StatusCode = StatusCode(500).ToString()
                         };
 
-                        var json = Newtonsoft.Json.JsonConvert.SerializeObject(acc);
+                        //var json = Newtonsoft.Json.JsonConvert.SerializeObject(acc);
 
-                        return Json(json);
+                        return Json(acc);
                     }
                     else if (String.IsNullOrEmpty(model.Phone) == false)
                     {
@@ -99,15 +101,16 @@ namespace BookSender.Controllers
 
                         AccountLoginResponce acc = new AccountLoginResponce
                         {
+                            Login = "voviKove",
                             Name = user.FirstName,
                             Surname = user.LastName,
-                            Role = user.Role.Name,
+                            Role = "admin",
                             // StatusCode = StatusCode(500).ToString()
                         };
 
-                        var json = Newtonsoft.Json.JsonConvert.SerializeObject(acc);
+                        //var json = Newtonsoft.Json.JsonConvert.SerializeObject(acc);
 
-                        return Json(json);
+                        return Json(acc);
                     }
                     else
                     {

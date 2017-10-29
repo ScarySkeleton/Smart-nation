@@ -21,12 +21,13 @@ export function loginRequest(userData) {
         })
         .then(statusChecker)
         .then(response => response.json())
-        .then(json => ({
-            username: json.username
-            , name: json.name
-            , surname: json.surname
-            , role: json.role
-        }));
+        .then(json => {
+            return {
+                username: json.login
+                , name: json.name
+                , surname: json.surname
+                , role: json.role
+        }});
         //.then(json => console.log(json));
         /* return {
             username: "beokha",

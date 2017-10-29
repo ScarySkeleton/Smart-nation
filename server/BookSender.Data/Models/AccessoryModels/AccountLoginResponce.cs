@@ -6,6 +6,7 @@ namespace BookSender.Data.Models.AccessoryModels
 {
     public class AccountLoginResponce
     {
+        public string Login { get; set; }
         public string Name { get; set;}
 
         public string Surname { get; set; }
