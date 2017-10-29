@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import './nav.scss';
+import Tab from '../tab/Tab.jsx';
 
 const loginedNav = [
     "Cabinet",
@@ -37,23 +38,21 @@ class Nav extends PureComponent {
                     {
                         (this.props.isLogined) 
                                                 ? 
-                        <div>
-                             <li className='nav__li nav__li-Logined'>
-                             <a href="" onClick={this.cabinet}>Cabinet</a>  
-                            </li>
-                            <li className='nav__li nav__li-Logined'>
-                            <a href="" onClick={this.bookshelf}>Bookshelf</a>  
-                            </li> 
-                        </div>
+
+                        loginedNav.map((el, index) => {
+                            return <Tab
+                                key={index}
+                                name={el}
+                                isLogined={true} />
+                        })
+                        
                                                 :
-                        <div>
-                            <li className='nav__li nav__li-unLogined'> 
-                                <a href='/login'> LOGIN </a>
-                            </li>
-                            <li className='nav__li nav__li-unLogined'> 
-                                <a href='/register'> REGISTRATION </a>
-                            </li>
-                        </div>
+                        unLoginedNav.map((el, index) => {
+                            return <Tab 
+                                key={index}
+                                name={el}
+                                isLogined={false} />
+                        })
                     }
                 </ul>
         );

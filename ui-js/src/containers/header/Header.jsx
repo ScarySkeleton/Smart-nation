@@ -2,32 +2,34 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import './header.scss';
+
 import Logo from '../../components/logo/Logo.jsx';
-import Nav from './nav/Nav.jsx';
-import Search from './search/Search.jsx';
+import Nav from '../../components/nav/Nav.jsx';
 
 class HeaderContainer extends PureComponent {
     render() {
 
         return (
             <div className='container header'>
-                <h3>Header</h3>
                 <Logo />
-                <Nav />
-                <Search />
+                <div className='header-nav'>
+                    {
+                        (this.props.isLogined)
+                        ?   
+                            <div className='user-header-bar_logined'>
+                                Hello {this.props.surname} {this.props.name}
+                            </div>
+                        :
+                            <div className='user-header-bar_unlogined'>
+                                Hello guest!
+                            </div>
+                    }
+                    <Nav />
+                </div>
+                
 
-                {
-                    (this.props.isLogined)
-                    ?   
-                        <div className='user-header-bar_logined'>
-                            Hello {this.props.surname} {this.props.name}
-                        </div>
-                    :
-                        <div className='user-header-bar_unlogined'>
-                            <Link to='/login'> Log In </Link>
-                            <Link to='/register'> Register </Link>
-                        </div>
-                }
+               
             </div>
         );
     };
