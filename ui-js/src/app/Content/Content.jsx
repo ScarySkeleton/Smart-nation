@@ -16,7 +16,7 @@ let Content = (props) => {
             ? ( <Redirect to="/" /> )
             : ( <LoginPage /> )
             )} />
-            <Route path='/register' component={RegistrationPage} />
+            <Route path='/registration' component={RegistrationPage} />
         </div>
     )
 };

@@ -21,8 +21,14 @@ class RegisterContainer extends PureComponent {
     }
 
     userPhoneChange(e) {
+        const value = e.target.value;
+        if(!true) {
+            this.userPhone.value = this.state.phone;
+            return;
+        }
+
         this.setState({
-            phone: e.target.value,
+            phone: value,
         })
     }
 
@@ -33,14 +39,17 @@ class RegisterContainer extends PureComponent {
     }
 
     userPasswordConfirmationChange(e) {
+        this.userPasswordConfirmNode.innerHTML = "";
+
         if(this.state.password !== e.target.value)
-            console.log("ne sovpali");
+            this.userPasswordConfirmNode.innerHTML = "The password isn't match.";
     }
 
     Clear() {
-        this.userPhone.value = '';
-        this.userPassword.value = '';
-        this.userPasswordConfirm.value = '';
+        this.userPhone.value = "";
+        this.userPassword.value = "";
+        this.userPasswordConfirm.value = "";
+        this.userPasswordConfirmNode.innerHTML = "";
 
         this.setState({
             phone: '',
@@ -49,7 +58,7 @@ class RegisterContainer extends PureComponent {
     }
 
     registerRequest() {
-
+        console.log(this.state.password);
     }
 
     render() {
@@ -58,25 +67,40 @@ class RegisterContainer extends PureComponent {
                 <div className='register__block'>
                     <label className='register__block-label'> Phone </label>
                     <input className='register__block-input'
-                     type='text' name='register'
-                     ref={curr=> this.userPhone = curr}
-                     onChange={this.userPhoneChange} />
+                        type='text' name='register'
+                        ref={curr => this.userPhone = curr}
+                        onChange={this.userPhoneChange} />
+                </div>
+                <div className='register__message'>
+                    <label className='register__message-label'
+                        ref={curr => this.userPhoneNode = curr}>
+                    </label>
                 </div>
                 
                 <div className='register__block'>
                     <label className='register__block-label'> Password </label>
                     <input className='register__block-input'
-                     type='password' name='password'
-                     ref={curr => this.userPassword = curr}
-                     onChange={this.userPasswordChange} />
+                        type='password' name='password'
+                        ref={curr => this.userPassword = curr}
+                        onChange={this.userPasswordChange} />
+                </div>
+                <div className='register__message'>
+                    <label className='register__message-label'
+                        ref={curr => this.userPasswordNode = curr}>
+                    </label>
                 </div>
 
                 <div className='register__block'>
                     <label className='register__block-label'> Confirm password </label>
                     <input className='register__block-input'
-                     type='password' name='confirmPassword'
-                     ref={curr => this.userPasswordConfirm = curr}
-                     onChange={this.userPasswordConfirmationChange} />
+                        type='password' name='confirmPassword'
+                        ref={curr => this.userPasswordConfirm = curr}
+                        onChange={this.userPasswordConfirmationChange} />
+                </div>
+                <div className='register__message'>
+                    <label className='register__message-label'
+                        ref={curr => this.userPasswordConfirmNode = curr}>
+                    </label>
                 </div>
 
                 <Link to='/login'> Have an account </Link>

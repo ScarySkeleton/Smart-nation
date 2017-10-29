@@ -9,7 +9,7 @@ const Tab = props => {
             <NavLink
                 className={'tab__link' + (props.isLogined) ? '-Logined' : '-unLogined'}
                 activeClassName='tab__link-active'
-                to={resolvePath(props.name)}
+                to={resolvePath(props.name.toLowerCase())}
                 >
                 {props.name}
             </NavLink>
