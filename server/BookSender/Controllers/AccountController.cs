@@ -68,6 +68,7 @@ namespace BookSender.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromBody] LoginData model)
         {
+            //string request = null;
             try
             {
                 if (model != null)
