@@ -17,8 +17,6 @@ C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\obj\Debug\netcorea
 C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\obj\Debug\netcoreapp2.0\BookSender.AssemblyInfo.cs
 C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\obj\Debug\netcoreapp2.0\BookSender.dll
 C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\obj\Debug\netcoreapp2.0\BookSender.pdb
-C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\GmailSender.dll
-C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\GmailSender.pdb
 C:\Users\prola\Source\Repos\Smart-nation\server\BookSender\obj\Debug\netcoreapp2.0\BookSender.csprojResolveAssemblyReference.cache
 C:\Users\prola\Source\Repos\Smart-nation\server\BookSender\obj\Debug\netcoreapp2.0\BookSender.csproj.CoreCompileInputs.cache
 C:\Users\prola\Source\Repos\Smart-nation\server\BookSender\obj\Debug\netcoreapp2.0\BookSender.AssemblyInfoInputs.cache
@@ -34,3 +32,7 @@ C:\Users\prola\Source\Repos\Smart-nation\server\BookSender\bin\Debug\netcoreapp2
 C:\Users\prola\Source\Repos\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\BookSender.Data.pdb
 C:\Users\prola\Source\Repos\Smart-nation\server\BookSender\obj\Debug\netcoreapp2.0\BookSender.dll
 C:\Users\prola\Source\Repos\Smart-nation\server\BookSender\obj\Debug\netcoreapp2.0\BookSender.pdb
+C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\BookSender.Data.dll
+C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\BookSender.Services.dll
+C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\BookSender.Data.pdb
+C:\Users\coold\source\repos\te\Smart-nation\server\BookSender\bin\Debug\netcoreapp2.0\BookSender.Services.pdb

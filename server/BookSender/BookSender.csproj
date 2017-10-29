@@ -18,9 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BookSender.Data\BookSender.Data.csproj" />
     <ProjectReference Include="..\BookSender.Services\BookSender.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GmailSender\GmailSender.csproj" />
   </ItemGroup>
 

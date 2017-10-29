@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using GmailSender.Model;
 using GmailSender;
+using BookSender.Data;
+using BookSender.Data.Models;
 
 namespace BookSender.Controllers
 {
@@ -35,63 +37,65 @@ namespace BookSender.Controllers
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> Register(string request)
         {
-            try
-            {
-                dynamic requestDyn = JsonConvert.DeserializeObject(request);
+            //try
+            //{
+            //    dynamic requestDyn = JsonConvert.DeserializeObject(request);
 
-                RegisterModel model = new RegisterModel { Email = requestDyn.Email, Password = requestDyn.Password };
+            //    RegisterModel model = new RegisterModel { Email = requestDyn.Email, Password = requestDyn.Password };
 
-                JsonResult responce = new JsonResult("");
-                User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
-                if (user == null)
-                {
-                    user = new Models.User { Email = model.Email, Password = model.Password };
-                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+            //    JsonResult responce = new JsonResult("");
+            //    BookSender.Data.Models.User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+            //    if (user == null)
+            //    {
+            //        user = new Models.User { Email = model.Email, Password = model.Password };
+            //        BookSender.Data.Models.Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
 
-                    if (userRole != null)
-                        user.Role = userRole;
+            //        if (userRole != null)
+            //            user.Role = userRole;
 
-                    _context.Users.Add(user);
+            //        _context.Users.Add(user);
 
-                    await _context.SaveChangesAsync();
+            //        await _context.SaveChangesAsync();
 
-                    string key = GmailSender.SmtpClientLibrary.SendKey("", "", "");
+            //        string key = GmailSender.SmtpClientLibrary.SendKey("", "", "");
 
-                    //await Authenticate(user);
-                    return Json($" 'Answer' : 'Successful user creation', 'Key' : '{key}' ");
-                }
-                else
-                    return Json(" 'Answer' : 'Unsuccessful user creation' ");
-            }
-            catch (Exception ex)
-            {
-                return Json($" 'Answer' : 'Not such a user was found', 'Error' : '{ex.Message}' ");
-            }
+            //        //await Authenticate(user);
+            //        return Json($" 'Answer' : 'Successful user creation', 'Key' : '{key}' ");
+            //    }
+            //    else
+            //        return Json(" 'Answer' : 'Unsuccessful user creation' ");
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Json($" 'Answer' : 'Not such a user was found', 'Error' : '{ex.Message}' ");
+            //}
+            return Json("");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string request)
         {
-            try
-            {
-                dynamic requestDyn = JsonConvert.DeserializeObject(request);
+            //try
+            //{
+            //    dynamic requestDyn = JsonConvert.DeserializeObject(request);
 
-                LoginModel model = new LoginModel { Email = requestDyn.Email, Password = requestDyn.Password };
+            //    LoginModel model = new LoginModel { Email = requestDyn.Email, Password = requestDyn.Password };
 
-                if (model != null)
-                {
-                    User user = await _context.Users
-                        .Include(u => u.Role)
-                        .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-                    return Json("'Answer': 'User exists'");
-                }
-                else
-                    return Json(" 'Answer' : 'Not such a user was found' ");
-            }
-            catch (Exception ex)
-            {
-                return Json($" 'Answer' : 'Not such a user was found', 'Error' : '{ex.Message}' ");
-            }
+            //    if (model != null)
+            //    {
+            //        User user = await _context.Users
+            //            .Include(u => u.Role)
+            //            .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+            //        return Json("'Answer': 'User exists'");
+            //    }
+            //    else
+            //        return Json(" 'Answer' : 'Not such a user was found' ");
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Json($" 'Answer' : 'Not such a user was found', 'Error' : '{ex.Message}' ");
+            //}
+            return Json("");
         }
     }
 }
