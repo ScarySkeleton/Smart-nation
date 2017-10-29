@@ -5029,6 +5029,16 @@
         "runtime": {
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
+      },
+      "GmailSender/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/GmailSender.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GmailSender.dll": {}
+        }
       }
     }
   },
@@ -13105,10 +13115,16 @@
         "windowsazure.storage.8.1.4.nupkg.sha512",
         "windowsazure.storage.nuspec"
       ]
+    },
+    "GmailSender/1.0.0": {
+      "type": "project",
+      "path": "../GmailSender/GmailSender.csproj",
+      "msbuildProject": "../GmailSender/GmailSender.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "GmailSender >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.0",
@@ -13148,7 +13164,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\coold\\source\\repos\\te\\Smart-nation\\server\\GmailSender\\GmailSender.csproj": {
+              "projectPath": "C:\\Users\\coold\\source\\repos\\te\\Smart-nation\\server\\GmailSender\\GmailSender.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
