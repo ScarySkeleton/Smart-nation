@@ -10,9 +10,14 @@ using GmailSender.Model;
 using GmailSender;
 using BookSender.Data;
 using BookSender.Data.Models;
+using BookSender.Data.Models.AccessoryModels;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
+using LoginData = BookSender.Data.Models.AccessoryModels.LoginModel;
 
 namespace BookSender.Controllers
 {
+    [EnableCors("CorsPolicy")]
     public class AccountController : Controller
     {
         private ApplicationContext _context;
@@ -21,81 +26,118 @@ namespace BookSender.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public JsonResult Login()
-        {
-            return Json("");
-        }
-
-        [HttpGet]
-        public JsonResult Register()
-        {
-            return Json("");
-        }
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<JsonResult> Register(string request)
         {
-            //try
-            //{
-            //    dynamic requestDyn = JsonConvert.DeserializeObject(request);
+            try
+            {
+                dynamic requestDyn = JsonConvert.DeserializeObject(request);
 
-            //    RegisterModel model = new RegisterModel { Email = requestDyn.Email, Password = requestDyn.Password };
+                RegisterModel model = new RegisterModel { Phone = requestDyn.Phone, Password = requestDyn.Password };
 
-            //    JsonResult responce = new JsonResult("");
-            //    BookSender.Data.Models.User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
-            //    if (user == null)
-            //    {
-            //        user = new Models.User { Email = model.Email, Password = model.Password };
-            //        BookSender.Data.Models.Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                BookSender.Data.Models.User user = await _context.Users.FirstOrDefaultAsync(u => u.Number == model.Phone);
+                if (user == null)
+                {
+                    user = new BookSender.Data.Models.User { Number = model.Phone, Password = model.Password };
+                    BookSender.Data.Models.Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
 
-            //        if (userRole != null)
-            //            user.Role = userRole;
+                    if (userRole != null)
+                        user.Role = userRole;
 
-            //        _context.Users.Add(user);
+                    _context.Users.Add(user);
 
-            //        await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
 
-            //        string key = GmailSender.SmtpClientLibrary.SendKey("", "", "");
+                    //string key = GmailSender.SmtpClientLibrary.SendKey("", "", "");
+                    //await Authenticate(user);
 
-            //        //await Authenticate(user);
-            //        return Json($" 'Answer' : 'Successful user creation', 'Key' : '{key}' ");
-            //    }
-            //    else
-            //        return Json(" 'Answer' : 'Unsuccessful user creation' ");
-            //}
-            //catch (Exception ex)
-            //{
-            //    return Json($" 'Answer' : 'Not such a user was found', 'Error' : '{ex.Message}' ");
-            //}
-            return Json("");
+                    return Json($" 'Answer' : 'Successful user creation'");
+                }
+                else
+                    return Json(" 'Answer' : 'Unsuccessful user creation' ");
+            }
+            catch (Exception ex)
+            {
+                return Json($" 'Answer' : ' Error = {ex.Message}' ");
+            }
         }
+
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string request)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([FromBody] LoginData request)
         {
-            //try
-            //{
-            //    dynamic requestDyn = JsonConvert.DeserializeObject(request);
+            //string request = null;
+            try
+            {
+                //dynamic requestDyn = JsonConvert.DeserializeObject(request);
 
-            //    LoginModel model = new LoginModel { Email = requestDyn.Email, Password = requestDyn.Password };
+                //BookSender.Data.Models.AccessoryModels.LoginModel model = 
+                //    new BookSender.Data.Models.AccessoryModels.LoginModel
+                //    { Email = requestDyn.Email, Password = requestDyn.Password, Phone = requestDyn.Phone };
 
-            //    if (model != null)
-            //    {
-            //        User user = await _context.Users
-            //            .Include(u => u.Role)
-            //            .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-            //        return Json("'Answer': 'User exists'");
-            //    }
-            //    else
-            //        return Json(" 'Answer' : 'Not such a user was found' ");
-            //}
-            //catch (Exception ex)
-            //{
-            //    return Json($" 'Answer' : 'Not such a user was found', 'Error' : '{ex.Message}' ");
-            //}
-            return Json("");
+                //if (model != null)
+                //{
+                //    if (String.IsNullOrEmpty(model.Email) == false)
+                //    {
+                //        BookSender.Data.Models.User user = await _context.Users
+                //            .Include(u => u.Role)
+                //            .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                //        return Json("'Answer': 'User exists'");
+                //    }
+                //    else if (String.IsNullOrEmpty(model.Phone) == false)
+                //    {
+                //        BookSender.Data.Models.User user = await _context.Users
+                //            .Include(u => u.Role)
+                //            .FirstOrDefaultAsync(u => u.Number == model.Phone && u.Password == model.Password);
+                //        return Json("'Answer': 'User exists'");
+                //    }
+                //    else
+                //    {
+                //        return Json("'Answer': 'Wrong user credetials'");
+                //    }
+                //}
+                //else
+                LoginData data = new LoginData();
+                data.Email = "";
+                    return Json(new LoginData));
+            }
+            catch (Exception ex)
+            {
+                return Json($" 'Answer' : 'Error = {ex.Message}' ");
+            }
+        }
+
+        [HttpPut]
+        public async Task<JsonResult> NewPassword(string request)
+        {
+            try
+            {
+                dynamic requestDyn = JsonConvert.DeserializeObject(request);
+
+                BookSender.Data.Models.AccessoryModels.LoginModel model = 
+                         new BookSender.Data.Models.AccessoryModels.LoginModel
+                         { Email = requestDyn.Email, Password = requestDyn.Password, Phone = requestDyn.Phone };
+
+                BookSender.Data.Models.User user = await _context.Users
+                         .Include(u => u.Role)
+                         .FirstOrDefaultAsync(u => u.Email == model.Email || u.Number == model.Phone);
+
+                if (String.IsNullOrEmpty(model.Password) == false)
+                {
+                    user.Password = model.Password;
+                    await _context.SaveChangesAsync();
+
+                    return Json(" 'Answer' : 'Password was successfully updated' ");
+                }
+                else
+                    throw new Exception("Empty password string");
+            }
+            catch (Exception ex)
+            {
+                return Json($" 'Answer' ; 'Something goes wrong', 'Error' : '{ex.Message}' ");
+            }
         }
     }
 }

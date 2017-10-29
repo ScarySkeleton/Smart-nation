@@ -25,6 +25,7 @@
         "dependencies": {
           "BookSender.Data": "1.0.0",
           "BookSender.Services": "1.0.0",
+          "GmailSender": "1.0.0",
           "Microsoft.AspNetCore.All": "2.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.0",
@@ -4081,6 +4082,14 @@
           "BookSender.Services.dll": {}
         }
       },
+      "GmailSender/1.0.0": {
+        "runtime": {
+          "GmailSender.dll": {}
+        },
+        "compile": {
+          "GmailSender.dll": {}
+        }
+      },
       "Microsoft.NETCore.App/2.0.0": {
         "dependencies": {
           "Microsoft.NETCore.DotNetHostPolicy": "2.0.0",
@@ -6399,6 +6408,11 @@
       "sha512": ""
     },
     "BookSender.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GmailSender/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
