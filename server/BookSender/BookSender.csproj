@@ -12,4 +12,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookSender.Data\BookSender.Data.csproj" />
+    <ProjectReference Include="..\BookSender.Services\BookSender.Services.csproj" />
+  </ItemGroup>
+
 </Project>

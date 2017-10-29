@@ -23,6 +23,8 @@
     ".NETCoreApp,Version=v2.0": {
       "BookSender/1.0.0": {
         "dependencies": {
+          "BookSender.Data": "1.0.0",
+          "BookSender.Services": "1.0.0",
           "Microsoft.AspNetCore.All": "2.0.0",
           "Microsoft.NETCore.App": "2.0.0"
         },
@@ -3794,6 +3796,29 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
+      "BookSender.Data/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "2.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.0.0"
+        },
+        "runtime": {
+          "BookSender.Data.dll": {}
+        },
+        "compile": {
+          "BookSender.Data.dll": {}
+        }
+      },
+      "BookSender.Services/1.0.0": {
+        "dependencies": {
+          "BookSender.Data": "1.0.0"
+        },
+        "runtime": {
+          "BookSender.Services.dll": {}
+        },
+        "compile": {
+          "BookSender.Services.dll": {}
+        }
+      },
       "Microsoft.NETCore.App/2.0.0": {
         "dependencies": {
           "Microsoft.NETCore.DotNetHostPolicy": "2.0.0",
@@ -5979,6 +6004,16 @@
       "sha512": "sha512-W6ZZ0/o7+3Qb77mRAQyLjPudHG3OMeeQ4p9yY13PUdJArmRCx2cLMm5F4tpIjJXxzHC0ew0oK7DMDGILMdfCnw==",
       "path": "windowsazure.storage/8.1.4",
       "hashPath": "windowsazure.storage.8.1.4.nupkg.sha512"
+    },
+    "BookSender.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BookSender.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.NETCore.App/2.0.0": {
       "type": "package",
