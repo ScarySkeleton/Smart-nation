@@ -26,7 +26,7 @@ namespace BookSender.Models
 
 		public string AmazonId { get; set; }
 
-		public int? Price { get; set; }
+		public decimal? Price { get; set; }
 
 		public int? PictureId { get; set; }
 
