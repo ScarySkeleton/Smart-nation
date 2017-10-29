@@ -1,4 +1,7 @@
 import React, { PureComponent } from 'react';
+import Search from './search/Search.jsx';
+
+import './home.scss';
 
 class HomeContainer extends PureComponent {
      constructor(props) {
@@ -6,10 +9,9 @@ class HomeContainer extends PureComponent {
      }
 
     render() {
-        console.log("Home page");
         return (
             <div className='container home'>
-                Home page
+              <Search />
             </div>
         )
     }

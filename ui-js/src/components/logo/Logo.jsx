@@ -1,10 +1,14 @@
 import React from 'react';
 
-import logo from './logo.svg';
+import './logo.scss';
+
+import logo from './logo.png';
 
 const Logo = () => {
     return (
-        <img src={logo} className="app-logo" alt="logo" />
+        <a className="container logo" href="/">
+        	<img className="app-logo-img" src={logo} alt="Whitesquare logo"/>
+        </a>
     );
 };
 

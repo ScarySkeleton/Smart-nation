@@ -1,36 +1,24 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { withRouter } from 'react-router';
 
+import Content from './Content/Content';
 import './App.scss';
 
 import Header from '../containers/header/Header.jsx';
-import Content from '../containers/content/Content.jsx';
 import Footer from '../containers/footer/Footer.jsx';
 
-class App extends Component {
+
+class AppComponent extends PureComponent {
   render() {
     return (
       <div className="App">
-          <Header />
-
-          <br />
-          <br />
-          <hr />
-
-          <br />
-          <br />
-          
+          <Header />            
           <Content />
-
-          <br />
-          <br />
-          <hr />
-
-          <br />
-          <br />
           <Footer />
       </div>
     ); 
   }
 }
 
-export default App;
+export { AppComponent };
+export default AppComponent = withRouter(AppComponent);
