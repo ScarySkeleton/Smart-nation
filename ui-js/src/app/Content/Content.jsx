@@ -16,7 +16,11 @@ let Content = (props) => {
             ? ( <Redirect to="/" /> )
             : ( <LoginPage /> )
             )} />
-            <Route path='/register' component={RegistrationPage} />
+            <Route path='/registration' component={() => (
+                props.isRegisteredSuccess
+                ? ( <Redirect to='/' />)
+                : ( <RegistrationPage /> )
+            )} />
         </div>
     )
 };
@@ -24,6 +28,8 @@ let Content = (props) => {
 const mapStateToProps = state => {
     return {
         isLogined: state.Login.isLogined,
+        isRegisteredSuccess: state.Register.isRegisteredSuccess,
+        isRegisteredFailure: state.Register.isRegisteredFailure,
     }
 }
 
