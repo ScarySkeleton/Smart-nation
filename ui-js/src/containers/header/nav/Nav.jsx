@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import Tab from '../../../components/tab/Tab';
+
 const loginedNav = [
     "Cabinet",
     "Bookshelf"
@@ -37,25 +39,20 @@ class Nav extends PureComponent {
                     {
                         (this.props.isLogined) 
                                                 ? 
-                        <div>
-                             <li className='nav__li nav__li-Logined'
-                             onClick={this.cabinet}>
-                                Cabinet
-                            </li>
-                            <li className='nav__li nav__li-Logined'
-                            onClick={this.bookshelf}>
-                                Bookshelf
-                            </li> 
-                        </div>
+                        loginedNav.map((el, index) => {
+                            return <Tab
+                                key={index}
+                                name={el}
+                                isLogined={true} />
+                        })
+                        
                                                 :
-                        <div>
-                            <li className='nav__li nav__li-unLogined'> 
-                                Some
-                            </li>
-                            <li className='nav__li nav__li-unLogined'> 
-                                Some2
-                            </li>
-                        </div>
+                        unLoginedNav.map((el, index) => {
+                            return <Tab 
+                                key={index}
+                                name={el}
+                                isLogined={true} />
+                        })
                     }
                 </ul>
             </div>
