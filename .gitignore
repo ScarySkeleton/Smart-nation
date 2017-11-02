@@ -263,3 +263,4 @@ __pycache__/
 #WokasIgnore vs2017
 
 server/BookSender/obj/
+server/Booksender/appsettings.json
