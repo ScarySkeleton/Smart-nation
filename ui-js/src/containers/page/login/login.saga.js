@@ -9,6 +9,7 @@ import { loginRequest } from '../../../services/Api'
 export default function* watchLogin() {
     while(true) {
         const action = yield take(LOGIN_REQUEST);
+        console.log(document.cookie);
         yield call(fetchLoginRequest, action.payload);
     }
 }
@@ -16,6 +17,8 @@ export default function* watchLogin() {
 export function* fetchLoginRequest(userData) {
     try {
         const response = yield call(loginRequest(userData));
+        console.log(response);
+        console.log(document.cookie);
         yield put(loginSuccess(response));
     } catch (error) {
         yield put(loginFailure());
