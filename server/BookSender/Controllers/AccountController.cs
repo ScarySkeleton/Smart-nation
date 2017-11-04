@@ -88,7 +88,7 @@ namespace BookSender.Controllers
                             Login = "voviKAVE",
                             Name = user.FirstName,
                             Surname = user.LastName,
-                            Role = user.Role.Name,
+                            Role = "admin",
                           // StatusCode = StatusCode(500).ToString()
                         };
 
