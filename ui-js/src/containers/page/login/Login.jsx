@@ -8,6 +8,8 @@ import {
 } from './login.actions';
 import { validate } from '../../../services/Utils';
 
+import './login.scss';
+
 class LoginContainer extends PureComponent {
      constructor(props) {
          super(props);
@@ -81,9 +83,9 @@ class LoginContainer extends PureComponent {
                      onChange={this.userPasswordChange} />
                 </div>
 
-                <Link to='/register'> Don't have account </Link>
+                <Link to='/registration'> Don't have account </Link>
 
-                <button onClick={this.loginRequest}>
+                <button className='login__block-btn' onClick={this.loginRequest}>
                     Enter
                 </button>
             </div>
