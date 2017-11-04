@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 
 import HomePage from '../../containers/page/home/Home';
 import LoginPage from '../../containers/page/login/Login';
+import Logout from '../../components/logout/Logout';
 import RegistrationPage from '../../containers/page/register/Register';
 
 let Content = (props) => {
@@ -21,6 +22,7 @@ let Content = (props) => {
                 ? ( <Redirect to='/' />)
                 : ( <RegistrationPage /> )
             )} />
+            <Route path='/logout' component={Logout} />
         </div>
     )
 };
