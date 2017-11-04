@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import throttle from 'lodash/throttle';
 
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
@@ -10,11 +11,11 @@ const savedState = loadState();
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, savedState, applyMiddleware(sagaMiddleware));
-store.subscribe(() => {
+store.subscribe(throttle(() => {
     saveState({
         Login: store.getState().Login,
     })
-})
+}, 1000));
 sagaMiddleware.run(rootSaga);
 
 export default store;
