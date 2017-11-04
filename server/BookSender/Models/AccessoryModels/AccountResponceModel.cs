@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace BookSender.Data.Models.AccessoryModels
+namespace BookSender.Models.AccessoryModels
 {
-    public class AccountResponceModel<T>
+	public class AccountResponceModel<T>
     {
         public AccountResponceModel()
         {
