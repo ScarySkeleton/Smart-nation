@@ -10,11 +10,14 @@ using GmailSender.Model;
 using GmailSender;
 using BookSender.Data;
 using BookSender.Data.Models;
-using BookSender.Data.Models.AccessoryModels;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
-using LoginData = BookSender.Data.Models.AccessoryModels.LoginModel;
-using RegisterData = BookSender.Data.Models.AccessoryModels.RegisterModel;
+using LoginData = BookSender.Models.AccessoryModels.LoginModel;
+using RegisterData = BookSender.Models.AccessoryModels.RegisterModel;
+using BookSender.Models.AccessoryModels;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace BookSender.Controllers
 {
@@ -89,9 +92,21 @@ namespace BookSender.Controllers
                           // StatusCode = StatusCode(500).ToString()
                         };
 
-                        //var json = Newtonsoft.Json.JsonConvert.SerializeObject(acc);
+						//var json = Newtonsoft.Json.JsonConvert.SerializeObject(acc);
 
-                        return Json(acc);
+
+						// Create the identity from the user info
+						var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+						identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Number));
+						identity.AddClaim(new Claim(ClaimTypes.Name, user.Number));
+
+
+						// Authenticate using the identity
+						var principal = new ClaimsPrincipal(identity);
+						await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = true });
+
+
+						return Json(acc);
                     }
                     else if (String.IsNullOrEmpty(model.Phone) == false)
                     {
@@ -126,18 +141,28 @@ namespace BookSender.Controllers
             }
         }
 
-        [HttpPut]
+
+		[HttpPost]
+		public async Task<IActionResult> Logout([FromBody] LoginData model)
+		{
+			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+			return Json($" 'Answer' : 'Logedout = true' ");
+
+		}
+
+		[HttpPut]
         public async Task<JsonResult> NewPassword(string request)
         {
             try
             {
                 dynamic requestDyn = JsonConvert.DeserializeObject(request);
 
-                BookSender.Data.Models.AccessoryModels.LoginModel model = 
-                         new BookSender.Data.Models.AccessoryModels.LoginModel
-                         { Email = requestDyn.Email, Password = requestDyn.Password, Phone = requestDyn.Phone };
+				LoginData model = 
+                         new LoginData
+						 { Email = requestDyn.Email, Password = requestDyn.Password, Phone = requestDyn.Phone };
 
-                BookSender.Data.Models.User user = await _context.Users
+				Data.Models.User user = await _context.Users
                          .Include(u => u.Role)
                          .FirstOrDefaultAsync(u => u.Email == model.Email || u.Number == model.Phone);
 
