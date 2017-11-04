@@ -49,7 +49,7 @@ namespace BookSender.Controllers
                 //    if (userRole != null)
                 //        user.Role = userRole;
 
-                    _context.Users.Add(new Data.Models.User { Number = user.Phone, Password = user.Password, Email = "test@mail.ru" });
+                    _context.Users.Add(new Data.Models.User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru" });
 
                     await _context.SaveChangesAsync();
 
@@ -97,8 +97,8 @@ namespace BookSender.Controllers
 
 						// Create the identity from the user info
 						var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
-						identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Number));
-						identity.AddClaim(new Claim(ClaimTypes.Name, user.Number));
+						identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.PhoneNumber));
+						identity.AddClaim(new Claim(ClaimTypes.Name, user.PhoneNumber));
 
 
 						// Authenticate using the identity
@@ -112,7 +112,7 @@ namespace BookSender.Controllers
                     {
                         BookSender.Data.Models.User user = await _context.Users
                             .Include(u => u.Role)
-                            .FirstOrDefaultAsync(u => u.Number == model.Phone && u.Password == model.Password);
+                            .FirstOrDefaultAsync(u => u.PhoneNumber == model.Phone && u.Password == model.Password);
 
                         AccountLoginResponce acc = new AccountLoginResponce
                         {
@@ -164,7 +164,7 @@ namespace BookSender.Controllers
 
 				Data.Models.User user = await _context.Users
                          .Include(u => u.Role)
-                         .FirstOrDefaultAsync(u => u.Email == model.Email || u.Number == model.Phone);
+                         .FirstOrDefaultAsync(u => u.Email == model.Email || u.PhoneNumber == model.Phone);
 
                 if (String.IsNullOrEmpty(model.Password) == false)
                 {

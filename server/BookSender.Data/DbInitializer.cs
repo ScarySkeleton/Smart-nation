@@ -47,7 +47,7 @@ namespace BookSender.Data
 				LastName ="Belokha",
 				RegisteredOn = DateTime.UtcNow,
 				Password = "1234",
-				Number = "38098875654846",
+				PhoneNumber = "38098875654846",
 				Email = "danilo@gmail.com",
 				//RatingStatusId = context.RatingStatuses.FirstOrDefault(s => s.OrderNumber == 2).Id,
 				//RoleId = context.Roles.FirstOrDefault(r => r.Name == "NotRegistered").Id
@@ -57,7 +57,7 @@ namespace BookSender.Data
 				LastName ="Sena",
 				RegisteredOn = DateTime.UtcNow,
 				Password = "1234",
-				Number = "38098875654846",
+				PhoneNumber = "38098875654846",
 				Email = "john@gmail.com",
 				//RatingStatusId = context.RatingStatuses.FirstOrDefault(s => s.OrderNumber == 1).Id,
 				//RoleId = context.Roles.FirstOrDefault(r => r.Name == "User").Id
@@ -67,7 +67,7 @@ namespace BookSender.Data
 				LastName ="Dyuk",
 				RegisteredOn = DateTime.UtcNow,
 				Password = "1234",
-				Number = "+380444444444",
+				PhoneNumber = "+380444444444",
 				Email = "dyuk@gmail.com",
 				//RatingStatusId = context.RatingStatuses.FirstOrDefault(s => s.OrderNumber == 5).Id,
 				//RoleId = context.Roles.FirstOrDefault(r => r.Name == "Admin").Id
@@ -77,9 +77,9 @@ namespace BookSender.Data
 				LastName ="Kovi",
 				RegisteredOn = DateTime.UtcNow,
 				Password = "1234",
-				Number = "+380990573255",
+				PhoneNumber = "+380990573255",
 				Email = "vovi@gmail.com",
-				//RatingStatusId = context.RatingStatuses.FirstOrDefault(s => s.OrderNumber == 3).Id,
+				//RatingStatusId = context.RatingStatuses.FirstOrDefault(s => s.OrderPhoneNumber == 3).Id,
 				//RoleId = context.Roles.FirstOrDefault(r => r.Name == "Admin").Id
 			}
 			};
@@ -138,11 +138,11 @@ namespace BookSender.Data
 				Author ="Miguel de Cervantes Saavedra",
 				CreatedOn = DateTime.UtcNow,
 				PrintedOn = new DateTime(1997,3,27),
-				//ConributorId = context.Users.FirstOrDefault( u => u.Number == "+380990573255").Id,
+				//ConributorId = context.Users.FirstOrDefault( u => u.PhoneNumber == "+380990573255").Id,
 				Price = 10,
 				IsUsable = true,
 				Description = "WITH AN INTRODUCTION BY HAROLD BLOOM Widely regarded as the world's first modern novel, and one of the funniest and most tragic books ever written, Don Quixote chronicles the famous picaresque adventures of the noble knight-errant Don Quixote de La Mancha and his faithful squire, Sancho Panza, as they travel through sixteenth-century Spain. Unless you read Spanish, you've never read Don Quixote.",
-				//CurrentUserId = context.Users.FirstOrDefault(u => u.Number == "+380990573255").Id
+				//CurrentUserId = context.Users.FirstOrDefault(u => u.PhoneNumber == "+380990573255").Id
 			},
 			new Book{
 				Title ="War and Peace",
@@ -150,11 +150,11 @@ namespace BookSender.Data
 				//GenreId = context.Genres.FirstOrDefault(g => g.Name == "Romance").Id,
 				CreatedOn = DateTime.UtcNow,
 				PrintedOn = new DateTime(1887,5,26),
-				//ConributorId = context.Users.FirstOrDefault( u => u.Number == "+380990573255").Id,
+				//ConributorId = context.Users.FirstOrDefault( u => u.PhoneNumber == "+380990573255").Id,
 				Price = 100,
 				IsUsable = true,
 				Description = "Epic in scale, War and Peace delineates in graphic detail events leading up to Napoleon's invasion of Russia, and the impact of the Napoleonic era on Tsarist society, as seen through the eyes of five Russian aristocratic families.",
-				//CurrentUserId = context.Users.FirstOrDefault(u => u.Number == "+380990573255").Id
+				//CurrentUserId = context.Users.FirstOrDefault(u => u.PhoneNumber == "+380990573255").Id
 			},
 			new Book{
 				Title ="Moby Dick",
@@ -162,11 +162,11 @@ namespace BookSender.Data
 				//GenreId = context.Genres.FirstOrDefault(g => g.Name == "Literature & Fiction").Id,
 				CreatedOn = DateTime.UtcNow,
 				PrintedOn = new DateTime(1996,7,26),
-				//ConributorId = context.Users.FirstOrDefault( u => u.Number == "+380990573255").Id,
+				//ConributorId = context.Users.FirstOrDefault( u => u.PhoneNumber == "+380990573255").Id,
 				Price = 49,
 				IsUsable = true,
 				Description = "First published in 1851, Melville's masterpiece is, in Elizabeth Hardwick's words, \"the greatest novel in American literature.\" The saga of Captain Ahab and his monomaniacal pursuit of the white whale remains a peerless adventure story but one full of mythic grandeur, poetic majesty, and symbolic power. Filtered through the consciousness of the novel's narrator, Ishmael, Moby-Dick draws us into a universe full of fascinating characters and stories, from the noble cannibal Queequeg to the natural history of whales, while reaching existential depths that excite debate and contemplation to this day.",
-				//CurrentUserId = context.Users.FirstOrDefault(u => u.Number == "+380990573255").Id
+				//CurrentUserId = context.Users.FirstOrDefault(u => u.PhoneNumber == "+380990573255").Id
 			},
 			new Book{
 				Title ="The Divine Comedy",
@@ -174,11 +174,11 @@ namespace BookSender.Data
 				//GenreId = context.Genres.FirstOrDefault(g => g.Name == "Literature & Fiction").Id,
 				CreatedOn = DateTime.UtcNow,
 				PrintedOn = new DateTime(2001,12,12),
-				//ConributorId = context.Users.FirstOrDefault( u => u.Number == "+380444444444").Id,
+				//ConributorId = context.Users.FirstOrDefault( u => u.PhoneNumber == "+380444444444").Id,
 				Price = 77,
 				IsUsable = true,
 				Description = "Belonging in the immortal company of the great works of literature, Dante Alighieri's poetic masterpiece, The Divine Comedy, is a moving human drama, an unforgettable visionary journey through the infinite torment of Hell, up the arduous slopes of Purgatory, and on to the glorious realm of Paradise — the sphere of universal harmony and eternal salvation.",
-				//CurrentUserId = context.Users.FirstOrDefault(u => u.Number == "+380990573255").Id
+				//CurrentUserId = context.Users.FirstOrDefault(u => u.PhoneNumber == "+380990573255").Id
 			},
 			new Book{
 				Title ="The Adventures of Huckleberry Finn",
@@ -186,11 +186,11 @@ namespace BookSender.Data
 				//GenreId = context.Genres.FirstOrDefault(g => g.Name == "Children's Books").Id,
 				CreatedOn = DateTime.UtcNow,
 				PrintedOn = new DateTime(2010,10,15),
-				//ConributorId = context.Users.FirstOrDefault( u => u.Number == "+380990573255").Id,
+				//ConributorId = context.Users.FirstOrDefault( u => u.PhoneNumber == "+380990573255").Id,
 				Price = 0,
 				IsUsable = true,
 				Description = "Revered by all of the town's children and dreaded by all of its mothers, Huckleberry Finn is indisputably the most appealing child-hero in American literature. Unlike the tall-tale, idyllic world of Tom Sawyer, The Adventures of Huckleberry Finn is firmly grounded in early reality. From the abusive drunkard who serves as Huckleberry's father, to Huck's first tentative grappling with issues of personal liberty and the unknown, Huckleberry Finn endeavors to delve quite a bit deeper into the complexities — both joyful and tragic of life.",
-				//CurrentUserId = context.Users.FirstOrDefault(u => u.Number == "+380444444444").Id
+				//CurrentUserId = context.Users.FirstOrDefault(u => u.PhoneNumber == "+380444444444").Id
 			}
 			};
 
