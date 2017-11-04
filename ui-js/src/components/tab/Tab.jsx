@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 

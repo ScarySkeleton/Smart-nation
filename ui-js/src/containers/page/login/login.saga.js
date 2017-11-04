@@ -1,7 +1,6 @@
-import { call, take, put, fork, all } from 'redux-saga/effects';
+import { call, take, put } from 'redux-saga/effects';
 import {
     LOGIN_REQUEST,
-    LOGIN_SUCCESS,
     loginSuccess,
     loginFailure
 } from './login.actions';

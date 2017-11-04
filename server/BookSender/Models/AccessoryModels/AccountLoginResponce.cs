@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BookSender.Data.Models.AccessoryModels
+﻿namespace BookSender.Models.AccessoryModels
 {
-    public class AccountLoginResponce
+	public class AccountLoginResponce
     {
         public string Login { get; set; }
         public string Name { get; set;}

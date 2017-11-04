@@ -46,7 +46,7 @@ namespace BookSender.Services
 			existed.AvailableTill = user.AvailableTill;
 			existed.BirthDate = user.BirthDate;
 			existed.Email = user.Email;
-			existed.Number= user.Number;
+			existed.PhoneNumber = user.PhoneNumber;
 			existed.Password= user.Password;
 			existed.PictureId= user.PictureId;
 			existed.RatingStatusId= user.PictureId;
