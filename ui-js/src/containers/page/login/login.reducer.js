@@ -7,7 +7,7 @@ const initState = {
         userName: null,
         role: null,
     },
-    isLogined: false,
+    isLogined: true,
     loginFetch: false,
 };
 

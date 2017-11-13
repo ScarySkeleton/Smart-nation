@@ -14,7 +14,7 @@ let Content = (props) => {
     return (
         <div className='body-content'>
             <Route exact path='/' component={HomePage} />
-            
+
             <Route path='/login' component={() => (
                     props.isLogined 
                 ? ( <Redirect to="/" /> )
@@ -27,7 +27,7 @@ let Content = (props) => {
             )} />
             <Route path='/logout' component={Logout} />
 
-            <PrivateRoute component={CabinetPage} isLogined={props.isLogined} />            
+            <PrivateRoute path='/cabinet' component={CabinetPage} isLogined={props.isLogined} />            
         </div>
     )
 };
@@ -40,4 +40,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default Content = withRouter(connect(mapStateToProps, null)(Content));
+export default Content = withRouter(connect(mapStateToProps, null)(Content));   
