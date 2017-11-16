@@ -1,10 +1,17 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import {
     loadData
 } from './cabinet.actions';
+import './cabinet.style.scss';
+import CabinetNav from './nav/Nav';
+import CabinetHome from './home/Home';
+import CabinetInfo from './info/Info';
+import CabinetBookshelf from './bookshelf/Bookshelf';
 
 class Cabinet extends PureComponent {
     constructor(props) {
@@ -18,7 +25,13 @@ class Cabinet extends PureComponent {
     render() {
         return (
             <div className='container cabinet'>
-                Cabinet
+                <CabinetNav />
+
+                <Switch>
+                    <Route exact path='/cabinet/info' component={CabinetInfo} />
+                    <Route exact path='/cabinet/my-bookshelf' component={CabinetBookshelf} />
+                    <Route path='/cabinet/' component={CabinetHome} />
+                </Switch>
             </div>
         )
     }
@@ -38,5 +51,5 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-Cabinet = connect(null, mapDispatchToProps)(Cabinet);
+Cabinet = withRouter(connect(null, mapDispatchToProps)(Cabinet));
 export default Cabinet;

@@ -61,7 +61,7 @@ class LoginContainer extends PureComponent {
     render() {
         
         if(this.props.isLogined) {
-            <Redirect to="/" />
+            return <Redirect to="/" />;
         }
 
         return (
