@@ -66,3 +66,13 @@ export function logoutRequest() {
         });
     //}
 }
+
+export function getCabinetData(data) {
+    return function() {
+        return {
+            userId: 1,
+            photo: null,
+            description: 'My name is user and I like to read',
+        }
+    }
+}
