@@ -4,7 +4,8 @@ import Tab from '../../../../components/tab/Tab';
 const link = [
     "Home",
     "Info",
-    "My bookshelf"
+    "My bookshelf",
+    "Add Book"
 ]
 
 const Nav = () => (
