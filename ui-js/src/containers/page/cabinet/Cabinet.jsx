@@ -7,7 +7,7 @@ import { withRouter } from 'react-router';
 import {
     loadData
 } from './cabinet.actions';
-import './cabinet.style.scss';
+import './cabinet.scss';
 import CabinetNav from './nav/Nav';
 import CabinetHome from './home/Home';
 import CabinetInfo from './info/Info';
