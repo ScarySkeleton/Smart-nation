@@ -14,7 +14,7 @@ export function loginRequest(userData) {
                 Accept: 'application/json, text/javascript, */*; q=0.01',
                 'Content-type': 'application/json; charset=UTF-8',
             },
-            mode: "cors",
+            // mode: "no-cors",
             credentials: "include",
             body: JSON.stringify(userData)
         })

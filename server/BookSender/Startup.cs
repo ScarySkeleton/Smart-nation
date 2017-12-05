@@ -11,6 +11,12 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.CookiePolicy;
+using System;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using BookSender.Helpers;
 
 namespace BookSender
 {
@@ -44,7 +50,7 @@ namespace BookSender
 
 			//string connection = @"Data Source=.\SQLEXPRESS;Initial Catalog=SMARTDB;Integrated Security=True";
 			//string connection = @"Server=tcp:smartserv.database.windows.net,1433;Initial Catalog=SMARTDB;Persist Security Info=False;User ID=Woka;Password='{ezhm-"+"\""+",jim1'; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-			services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+			services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
 
 			services.Configure<FormOptions>(options => options.BufferBody = true);
 			services.AddCors(options =>
@@ -56,14 +62,28 @@ namespace BookSender
 					.AllowCredentials());
 			});
 
+			var appSettingsSection = Configuration.GetSection("AppSettings");
 
-			services.AddAuthentication(options =>
+			var appSettings = appSettingsSection.Get<AppSettings>();
+
+			var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+			services.AddAuthentication(x =>
 			{
-				options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-				options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-				options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 			})
-		.AddCookie();
+			.AddJwtBearer(x =>
+			{
+				x.RequireHttpsMetadata = false;
+				x.SaveToken = true;
+				x.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(key),
+					ValidateIssuer = false,
+					ValidateAudience = false
+				};
+			});
 
 			services.AddMvc().AddJsonOptions(options =>
 			{
@@ -93,11 +113,11 @@ namespace BookSender
 			}
 
 
+			app.UseCors("CorsPolicy");
 
-			//app.UseAuthentication();
+			app.UseAuthentication();
 
 			app.UseStaticFiles();
-			app.UseCors("CorsPolicy");
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
