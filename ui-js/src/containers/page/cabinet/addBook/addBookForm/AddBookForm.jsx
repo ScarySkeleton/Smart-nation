@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 
+import Select from '../../../../../components/select/Select';
+
 import Types from './Mocks/type.js';
 import Genres from './Mocks/genre.js';
 
@@ -21,12 +23,13 @@ class AddBookForm extends PureComponent {
                 </div>
 
                 <div className='container add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Category </label>
-                    <input className='container add-book-form__container_data-field' type='text' />
+                    <label className='container add-book-form__container_description'> Type </label>
+                    <Select data={Types} />
+                    {/* <input className='container add-book-form__container_data-field' type='text' /> */}
                 </div>
 
                 <div className='container add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Type </label>
+                    <label className='container add-book-form__container_description'> Genre </label>
                     <input className='container add-book-form__container_data-field' type='text' />
                 </div>
 

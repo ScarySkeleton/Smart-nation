@@ -1,13 +1,5 @@
-const Type = {
-    0: {
-        Name: "Books",
-    },
-    1: {
-        Name: "Journal"
-    },
-    2: {
-        Name: "Newspaper"
-    }
-}
+const Type = [
+    "Books", "Journal", "Newspaper"
+]
 
 export default Type;

@@ -1,13 +1,5 @@
-const genre = {
-    0: {
-        Name: "Biographies & Memoirs"
-    },
-    1: {
-        Name: "Arts & Literature"
-    }, 
-    2: {
-        Name: "Historical"
-    }
-}
+const genre = [
+    "Biographies & Memoirs", "Arts & Literature", "Historical"
+]
 
 export default genre; 
