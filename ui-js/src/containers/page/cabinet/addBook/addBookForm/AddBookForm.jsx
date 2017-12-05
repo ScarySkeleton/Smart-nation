@@ -24,13 +24,12 @@ class AddBookForm extends PureComponent {
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Type </label>
-                    <Select data={Types} />
-                    {/* <input className='container add-book-form__container_data-field' type='text' /> */}
+                    <Select data={Types} selectClassName='container add-book-form__container_data-field' />
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Genre </label>
-                    <input className='container add-book-form__container_data-field' type='text' />
+                    <Select data={Genres} selectClassName='container add-book-form__container_data-field' />
                 </div>
 
                 <div className='container add-book-form__container'>

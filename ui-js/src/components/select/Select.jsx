@@ -1,13 +1,19 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const Select = ({ data, defSelected = 0 }) => {
+const Select = ({ data, defSelected = 0, selectClassName, optionClassName }) => {
     console.log(data, defSelected);
     return (
-        <select>
+        <select className={selectClassName || 'def-select'}>
             {
                 data.map((el, index) => {
-                    return <option key={index}> {el} </option>
+                    return (
+                        <option 
+                            key={index}
+                            className={optionClassName || 'def-option' }>
+                                {el} 
+                         </option>
+                    )
                 })
             }
         </select>
