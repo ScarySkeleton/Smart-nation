@@ -42,8 +42,7 @@ class LoginContainer extends PureComponent {
      loginRequest() {
 
         const data = {
-            Email: "vovi@gmail.com",
-            Phone: this.state.userLogInfo,
+            userLogInfo: this.state.userLogInfo,
             Password: this.state.userPassword,
         }
 

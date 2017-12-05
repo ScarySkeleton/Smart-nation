@@ -1,4 +1,4 @@
-export default userDataMock = {
+const userDataMock = {
     data: [
         {
             login: 'beokha',
@@ -9,3 +9,5 @@ export default userDataMock = {
         }
     ]
 }
+
+export default userDataMock;

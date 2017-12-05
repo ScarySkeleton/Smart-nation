@@ -19,14 +19,14 @@ export function loginRequest(userData) {
             body: JSON.stringify(userData)
         })
         .then(statusChecker)
-        .then(response => response.json());
-        /* .then(json => {
+        .then(response => response.json())
+        .then(json => {
             return {
                 username: json.login
                 , name: json.name
                 , surname: json.surname
                 , role: json.role
-        }}); */
+        }});
     }
 };
 
