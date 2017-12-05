@@ -2,15 +2,16 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 const Select = ({ data, defSelected = 0, selectClassName, optionClassName }) => {
-    console.log(data, defSelected);
+    
     return (
-        <select className={selectClassName || 'def-select'}>
+        <select className={selectClassName || 'def-select'}
+            ref={select => _select = select}>
             {
                 data.map((el, index) => {
                     return (
                         <option 
                             key={index}
-                            className={optionClassName || 'def-option' }>
+                            className={optionClassName || 'def-option'}>
                                 {el} 
                          </option>
                     )

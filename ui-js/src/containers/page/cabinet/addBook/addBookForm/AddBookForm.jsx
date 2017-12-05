@@ -8,6 +8,16 @@ import Genres from './Mocks/genre.js';
 class AddBookForm extends PureComponent {
     constructor(props) {
         super(props);
+        
+        this.addBook = this.addBook.bind(this);
+    }
+
+    reset() {
+
+    }
+
+    addBook() {
+        
     }
 
     render() {        
@@ -18,18 +28,29 @@ class AddBookForm extends PureComponent {
                 </h3>
 
                 <div className='container add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Name </label>
-                    <input className='container add-book-form__container_data-field' type='text' />
+                    <label className='container add-book-form__container_description'> Name*: </label>
+                    <input className='container add-book-form__container_data-field' 
+                        type='text'
+                        ref={ name => this.name = name } />
                 </div>
 
                 <div className='container add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Type </label>
-                    <Select data={Types} selectClassName='container add-book-form__container_data-field' />
+                    <label className='container add-book-form__container_description'> Author*: </label>
+                    <input className='container add-book-form__container_data-field' 
+                        type='text'
+                        ref={ author => this.author = author } />
                 </div>
 
                 <div className='container add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Genre </label>
-                    <Select data={Genres} selectClassName='container add-book-form__container_data-field' />
+                    <label className='container add-book-form__container_description'> Type*: </label>
+                    <Select data={Types} selectClassName='container add-book-form__container_data-field' /> 
+                         {/* ref={ type => this.type = type } */}
+                </div>
+
+                <div className='container add-book-form__container'>
+                    <label className='container add-book-form__container_description'> Genre*: </label>
+                    <Select data={Genres} selectClassName='container add-book-form__container_data-field'
+                        ref={ select => this._select = select } />
                 </div>
 
                 <div className='container add-book-form__container'>
@@ -46,7 +67,8 @@ class AddBookForm extends PureComponent {
                     <button className='add-book-form__container_button add-book-form__container_button-reset'>
                         reset
                     </button>
-                    <button className='add-book-form__container_button add-book-form__container_button-add'>
+                    <button className='add-book-form__container_button add-book-form__container_button-add'
+                        onClick={ this.addBook }>
                         add book
                     </button>
                 </div>
