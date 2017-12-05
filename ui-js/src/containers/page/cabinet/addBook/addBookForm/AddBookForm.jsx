@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 
+import Types from './Mocks/type.js';
+import Genres from './Mocks/genre.js';
 
 class AddBookForm extends PureComponent {
     constructor(props) {
         super(props);
     }
 
-    render() {
-        
+    render() {        
         return (
             <div className='container add-book-form'>
                 <h3>
