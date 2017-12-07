@@ -76,3 +76,11 @@ export function getCabinetData(data) {
         }
     }
 }
+
+export function addBook(data) {
+    return function() {
+        return {
+            bookId: 2,
+        }
+    }
+}

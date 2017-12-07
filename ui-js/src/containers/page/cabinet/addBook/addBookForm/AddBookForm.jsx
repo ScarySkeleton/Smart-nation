@@ -1,6 +1,10 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
 import Select from '../../../../../components/select/Select';
+import {
+    fetchAddBook
+} from './addBook.action';
 
 import Types from './Mocks/type.js';
 import Genres from './Mocks/genre.js';
@@ -84,8 +88,8 @@ class AddBookForm extends PureComponent {
             //      Show error's message
             return;
         }
-
-        console.log(this.state);
+        
+        this.props.fetchAddingBook(data);
     }
 
     render() {        
@@ -147,4 +151,10 @@ class AddBookForm extends PureComponent {
     }
 }
 
-export default AddBookForm;
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchAddingBook: (data) => dispatch(fetchAddBook(data)),
+    }
+}
+
+export default AddBookForm = connect(null, mapDispatchToProps)(AddBookForm);
