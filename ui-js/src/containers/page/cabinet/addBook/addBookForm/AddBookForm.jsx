@@ -8,16 +8,47 @@ import Genres from './Mocks/genre.js';
 class AddBookForm extends PureComponent {
     constructor(props) {
         super(props);
+
+        // TODO:
+        //      Logic of def selected el
+        this.state = {
+            types: Types[0],
+            genres: Genres[0]
+        }
         
+        this.listUpdate = this.listUpdate.bind(this);
+        this.reset = this.reset.bind(this);
         this.addBook = this.addBook.bind(this);
     }
 
-    reset() {
+    listUpdate(e) {
+        const val = e.target.value;
+        if(Types.includes(val)) {
+            this.setState({
+                types: val
+            });
+            return;
+        }
 
+        if(Genres.includes(val)) {
+            this.setState({
+                genres: val
+            });
+            return;
+        }
+    }
+
+    reset() {
+        this.setState({
+            types: Types[0],
+            genres: Genres[0]
+        });
+        this.name = '';
+        this.author = '';
     }
 
     addBook() {
-        
+        console.log(this.state);
     }
 
     render() {        
@@ -43,14 +74,14 @@ class AddBookForm extends PureComponent {
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Type*: </label>
-                    <Select data={Types} selectClassName='container add-book-form__container_data-field' /> 
-                         {/* ref={ type => this.type = type } */}
+                    <Select data={Types} selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select' 
+                        selected={this.state.types} onSelect={this.listUpdate} /> 
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Genre*: </label>
-                    <Select data={Genres} selectClassName='container add-book-form__container_data-field'
-                        ref={ select => this._select = select } />
+                    <Select data={Genres} selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select'
+                        selected={this.state.genres} onSelect={this.listUpdate} />
                 </div>
 
                 <div className='container add-book-form__container'>
@@ -64,11 +95,12 @@ class AddBookForm extends PureComponent {
                 </div>
 
                 <div className='container add-book-form__container add-book-form__container_control'>
-                    <button className='add-book-form__container_button add-book-form__container_button-reset'>
+                    <button className='add-book-form__container_button add-book-form__container_button-reset'
+                        onClick={this.reset}>
                         reset
                     </button>
                     <button className='add-book-form__container_button add-book-form__container_button-add'
-                        onClick={ this.addBook }>
+                        onClick={this.addBook}>
                         add book
                     </button>
                 </div>
