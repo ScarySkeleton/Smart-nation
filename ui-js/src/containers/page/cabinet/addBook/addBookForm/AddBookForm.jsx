@@ -5,6 +5,8 @@ import Select from '../../../../../components/select/Select';
 import Types from './Mocks/type.js';
 import Genres from './Mocks/genre.js';
 
+import { valid } from '../../../../../services/Utils';
+
 class AddBookForm extends PureComponent {
     constructor(props) {
         super(props);
@@ -12,27 +14,43 @@ class AddBookForm extends PureComponent {
         // TODO:
         //      Logic of def selected el
         this.state = {
-            types: Types[0],
-            genres: Genres[0]
+            name: '',
+            author: '',
+            type: Types[0],
+            genre: Genres[0]
         }
         
+        this.nameUpdate = this.nameUpdate.bind(this);
+        this.authorUpdate = this.authorUpdate.bind(this);
         this.listUpdate = this.listUpdate.bind(this);
         this.reset = this.reset.bind(this);
         this.addBook = this.addBook.bind(this);
+    }
+
+    nameUpdate(e) {
+        this.setState({
+            name: e.target.value
+        })
+    }
+
+    authorUpdate(e) {
+        this.setState({
+            author: e.target.value
+        })
     }
 
     listUpdate(e) {
         const val = e.target.value;
         if(Types.includes(val)) {
             this.setState({
-                types: val
+                type: val
             });
             return;
         }
 
         if(Genres.includes(val)) {
             this.setState({
-                genres: val
+                genre: val
             });
             return;
         }
@@ -48,6 +66,25 @@ class AddBookForm extends PureComponent {
     }
 
     addBook() {
+        const data = {
+            name: this.state.name,
+            author: this.state.author, 
+            type: this.state.type,
+            genre: this.state.genre,
+        }
+
+        const config = {
+            name: "isNonEmpty",
+            author: "isNonEmpty",
+        }
+        
+        let toValidate = valid(data, config);
+        if(toValidate.validate()) {
+            // TODO:
+            //      Show error's message
+            return;
+        }
+
         console.log(this.state);
     }
 
@@ -62,26 +99,26 @@ class AddBookForm extends PureComponent {
                     <label className='container add-book-form__container_description'> Name*: </label>
                     <input className='container add-book-form__container_data-field' 
                         type='text'
-                        ref={ name => this.name = name } />
+                        onChange={this.nameUpdate} />
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Author*: </label>
                     <input className='container add-book-form__container_data-field' 
                         type='text'
-                        ref={ author => this.author = author } />
+                        onChange={this.authorUpdate} />
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Type*: </label>
                     <Select data={Types} selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select' 
-                        selected={this.state.types} onSelect={this.listUpdate} /> 
+                        selected={this.state.type} onSelect={this.listUpdate} /> 
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Genre*: </label>
                     <Select data={Genres} selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select'
-                        selected={this.state.genres} onSelect={this.listUpdate} />
+                        selected={this.state.genre} onSelect={this.listUpdate} />
                 </div>
 
                 <div className='container add-book-form__container'>

@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const Select = ({ data, selected: defSelected = 0, selectClassName, optionClassName, onSelect }) => {
+const Select = ({ data, selected: defSelected = 0, onSelect, selectClassName, optionClassName }) => {
     return (
         <select 
             className={selectClassName || 'def-select'}
@@ -28,9 +28,9 @@ Select.propTypes = {
         propTypes.number,
         propTypes.string
     ]),
+    onSelect: propTypes.func,
     selectClassName: propTypes.string,
     optionClassName: propTypes.string,
-    onSelect: propTypes.func,
 }
 
 export default Select;
