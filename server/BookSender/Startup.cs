@@ -42,9 +42,7 @@ namespace BookSender
 			services.AddScoped<IRatingStatusService, RatingStatusService>();
 			services.AddScoped<IReviewService, ReviewService>();
 
-			//string connection = @"Data Source=.\SQLEXPRESS;Initial Catalog=SMARTDB;Integrated Security=True";
-			//string connection = @"Server=tcp:smartserv.database.windows.net,1433;Initial Catalog=SMARTDB;Persist Security Info=False;User ID=Woka;Password='{ezhm-"+"\""+",jim1'; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-			services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
 
 			services.Configure<FormOptions>(options => options.BufferBody = true);
 			services.AddCors(options =>
@@ -56,6 +54,10 @@ namespace BookSender
 					.AllowCredentials());
 			});
 
+			services.AddMvc().AddJsonOptions(options =>
+			{
+				options.SerializerSettings.Formatting = Formatting.Indented;
+			});
 
 			services.AddAuthentication(options =>
 			{
@@ -63,13 +65,9 @@ namespace BookSender
 				options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 				options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 			})
-		.AddCookie();
+		.AddCookie(options => { options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login"); });
 
-			services.AddMvc().AddJsonOptions(options =>
-			{
-				options.SerializerSettings.Formatting = Formatting.Indented;
-			});
-
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 		}
 
@@ -84,7 +82,7 @@ namespace BookSender
 
 				using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
 				{
-					serviceScope.ServiceProvider.GetService<ApplicationContext>().Initialize();
+					//serviceScope.ServiceProvider.GetService<ApplicationContext>().Initialize();
 				}
 			}
 			else
@@ -94,10 +92,10 @@ namespace BookSender
 
 
 
-			//app.UseAuthentication();
+			app.UseCors("CorsPolicy");
+			app.UseAuthentication();
 
 			app.UseStaticFiles();
-			app.UseCors("CorsPolicy");
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(

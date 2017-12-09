@@ -82,8 +82,20 @@ export function getCabinetData(data) {
 
 export function addBook(data) {
     return function() {
-        return {
-            bookId: 2,
-        }
+        return fetch("http://localhost:50363/PersonalCabinet/AddBook", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json, text/javascript, */*; q=0.01',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            mode: "cors",
+            credentials: "include",
+            body: JSON.stringify(data)
+        })
+        .then(statusChecker)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        })
     }
 }

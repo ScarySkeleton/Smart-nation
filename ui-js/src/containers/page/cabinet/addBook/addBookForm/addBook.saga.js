@@ -4,15 +4,20 @@ import {
     put
 } from 'redux-saga/effects';
 
+
 import { 
     FETCH_ADD_BOOK,
     successAddBook,
     failureAddBook,
 } from './addBook.action';
+import {
+    isntFetching
+} from '../../../../../services/store/globalState/global.actions';
 
 import {
     addBook
 } from '../../../../../services/Api';
+import { setTimeout } from 'timers';
 
 export default function* watchAddingBook() {
     while(true) {
@@ -27,5 +32,7 @@ function* callAddingBook(data) {
         yield put(successAddBook(response));
     } catch(err) {
         yield put(failureAddBook());
+    } finally {
+        yield put(isntFetching());
     }
 }

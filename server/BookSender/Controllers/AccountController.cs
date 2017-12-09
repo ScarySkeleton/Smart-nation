@@ -12,6 +12,7 @@ using BookSender.Data;
 using BookSender.Data.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
+using System.Text.RegularExpressions;
 using LoginData = BookSender.Models.AccessoryModels.LoginModel;
 using RegisterData = BookSender.Models.AccessoryModels.RegisterModel;
 using BookSender.Models.AccessoryModels;
@@ -22,125 +23,99 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BookSender.Controllers
 {
-    [EnableCors("CorsPolicy")]
-    public class AccountController : Controller
-    {
-        private ApplicationContext _context;
-        public AccountController(ApplicationContext context)
-        {
-            _context = context;
-        }
+	[EnableCors("CorsPolicy")]
+	public class AccountController : Controller
+	{
+		private ApplicationContext _context;
+		public AccountController(ApplicationContext context)
+		{
+			_context = context;
+		}
 
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<JsonResult> Register([FromBody] RegisterData user)
-        {
-            try
-            {
-                //dynamic requestDyn = JsonConvert.DeserializeObject(request);
+		[HttpPost]
+		//[ValidateAntiForgeryToken]
+		public async Task<JsonResult> Register([FromBody] RegisterData user)
+		{
+			try
+			{
 
-                //RegisterModel model = new RegisterModel { Phone = requestDyn.Phone, Password = requestDyn.Password };
+                _context.Users.Add(new Data.Models.User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru" });
 
-                //BookSender.Data.Models.User user = await _context.Users.FirstOrDefaultAsync(u => u.Number == model.Phone);
-                //if (user == null)
-                //{
-                //    user = new BookSender.Data.Models.User { Number = model.Phone, Password = model.Password };
-                //    BookSender.Data.Models.Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+				await _context.SaveChangesAsync();
 
-                //    if (userRole != null)
-                //        user.Role = userRole;
-
-                    _context.Users.Add(new Data.Models.User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru" });
-
-                    await _context.SaveChangesAsync();
-
-                    //string key = GmailSender.SmtpClientLibrary.SendKey("", "", "");
-                    //await Authenticate(user);
-
-                    return Json($" 'Answer' : 'Successful user creation'");
-                //}
-                //else
-                //    return Json(" 'Answer' : 'Unsuccessful user creation' ");
-            }
-            catch (Exception ex)
-            {
-                return Json($" 'Answer' : ' Error = {ex.Message}' ");
-            }
-        }
+				return Json($" 'Answer' : 'Successful user creation'");
+			}
+			catch (Exception ex)
+			{
+				return Json($" 'Answer' : ' Error = {ex.Message}' ");
+			}
+		}
 
         
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromBody] LoginData model)
         {
-            //string request = null;
             try
             {
                 if (model != null)
                 {
-                    if (String.IsNullOrEmpty(model.Email) == false)
+                    Regex regexEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                    Regex regexPhone = new Regex(@"^\+\d{12}");
+                    Match matchEmail = (model.userLogInfo != null)?regexEmail.Match(model.userLogInfo) : regexEmail.Match("");
+                    Match matchPhone = (model.userLogInfo != null)?regexPhone.Match(model.userLogInfo) : regexPhone.Match("");
+
+
+                    if (matchEmail.Success)
                     {
                         BookSender.Data.Models.User user = await _context.Users
                             .Include(u => u.Role)
-                            .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-
-                        AccountLoginResponce acc = new AccountLoginResponce
-                        {
-                            Login = "voviKAVE",
-                            Name = user.FirstName,
-                            Surname = user.LastName,
-                            Role = "admin",
-                          // StatusCode = StatusCode(500).ToString()
-                        };
-
-						//var json = Newtonsoft.Json.JsonConvert.SerializeObject(acc);
+                            .FirstOrDefaultAsync(u => u.Email == model.userLogInfo && u.Password == model.Password);
 
 
-						// Create the identity from the user info
-						var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
-						identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.PhoneNumber));
-						identity.AddClaim(new Claim(ClaimTypes.Name, user.PhoneNumber));
+						AccountLoginResponce acc = new AccountLoginResponce
+						{
+							Login = user.Email,
+							Name = user.FirstName,
+							Surname = user.LastName,
+							Role = user.Role != null ? user.Role.Name : "Guest",
+						};
 
-
-						// Authenticate using the identity
-						var principal = new ClaimsPrincipal(identity);
-						await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = true });
-
+						await Authenticate(user);
 
 						return Json(acc);
-                    }
-                    else if (String.IsNullOrEmpty(model.Phone) == false)
-                    {
-                        BookSender.Data.Models.User user = await _context.Users
-                            .Include(u => u.Role)
-                            .FirstOrDefaultAsync(u => u.PhoneNumber == model.Phone && u.Password == model.Password);
+					}
+					else if (matchPhone.Success)
+					{
+						BookSender.Data.Models.User user = await _context.Users
+							.Include(u => u.Role)
+							.FirstOrDefaultAsync(u => u.PhoneNumber == model.userLogInfo && u.Password == model.Password);
 
                         AccountLoginResponce acc = new AccountLoginResponce
                         {
-                            Login = "voviKove",
+                            Login = user.Email,
                             Name = user.FirstName,
                             Surname = user.LastName,
-                            Role = "admin",
-                            // StatusCode = StatusCode(500).ToString()
+                            Role = user.Role != null ? user.Role.Name : "Guest",
                         };
 
-                        //var json = Newtonsoft.Json.JsonConvert.SerializeObject(acc);
+                        await Authenticate(user, isEmailAuth: false);
 
-                        return Json(acc);
-                    }
-                    else
-                    {
-                        return Json("'Answer': 'Wrong user credetials'");
-                    }
-                }
-                else
-                    return Json(new LoginData());
-            }
-            catch (Exception ex)
-            {
-                return Json($" 'Answer' : 'Error = {ex.Message}' ");
-            }
-        }
+						return Json(acc);
+					}
+					else
+					{
+						return Json("'Answer': 'Wrong user credetials'");
+					}
+				}
+				else
+					return Json(new LoginData());
+			}
+			catch (Exception ex)
+			{
+				return Json($" 'Answer' : 'Error = {ex.Message}' ");
+			}
+		}
 
         [Authorize]
 		[HttpPost]
@@ -152,35 +127,48 @@ namespace BookSender.Controllers
 
 		}
 
-		[HttpPut]
-        public async Task<JsonResult> NewPassword(string request)
-        {
-            try
-            {
-                dynamic requestDyn = JsonConvert.DeserializeObject(request);
+		//[HttpPut]
+		//public async Task<JsonResult> NewPassword(string request)
+		//{
+		//	try
+		//	{
+		//		dynamic requestDyn = JsonConvert.DeserializeObject(request);
 
-				LoginData model = 
-                         new LoginData
-						 { Email = requestDyn.Email, Password = requestDyn.Password, Phone = requestDyn.Phone };
+		//		//LoginData model =
+		//		//		 new LoginData
+		//		//		 { userLogInfo = requestDyn.Email, Password = requestDyn.Password, userLogInfo = requestDyn.Phone };
 
-				Data.Models.User user = await _context.Users
-                         .Include(u => u.Role)
-                         .FirstOrDefaultAsync(u => u.Email == model.Email || u.PhoneNumber == model.Phone);
+		//		//Data.Models.User user = await _context.Users
+		//		//		 .Include(u => u.Role)
+		//		//		 .FirstOrDefaultAsync(u => u.Email == model.Email || u.PhoneNumber == model.Phone);
 
-                if (String.IsNullOrEmpty(model.Password) == false)
-                {
-                    user.Password = model.Password;
-                    await _context.SaveChangesAsync();
+		//		if (String.IsNullOrEmpty(model.Password) == false)
+		//		{
+		//			user.Password = model.Password;
+		//			await _context.SaveChangesAsync();
 
-                    return Json(" 'Answer' : 'Password was successfully updated' ");
-                }
-                else
-                    throw new Exception("Empty password string");
-            }
-            catch (Exception ex)
-            {
-                return Json($" 'Answer' ; 'Something goes wrong', 'Error' : '{ex.Message}' ");
-            }
-        }
-    }
+		//			return Json(" 'Answer' : 'Password was successfully updated' ");
+		//		}
+		//		else
+		//			throw new Exception("Empty password string");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return Json($" 'Answer' ; 'Something goes wrong', 'Error' : '{ex.Message}' ");
+		//	}
+		//}
+
+		private async Task Authenticate(Data.Models.User user, bool isEmailAuth = true)
+		{
+			var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+
+			identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, isEmailAuth ? user.Email : user.PhoneNumber));
+			identity.AddClaim(new Claim(ClaimTypes.Name, isEmailAuth ? user.Email : user.PhoneNumber));
+
+			// Authenticate using the identity
+			var principal = new ClaimsPrincipal(identity);
+			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = true });
+
+		}
+	}
 }
