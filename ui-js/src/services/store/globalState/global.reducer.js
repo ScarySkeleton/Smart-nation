@@ -4,7 +4,7 @@ const initState = {
     isFetching: false,
 }
 
-const globalState = (state, action) => {
+const globalState = (state = initState, action) => {
     switch(action.type) {
         case actions.IS_FETCHING: 
             return {
