@@ -8,6 +8,9 @@ using BookSender.Services.Interfaces;
 using BookSender.Services;
 using Microsoft.AspNetCore.Http.Features;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace BookSender
 {
@@ -41,23 +44,32 @@ namespace BookSender
 
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
 
-            services.Configure<FormOptions>(options => options.BufferBody = true);
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
-            });
+			services.Configure<FormOptions>(options => options.BufferBody = true);
+			services.AddCors(options =>
+			{
+				options.AddPolicy("CorsPolicy",
+					builder => builder.AllowAnyOrigin()
+					.AllowAnyMethod()
+					.AllowAnyHeader()
+					.AllowCredentials());
+			});
 
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.Formatting = Formatting.Indented;
-            });
 
-            
-        }
+			services.AddAuthentication(options =>
+			{
+				options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+				options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+				options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+			})
+		.AddCookie();
+
+			services.AddMvc().AddJsonOptions(options =>
+			{
+				options.SerializerSettings.Formatting = Formatting.Indented;
+			});
+
+
+		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -78,11 +90,13 @@ namespace BookSender
 				app.UseExceptionHandler("/Home/Error");
 			}
 
-            //app.UseAuthentication();
 
-            app.UseStaticFiles();
-            app.UseCors("CorsPolicy");
-            app.UseMvc(routes =>
+
+			//app.UseAuthentication();
+
+			app.UseStaticFiles();
+			app.UseCors("CorsPolicy");
+			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",

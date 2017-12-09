@@ -8,6 +8,8 @@ import {
 } from './login.actions';
 import { validate } from '../../../services/Utils';
 
+import './login.scss';
+
 class LoginContainer extends PureComponent {
      constructor(props) {
          super(props);
@@ -40,8 +42,7 @@ class LoginContainer extends PureComponent {
      loginRequest() {
 
         const data = {
-            Email: "asd",
-            Phone: this.state.userLogInfo,
+            userLogInfo: this.state.userLogInfo,
             Password: this.state.userPassword,
         }
 
@@ -59,10 +60,8 @@ class LoginContainer extends PureComponent {
     render() {
         
         if(this.props.isLogined) {
-            <Redirect to="/" />
-            console.log("here");
+            return <Redirect to="/" />;
         }
-            
 
         return (
             <div className='container login'>
@@ -81,9 +80,9 @@ class LoginContainer extends PureComponent {
                      onChange={this.userPasswordChange} />
                 </div>
 
-                <Link to='/register'> Don't have account </Link>
+                <Link to='/registration'> Don't have account </Link>
 
-                <button onClick={this.loginRequest}>
+                <button className='login__block-btn' onClick={this.loginRequest}>
                     Enter
                 </button>
             </div>
@@ -97,7 +96,7 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
         loginRequest: (data) => {
             dispatch(loginRequest(data));

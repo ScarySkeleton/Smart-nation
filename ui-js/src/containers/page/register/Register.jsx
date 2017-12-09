@@ -2,6 +2,10 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import {
+    registerRequest
+} from './register.actions.js';
+
 import './register.scss';
 
 class RegisterContainer extends PureComponent {
@@ -21,11 +25,12 @@ class RegisterContainer extends PureComponent {
     }
 
     userPhoneChange(e) {
-        const value = e.target.value;
+         const value = e.target.value;
+         /*
         if(!true) {
             this.userPhone.value = this.state.phone;
             return;
-        }
+        } */
 
         this.setState({
             phone: value,
@@ -58,7 +63,12 @@ class RegisterContainer extends PureComponent {
     }
 
     registerRequest() {
-        console.log(this.state.password);
+        
+        const userData = {
+            phone: this.state.phone,
+            password: this.state.password,
+        }
+        this.props.registerRequest(userData);
     }
 
     render() {
@@ -105,15 +115,26 @@ class RegisterContainer extends PureComponent {
 
                 <Link to='/login'> Have an account </Link>
 
-                <button onClick={this.Clear}>
-                    Clear
-                </button>
-                <button onClick={this.registerRequest}>
+                <button className="register__block-btn" onClick={this.registerRequest}>
                     Register
                 </button>
+                <button className="register__block-btn" onClick={this.Clear}>
+                    Clear
+                </button>
+                
             </div>
         );
     }
 }
 
-export default RegisterContainer;
+const mapDispatchToProps = dispatch => {
+    return {
+        registerRequest: (data) => {
+            dispatch(registerRequest(data));
+        }
+    }
+}
+
+
+export default RegisterContainer = connect(
+    null, mapDispatchToProps)(RegisterContainer);

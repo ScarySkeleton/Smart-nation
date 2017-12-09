@@ -265,6 +265,7 @@ __pycache__/
 server/.vs/
  server/BookSender/BookSender.csproj.user
 server/BookSender/obj/
+<<<<<<< HEAD
 server/BookSender/bin/
 server/BookSender.Data/obj/
 server/BookSender.Data/bin/
@@ -276,3 +277,10 @@ server/GmailSender/bin/
 server/GmailSender/obj/
 server/XBookSender.Test/bin/
 server/XBookSender.Test/obj/
+=======
+<<<<<<< HEAD
+server/BookSender/appsettings.json
+=======
+server/Booksender/appsettings.json
+>>>>>>> master
+>>>>>>> 1a1ba633402a6f19d70484f5d87be9281d07f6d3
