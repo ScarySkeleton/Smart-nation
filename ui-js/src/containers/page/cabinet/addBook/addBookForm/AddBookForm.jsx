@@ -27,6 +27,8 @@ class AddBookForm extends PureComponent {
             genre: Genres[0],
             photo: '',
             price: 0,
+
+            errorMessage: '',
         }
         
         this.nameUpdate = this.nameUpdate.bind(this);
@@ -40,13 +42,15 @@ class AddBookForm extends PureComponent {
 
     nameUpdate(e) {
         this.setState({
-            name: e.target.value
+            name: e.target.value,
+            errorMessage: '',
         })
     }
 
     authorUpdate(e) {
         this.setState({
-            author: e.target.value
+            author: e.target.value,
+            errorMessage: '',
         })
     }
 
@@ -109,6 +113,9 @@ class AddBookForm extends PureComponent {
         if(toValidate.validate()) {
             // TODO:
             //      Show error's message
+            this.setState({
+                errorMessage: toValidate.messages
+            })
             return;
         }
         
@@ -116,12 +123,28 @@ class AddBookForm extends PureComponent {
         this.props.fetchAddingBook(data);
     }
 
-    render() {        
+    render() {
+        console.log(this.state.errorMessage);    
         return (
             <div className='container add-book-form'>
                 <h3>
                     Enter all needed data, thx!
                 </h3>
+
+                { 
+                    this.state.errorMessage &&  <p 
+                        className='container add-book-form__error-message'>
+                        {   this.state.errorMessage.map((message, index) => {
+                                return (
+                                    <label key={index}>
+                                        {message}
+                                    </label>
+                                )
+                            })
+                        }
+                     </p>
+                }
+               
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Name*: </label>
