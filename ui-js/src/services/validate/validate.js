@@ -1,10 +1,10 @@
 let validator = {
+    data: {},
     types: {}, 
     messages: [],
     config: {},
 
-    validate: function(data) {
-
+    validate: function(data = this.data) {
         let i, msg, type, checker, result;
         this.messages = [];
 
@@ -26,7 +26,7 @@ let validator = {
                 
                 result = checker.validate(data[i]);
                 if(!result) {
-                    msg = "Invalid value for " + i + ", instruction:" + this.instruction;
+                    msg = "Invalid value for " + i + ", instruction:" + checker.instruction;
                     this.messages.push(msg);
                 }
             }

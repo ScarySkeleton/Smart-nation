@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import {
     loginRequest
 } from './login.actions';
-import { validate } from '../../../services/Utils';
+import { valid } from '../../../services/Utils';
 
 import './login.scss';
 
@@ -51,8 +51,10 @@ class LoginContainer extends PureComponent {
             userPassword: "isNonEmpty",
         }
 
-        if(validate(data, config))
+        let toValidate = valid(data, config);
+        if(toValidate.validate()) {
             return;
+        }
 
         this.props.loginRequest(data);
      }
