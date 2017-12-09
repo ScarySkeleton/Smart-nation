@@ -8,6 +8,7 @@ using BookSender.Data;
 using Microsoft.EntityFrameworkCore;
 using BookSender.Models.AccessoryModels;
 using Microsoft.AspNetCore.Cors;
+using System.Security.Claims;
 
 namespace BookSender.Controllers
 {
@@ -15,7 +16,9 @@ namespace BookSender.Controllers
     public class PersonalCabinetController : Controller
     {
         private readonly ApplicationContext _context;
-        public PersonalCabinetController(ApplicationContext context)
+
+		public PersonalCabinetController(ApplicationContext context
+			)
         {
             _context = context;
         }
@@ -60,32 +63,34 @@ namespace BookSender.Controllers
             }           
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetAllUserBooks([FromBody] User incomingUser)
-        {
-            try
-            {
-                Data.Models.User user = await _context.Users.FirstOrDefaultAsync(
-                                                 u => u.Email == incomingUser.Email 
-                                                 || u.PhoneNumber == incomingUser.PhoneNumber);
-                if (user != null)
-                {
-                    List<Book> userBooks = await _context.Books.Where(
-                                                b => b.ConributorId == user.Id).ToListAsync();
-                    return Json(userBooks);
-                }
-                else
-                {
-                    throw new Exception("User was not found");
-                }
-            }
-            catch (Exception e)
-            {
-                return Json("Error: " + e.Message);
-            }
-        }
+		[HttpPost]
+		public async Task<IActionResult> GetAllUserBooks()
+		{
 
-        [HttpPost]
+			try
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+
+				if (user != null)
+				{
+					List<Book> userBooks = await _context.Books.Where(
+												b => b.ConributorId == user.Id).ToListAsync();
+					return Json(userBooks);
+				}
+				else
+				{
+					throw new Exception("User was not found");
+				}
+			}
+			catch (Exception e)
+			{
+				return Json("Error: " + e.Message);
+			}
+		}
+
+		[HttpPost]
         public async Task<IActionResult> GetDetailedBookInfo([FromBody] Book incomingBook)
         {
             try
