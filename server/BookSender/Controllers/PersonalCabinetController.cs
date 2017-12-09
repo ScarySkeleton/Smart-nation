@@ -28,7 +28,7 @@ namespace BookSender.Controllers
         {
             try
             {
-                Data.Models.User user =  await _context.Users.FirstOrDefaultAsync( u => u.Email == email || u.Number == phone);
+                Data.Models.User user =  await _context.Users.FirstOrDefaultAsync( u => u.Email == email || u.PhoneNumber == phone);
 
                 if (user != null)
                 {
@@ -58,7 +58,7 @@ namespace BookSender.Controllers
             {
                 Data.Models.User user = await _context.Users.FirstOrDefaultAsync(
                                                  u => u.Email == incomingUser.Email 
-                                                 || u.Number == incomingUser.Number);
+                                                 || u.PhoneNumber == incomingUser.PhoneNumber);
                 if (user != null)
                 {
                     List<Book> userBooks = await _context.Books.Where(
