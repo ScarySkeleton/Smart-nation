@@ -12,10 +12,7 @@ using BookSender.Data;
 using BookSender.Data.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
-<<<<<<< HEAD
-using LoginData = BookSender.Data.Models.AccessoryModels.LoginModel;
 using System.Text.RegularExpressions;
-=======
 using LoginData = BookSender.Models.AccessoryModels.LoginModel;
 using RegisterData = BookSender.Models.AccessoryModels.RegisterModel;
 using BookSender.Models.AccessoryModels;
@@ -23,7 +20,6 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
->>>>>>> 1a1ba633402a6f19d70484f5d87be9281d07f6d3
 
 namespace BookSender.Controllers
 {
@@ -42,30 +38,12 @@ namespace BookSender.Controllers
 		{
 			try
 			{
-				//dynamic requestDyn = JsonConvert.DeserializeObject(request);
 
-				//RegisterModel model = new RegisterModel { Phone = requestDyn.Phone, Password = requestDyn.Password };
-
-				//BookSender.Data.Models.User user = await _context.Users.FirstOrDefaultAsync(u => u.Number == model.Phone);
-				//if (user == null)
-				//{
-				//    user = new BookSender.Data.Models.User { Number = model.Phone, Password = model.Password };
-				//    BookSender.Data.Models.Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
-
-				//    if (userRole != null)
-				//        user.Role = userRole;
-
-				_context.Users.Add(new Data.Models.User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru" });
+                _context.Users.Add(new Data.Models.User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru" });
 
 				await _context.SaveChangesAsync();
 
-				//string key = GmailSender.SmtpClientLibrary.SendKey("", "", "");
-				//await Authenticate(user);
-
 				return Json($" 'Answer' : 'Successful user creation'");
-				//}
-				//else
-				//    return Json(" 'Answer' : 'Unsuccessful user creation' ");
 			}
 			catch (Exception ex)
 			{
@@ -78,7 +56,6 @@ namespace BookSender.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromBody] LoginData model)
         {
-            //string request = null;
             try
             {
                 if (model != null)
