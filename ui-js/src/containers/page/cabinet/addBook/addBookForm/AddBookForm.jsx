@@ -75,6 +75,8 @@ class AddBookForm extends PureComponent {
             author: this.state.author, 
             type: this.state.type,
             genre: this.state.genre,
+            photo: null,
+            price: 0,
         }
 
         const config = {
