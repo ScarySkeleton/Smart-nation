@@ -16,7 +16,7 @@ namespace BookSender.Data
 		public DbSet<Deal> Deals { get; set; }
 		public DbSet<DealStatus> DealStatuses { get; set; }
 		public DbSet<Picture> Pictures { get; set; }
-
+        public DbSet<BookType> BookTypes { get; set; }
 
 		public ApplicationContext(DbContextOptions<ApplicationContext> options)
 			: base(options)

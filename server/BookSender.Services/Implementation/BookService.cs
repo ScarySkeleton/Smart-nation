@@ -44,13 +44,14 @@ namespace BookSender.Services
 			existed.Author = book.Author;
 			existed.Description = existed.Description;
 			existed.CurrentUserId = book.CurrentUserId;
+            existed.BookTypeId = book.BookTypeId;
 			existed.ISBN = book.ISBN;
 			existed.Price = book.Price;
 			existed.PrintedOn = book.PrintedOn;
 			existed.AmazonId = book.AmazonId;
 			existed.GenreId = book.GenreId;
 			existed.PictureId = book.PictureId;
-			existed.ConributorId = book.ConributorId;
+			existed.ContributorId = book.ContributorId;
 			existed.IsUsable = book.IsUsable;
 
 			_context.SaveChanges();

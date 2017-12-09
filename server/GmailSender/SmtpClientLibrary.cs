@@ -12,7 +12,7 @@ namespace GmailSender
         {
             SmtpClient client = new SmtpClient();
 
-            client.Port = 465;
+            client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
             client.Timeout = 10000;

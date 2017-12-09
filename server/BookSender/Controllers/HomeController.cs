@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BookSender.Models;
 using BookSender.Data;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.EntityFrameworkCore;
+using BookSender.Models.AccessoryModels;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace BookSender.Controllers
 {
+    [EnableCors("CorsPolicy")]
     public class HomeController : Controller
     {
         private readonly ApplicationContext _context;
@@ -17,13 +23,51 @@ namespace BookSender.Controllers
             _context = context;
         }
 
-        public JsonResult Index()
+        public async Task<JsonResult> Index(FilteringModel filteringModel)
         {
-            List<Book> bookList = new List<Book>();
+            List<BookShelf> bookList = new List<BookShelf>();
 
+            string sqlExpression = "FindSearchedBook";
 
+            var SearchString = new SqlParameter("@searchedString", filteringModel.SearchResult);
+            var BookGenre = new SqlParameter("@bookGenre", filteringModel.Gener);
+            var BookType = new SqlParameter("@bookType", filteringModel.Type);
 
-            return Json("");
+            using (SqlConnection connection = new SqlConnection(_context.Database.GetDbConnection().ConnectionString))
+            {
+
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add(SearchString);
+                command.Parameters.Add(BookGenre);
+                command.Parameters.Add(BookType);
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        bookList.Add(
+                            new BookShelf {
+                                Id = reader.GetInt32(0),
+                                Author = reader.GetString(1),
+                                CreateOn = reader.GetDateTime(2),
+                                Description = reader.GetString(3),
+                                Price = reader.GetDecimal(4),
+                                ContributorFirstName = reader.GetString(5),
+                                ContributorLastName = reader.GetString(6),
+                                FirstName = reader.GetString(7),
+                                LastName = reader.GetString(8),
+                                PhoneNumber = reader.GetString(9),
+                                Genre = reader.GetString(10),
+                                BookType = reader.GetString(11)
+                            });
+                    }
+                }
+
+                reader.Close();
+            }
+            return Json(bookList);
         }
 
         public IActionResult About()

@@ -71,7 +71,7 @@ namespace BookSender.Controllers
                 if (user != null)
                 {
                     List<Book> userBooks = await _context.Books.Where(
-                                                b => b.ConributorId == user.Id).ToListAsync();
+                                                b => b.ContributorId == user.Id).ToListAsync();
                     return Json(userBooks);
                 }
                 else
