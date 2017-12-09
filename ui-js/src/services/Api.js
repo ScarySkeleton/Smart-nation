@@ -6,6 +6,11 @@ function statusChecker(response) {
     return Promise.reject(response);
 }
 
+/*
+    ================================================
+                    USER LOGIN\LOGOUT\REGESTRATION
+    ================================================
+*/
 export function loginRequest(userData) {
     return function () {
         return fetch("http://localhost:50363/Account/Login", {
@@ -47,9 +52,7 @@ export function registrationRequest(userData) {
 }
 
 export function logoutRequest() {
-    
-    //return function() {
-        console.log("logout"); 
+    return function() {
         return fetch("http://localhost:50363/Account/Logout", {
             method: "POST", 
             headers: {
@@ -58,15 +61,15 @@ export function logoutRequest() {
             },
             mode: "cors",
             credentials: "include",
-            body: JSON.stringify({
-                Email: "das@mail.ru",
-                Phone: "+380555",
-                Password: "SDAS"
-            })
         });
-    //}
+    }
 }
 
+/*
+    ================================================
+                    USER CABINET
+    ================================================
+*/
 export function getCabinetData(data) {
     return function() {
         return {
