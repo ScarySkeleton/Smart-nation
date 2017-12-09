@@ -7,9 +7,9 @@ function statusChecker(response) {
 }
 
 /*
-    ================================================
+    ================================================================
                     USER LOGIN\LOGOUT\REGESTRATION
-    ================================================
+    ================================================================
 */
 export function loginRequest(userData) {
     return function () {
@@ -96,6 +96,26 @@ export function addBook(data) {
         .then(response => response.json())
         .then(json => {
             console.log(json);
+        })
+    }
+}
+
+export function getBookShelfBooks() {
+    return function() {
+        return fetch("http://localhost:50363/PersonalCabinet/GetBook", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json, text/javascript, */*; q=0.01',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            mode: "cors",
+            credentials: "include"
+        })
+        .then(statusChecker)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+            return json;
         })
     }
 }
