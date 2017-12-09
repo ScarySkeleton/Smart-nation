@@ -50,7 +50,7 @@ namespace BookSender.Services
 			existed.AmazonId = book.AmazonId;
 			existed.GenreId = book.GenreId;
 			existed.PictureId = book.PictureId;
-			existed.ConributorId = book.ConributorId;
+			existed.ContributorId = book.ContributorId;
 			existed.IsUsable = book.IsUsable;
 
 			_context.SaveChanges();

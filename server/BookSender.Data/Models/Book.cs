@@ -16,7 +16,7 @@ namespace BookSender.Data.Models
 
 		public string Description { get; set; }
 
-		public int? ConributorId { get; set; }
+		public int? ContributorId { get; set; }
 
 		public DateTime CreatedOn { get; set; }
 

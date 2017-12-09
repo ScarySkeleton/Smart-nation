@@ -102,7 +102,7 @@ export function addBook(data) {
 
 export function getBookShelfBooks() {
     return function() {
-        return fetch("http://localhost:50363/PersonalCabinet/GetBook", {
+        return fetch("http://localhost:50363/PersonalCabinet/GetAllUserBooks", {
             method: "POST",
             headers: {
                 Accept: 'application/json, text/javascript, */*; q=0.01',
