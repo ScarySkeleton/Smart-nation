@@ -16,29 +16,20 @@ namespace BookSender.Data
 				return;   // DB has been seeded
 			}
 
-			var roles = new Role[]
-			{
-				new Role{Name = "Admin"},
-				new Role{Name = "User"},
-				new Role{Name = "NotRegistered"}
-			};
 
-			var ratingStatuses = new RatingStatus[]
-			{
-			new RatingStatus{Name="Beginner",DemandMinNumberBooksAdded=0,DemandMinNumberBooksGot=0,OrderNumber = 0},
-			new RatingStatus{Name="Booklover",DemandMinNumberBooksAdded=1,DemandMinNumberBooksGot=0,OrderNumber = 1},
-			new RatingStatus{Name="Experienced",DemandMinNumberBooksAdded=2,DemandMinNumberBooksGot=1,OrderNumber = 2},
-			new RatingStatus{Name="Megamind",DemandMinNumberBooksAdded=8,DemandMinNumberBooksGot=4,OrderNumber = 3},
-			new RatingStatus{Name="BookWorm",DemandMinNumberBooksAdded=10,DemandMinNumberBooksGot=4,OrderNumber = 4},
-			new RatingStatus{Name="Master",DemandMinNumberBooksAdded=20,DemandMinNumberBooksGot=15,OrderNumber = 5},
-			};
-			foreach (RatingStatus s in ratingStatuses)
-			{
-				context.RatingStatuses.Add(s);
-			}
-			context.SaveChanges();
+			var adminRole = new Role { Name = "Admin" };
+			var userRole = new Role { Name = "User" };
+			var notRegisteredRole = new Role { Name = "NotRegistered" };
+
+
+			var begginerStatus = new RatingStatus { Name = "Beginner", DemandMinNumberBooksAdded = 0, DemandMinNumberBooksGot = 0, OrderNumber = 0 };
+			var bookloverStatus = new RatingStatus { Name = "Booklover", DemandMinNumberBooksAdded = 1, DemandMinNumberBooksGot = 0, OrderNumber = 1 };
+			var megamindStatus = new RatingStatus { Name = "Megamind", DemandMinNumberBooksAdded = 8, DemandMinNumberBooksGot = 4, OrderNumber = 3 };
+			var bookWormStatus = new RatingStatus { Name = "BookWorm", DemandMinNumberBooksAdded = 10, DemandMinNumberBooksGot = 4, OrderNumber = 4 };
 
 			#region Users
+
+
 
 			var users = new User[]
 			{
@@ -49,8 +40,8 @@ namespace BookSender.Data
 				Password = "1234",
 				PhoneNumber = "38098875654846",
 				Email = "danilo@gmail.com",
-				//RatingStatusId = context.RatingStatuses.FirstOrDefault(s => s.OrderNumber == 2).Id,
-				//RoleId = context.Roles.FirstOrDefault(r => r.Name == "NotRegistered").Id
+				Role = notRegisteredRole,
+				RatingStatus = megamindStatus
 			},
 			new User{
 				FirstName ="John",
@@ -59,8 +50,8 @@ namespace BookSender.Data
 				Password = "1234",
 				PhoneNumber = "38098875654846",
 				Email = "john@gmail.com",
-				//RatingStatusId = context.RatingStatuses.FirstOrDefault(s => s.OrderNumber == 1).Id,
-				//RoleId = context.Roles.FirstOrDefault(r => r.Name == "User").Id
+				Role = userRole,
+				RatingStatus = begginerStatus
 			},
 			new User{
 				FirstName ="Andriy",
@@ -69,6 +60,8 @@ namespace BookSender.Data
 				Password = "1234",
 				PhoneNumber = "+380444444444",
 				Email = "dyuk@gmail.com",
+				Role = adminRole,
+				RatingStatus = bookWormStatus
 				//RatingStatusId = context.RatingStatuses.FirstOrDefault(s => s.OrderNumber == 5).Id,
 				//RoleId = context.Roles.FirstOrDefault(r => r.Name == "Admin").Id
 			},
@@ -79,8 +72,8 @@ namespace BookSender.Data
 				Password = "1234",
 				PhoneNumber = "+380990573255",
 				Email = "vovi@gmail.com",
-				//RatingStatusId = context.RatingStatuses.FirstOrDefault(s => s.OrderPhoneNumber == 3).Id,
-				//RoleId = context.Roles.FirstOrDefault(r => r.Name == "Admin").Id
+				Role = adminRole,
+				RatingStatus = bookloverStatus
 			}
 			};
 
@@ -91,6 +84,17 @@ namespace BookSender.Data
 			context.SaveChanges();
 
 			#endregion Users
+
+			var ratingStatuses = new RatingStatus[]
+			{
+			 new RatingStatus{Name="Experienced",DemandMinNumberBooksAdded=2,DemandMinNumberBooksGot=1,OrderNumber = 2},
+			new RatingStatus{Name="Master",DemandMinNumberBooksAdded=20,DemandMinNumberBooksGot=15,OrderNumber = 5},
+			};
+			foreach (RatingStatus s in ratingStatuses)
+			{
+				context.RatingStatuses.Add(s);
+			}
+			context.SaveChanges();
 
 
 			var genres = new Genre[]

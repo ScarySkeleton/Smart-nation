@@ -54,6 +54,10 @@ namespace BookSender
 					.AllowCredentials());
 			});
 
+			services.AddMvc().AddJsonOptions(options =>
+			{
+				options.SerializerSettings.Formatting = Formatting.Indented;
+			});
 
 			services.AddAuthentication(options =>
 			{
@@ -61,13 +65,9 @@ namespace BookSender
 				options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 				options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 			})
-		.AddCookie();
+		.AddCookie(options => { options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login"); });
 
-			services.AddMvc().AddJsonOptions(options =>
-			{
-				options.SerializerSettings.Formatting = Formatting.Indented;
-			});
-
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 		}
 
@@ -92,10 +92,10 @@ namespace BookSender
 
 
 
-			//app.UseAuthentication();
+			app.UseCors("CorsPolicy");
+			app.UseAuthentication();
 
 			app.UseStaticFiles();
-			app.UseCors("CorsPolicy");
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
