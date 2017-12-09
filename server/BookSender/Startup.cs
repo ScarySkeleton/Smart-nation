@@ -82,7 +82,7 @@ namespace BookSender
 
 				using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
 				{
-					serviceScope.ServiceProvider.GetService<ApplicationContext>().Initialize();
+					//serviceScope.ServiceProvider.GetService<ApplicationContext>().Initialize();
 				}
 			}
 			else
