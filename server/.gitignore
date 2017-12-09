@@ -261,6 +261,7 @@ __pycache__/
 *.pyc
 
 #WokasIgnore vs2017
+<<<<<<< HEAD:.gitignore
 
 server/.vs/
  server/BookSender/BookSender.csproj.user
@@ -284,3 +285,19 @@ server/BookSender/appsettings.json
 server/Booksender/appsettings.json
 >>>>>>> master
 >>>>>>> 1a1ba633402a6f19d70484f5d87be9281d07f6d3
+=======
+../.vs/
+BookSender/BookSender.csproj.user
+BookSender/.vs/
+BookSender/obj/
+BookSender/bin/
+BookSender.Data/bin/
+BookSender.Data/obj/
+BookSender.Services/bin/
+BookSender.Services/obj/
+GmailSender/bin/
+GmailSender/obj/
+XBookSender/bin/
+XBookSender/obj/
+BookSender/appsettings.json
+>>>>>>> da7df53c087813ca48b64897ac709eb26e129a63:server/.gitignore
