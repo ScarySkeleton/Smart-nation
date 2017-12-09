@@ -20,6 +20,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using BookSender.Services.Interfaces;
 
 namespace BookSender.Controllers
 {
@@ -27,7 +28,9 @@ namespace BookSender.Controllers
 	public class AccountController : Controller
 	{
 		private ApplicationContext _context;
-		public AccountController(ApplicationContext context)
+		private readonly IUserService _userSrevice;
+		public AccountController(ApplicationContext context
+			)
 		{
 			_context = context;
 		}
@@ -39,7 +42,7 @@ namespace BookSender.Controllers
 			try
 			{
 
-                _context.Users.Add(new Data.Models.User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru" });
+				_context.Users.Add(new Data.Models.User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru" });
 
 				await _context.SaveChangesAsync();
 
@@ -51,26 +54,26 @@ namespace BookSender.Controllers
 			}
 		}
 
-        
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([FromBody] LoginData model)
-        {
-            try
-            {
-                if (model != null)
-                {
-                    Regex regexEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-                    Regex regexPhone = new Regex(@"^\+\d{12}");
-                    Match matchEmail = (model.userLogInfo != null)?regexEmail.Match(model.userLogInfo) : regexEmail.Match("");
-                    Match matchPhone = (model.userLogInfo != null)?regexPhone.Match(model.userLogInfo) : regexPhone.Match("");
+
+		[HttpPost]
+		//[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Login([FromBody] LoginData model)
+		{
+			try
+			{
+				if (model != null)
+				{
+					Regex regexEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+					Regex regexPhone = new Regex(@"^\+\d{12}");
+					Match matchEmail = (model.userLogInfo != null) ? regexEmail.Match(model.userLogInfo) : regexEmail.Match("");
+					Match matchPhone = (model.userLogInfo != null) ? regexPhone.Match(model.userLogInfo) : regexPhone.Match("");
 
 
-                    if (matchEmail.Success)
-                    {
-                        BookSender.Data.Models.User user = await _context.Users
-                            .Include(u => u.Role)
-                            .FirstOrDefaultAsync(u => u.Email == model.userLogInfo && u.Password == model.Password);
+					if (matchEmail.Success)
+					{
+						BookSender.Data.Models.User user = await _context.Users
+							.Include(u => u.Role)
+							.FirstOrDefaultAsync(u => u.Email == model.userLogInfo && u.Password == model.Password);
 
 
 						AccountLoginResponce acc = new AccountLoginResponce
@@ -91,15 +94,15 @@ namespace BookSender.Controllers
 							.Include(u => u.Role)
 							.FirstOrDefaultAsync(u => u.PhoneNumber == model.userLogInfo && u.Password == model.Password);
 
-                        AccountLoginResponce acc = new AccountLoginResponce
-                        {
-                            Login = user.Email,
-                            Name = user.FirstName,
-                            Surname = user.LastName,
-                            Role = user.Role != null ? user.Role.Name : "Guest",
-                        };
+						AccountLoginResponce acc = new AccountLoginResponce
+						{
+							Login = user.Email,
+							Name = user.FirstName,
+							Surname = user.LastName,
+							Role = user.Role != null ? user.Role.Name : "Guest",
+						};
 
-                        await Authenticate(user, isEmailAuth: false);
+						await Authenticate(user, isEmailAuth: false);
 
 						return Json(acc);
 					}
@@ -117,10 +120,16 @@ namespace BookSender.Controllers
 			}
 		}
 
-        [Authorize]
+		[Authorize]
 		[HttpPost]
-		public async Task<IActionResult> Logout([FromBody] LoginData model)
+		public async Task<IActionResult> Logout()
 		{
+
+			var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+			var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+
+
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
 			return Json($" 'Answer' : 'Logedout = true' ");
@@ -162,8 +171,11 @@ namespace BookSender.Controllers
 		{
 			var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
 
-			identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, isEmailAuth ? user.Email : user.PhoneNumber));
-			identity.AddClaim(new Claim(ClaimTypes.Name, isEmailAuth ? user.Email : user.PhoneNumber));
+			var identifier = isEmailAuth ? user.Email : user.PhoneNumber;
+
+			identity.AddClaim(new Claim(ClaimTypes.Name, identifier));
+			identity.AddClaim(new Claim(ClaimTypes.Role, user.Role != null ? user.Role?.Name : "Guest"));
+			identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
 
 			// Authenticate using the identity
 			var principal = new ClaimsPrincipal(identity);
