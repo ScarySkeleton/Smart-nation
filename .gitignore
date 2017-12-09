@@ -263,4 +263,13 @@ __pycache__/
 #WokasIgnore vs2017
 
 server/BookSender/obj/
+server/BookSender/bin/
+server/BookSender.Data/bin/
+server/BookSender.Data/obj/
+server/BookSender.Services/bin/
+server/BookSender.Services/obj/
+server/GmailSender/bin/
+server/GmailSender/obj/
+server/XBookSender/bin/
+server/XBookSender/obj/
 server/BookSender/appsettings.json
