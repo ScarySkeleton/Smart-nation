@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
+import './addBookForm.scss';
 import Select from '../../../../../components/select/Select';
 import {
     fetchAddBook
