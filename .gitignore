@@ -275,6 +275,3 @@ server/GmailSender/obj/
 server/XBookSender/bin/
 server/XBookSender/obj/
 server/BookSender/appsettings.json
-=======
-server/Booksender/appsettings.json
->>>>>>> master
