@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using BookSender.Data.Models;
 using BookSender.Data;
 using Microsoft.EntityFrameworkCore;
+using BookSender.Models.AccessoryModels;
 
 namespace BookSender.Controllers
 {
@@ -24,26 +25,32 @@ namespace BookSender.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBook([FromBody] Book incomingBook, string email , string phone)
+        public async Task<IActionResult> AddBook([FromBody] BookModel incomingBook)
         {
             try
             {
-                Data.Models.User user =  await _context.Users.FirstOrDefaultAsync( u => u.Email == email || u.PhoneNumber == phone);
+                //Data.Models.User user =  await _context.Users.FirstOrDefaultAsync( u => u.Email == email || u.PhoneNumber == phone);
 
-                if (user != null)
+                //if (user != null)
+                //{
+                //incomingBook.ConributorId = user.Id;
+                //incomingBook.CurrentUserId = user.Id;
+                Book book = new Book
                 {
-                    incomingBook.ConributorId = user.Id;
-                    incomingBook.CurrentUserId = user.Id;
+                    Title = incomingBook.Title,
+                    Author = incomingBook.Author,
+                    Price = Convert.ToDecimal(incomingBook.Price)
+                };
 
-                    _context.Books.Add(incomingBook);
+                    _context.Books.Add(book);
                     await _context.SaveChangesAsync();
 
                     return Json("successful");
-                }
-                else
-                {
-                    throw new Exception("User was not found");
-                }
+                //}
+                //else
+                //{
+                //    throw new Exception("User was not found");
+                //}
             }
             catch (Exception e)
             {
