@@ -48,8 +48,7 @@ export function registrationRequest(userData) {
 
 export function logoutRequest() {
     
-    //return function() {
-        console.log("logout"); 
+    return function() {
         return fetch("http://localhost:50363/Account/Logout", {
             method: "POST", 
             headers: {
@@ -64,7 +63,7 @@ export function logoutRequest() {
                 Password: "SDAS"
             })
         });
-    //}
+    }
 }
 
 export function getCabinetData(data) {
@@ -78,9 +77,18 @@ export function getCabinetData(data) {
 }
 
 export function addBook(data) {
+    console.log(JSON.stringify(data));
     return function() {
-        return {
-            bookId: 2,
-        }
+        return fetch("http://localhost:50363/PersonalCabinet/AddBook", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json, text/javascript, */*; q=0.01',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            mode: "cors",
+            credentials: "include",
+            body: JSON.stringify(data)
+        })
+        .then(statusChecker);
     }
 }
