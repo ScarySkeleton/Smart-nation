@@ -21,12 +21,14 @@ class AddBookForm extends PureComponent {
             name: '',
             author: '',
             type: Types[0],
-            genre: Genres[0]
+            genre: Genres[0],
+            photo: '',
         }
         
         this.nameUpdate = this.nameUpdate.bind(this);
         this.authorUpdate = this.authorUpdate.bind(this);
         this.listUpdate = this.listUpdate.bind(this);
+        this.imageChoosen = this.imageChoosen.bind(this);
         this.reset = this.reset.bind(this);
         this.addBook = this.addBook.bind(this);
     }
@@ -60,6 +62,12 @@ class AddBookForm extends PureComponent {
         }
     }
 
+    imageChoosen(e) {
+        this.setState({
+            photo: e.target.value
+        })
+    }
+
     reset() {
         this.setState({
             types: Types[0],
@@ -75,7 +83,7 @@ class AddBookForm extends PureComponent {
             author: this.state.author, 
             type: this.state.type,
             genre: this.state.genre,
-            photo: null,
+            photo: this.photo,
             price: 0,
         }
 
@@ -129,12 +137,16 @@ class AddBookForm extends PureComponent {
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Photo </label>
-                    <input className='container add-book-form__container_data-field' type='text' />
+                    <input 
+                        className='container add-book-form__container_data-field'
+                        type='file'
+                        accept="image/x-png,image/gif,image/jpeg"
+                        onChange={this.imageChoosen} />
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Price </label>
-                    <input className='container add-book-form__container_data-field' type='text' />
+                    <input className='container add-book-form__container_data-field' type='number' />
                 </div>
 
                 <div className='container add-book-form__container add-book-form__container_control'>

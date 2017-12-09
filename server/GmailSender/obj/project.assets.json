@@ -664,7 +664,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\prola\\.nuget\\packages\\": {},
+    "C:\\Users\\beloh\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -673,17 +673,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\GmailSender\\GmailSender.csproj",
+      "projectUniqueName": "C:\\beloha\\work\\startup\\sNation\\app\\server\\GmailSender\\GmailSender.csproj",
       "projectName": "GmailSender",
-      "projectPath": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\GmailSender\\GmailSender.csproj",
-      "packagesPath": "C:\\Users\\prola\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\GmailSender\\obj\\",
+      "projectPath": "C:\\beloha\\work\\startup\\sNation\\app\\server\\GmailSender\\GmailSender.csproj",
+      "packagesPath": "C:\\Users\\beloh\\.nuget\\packages\\",
+      "outputPath": "C:\\beloha\\work\\startup\\sNation\\app\\server\\GmailSender\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\prola\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\beloh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

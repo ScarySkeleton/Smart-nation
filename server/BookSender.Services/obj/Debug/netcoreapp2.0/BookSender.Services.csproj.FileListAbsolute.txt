@@ -9,3 +9,14 @@ C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Services\obj\Debug\ne
 C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Services\obj\Debug\netcoreapp2.0\BookSender.Services.AssemblyInfo.cs
 C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Services\obj\Debug\netcoreapp2.0\BookSender.Services.dll
 C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Services\obj\Debug\netcoreapp2.0\BookSender.Services.pdb
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\bin\Debug\netcoreapp2.0\BookSender.Services.deps.json
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\bin\Debug\netcoreapp2.0\BookSender.Services.dll
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\bin\Debug\netcoreapp2.0\BookSender.Services.pdb
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\bin\Debug\netcoreapp2.0\BookSender.Data.dll
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\bin\Debug\netcoreapp2.0\BookSender.Data.pdb
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\obj\Debug\netcoreapp2.0\BookSender.Services.csprojResolveAssemblyReference.cache
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\obj\Debug\netcoreapp2.0\BookSender.Services.csproj.CoreCompileInputs.cache
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\obj\Debug\netcoreapp2.0\BookSender.Services.AssemblyInfoInputs.cache
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\obj\Debug\netcoreapp2.0\BookSender.Services.AssemblyInfo.cs
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\obj\Debug\netcoreapp2.0\BookSender.Services.dll
+C:\beloha\work\startup\sNation\app\server\BookSender.Services\obj\Debug\netcoreapp2.0\BookSender.Services.pdb
