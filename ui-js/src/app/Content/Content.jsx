@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
+import './content.scss';
 import PrivateRoute from '../../services/router/PrivateRoute';
 import HomePage from '../../containers/page/home/Home';
 import LoginPage from '../../containers/page/login/Login';
@@ -13,6 +14,13 @@ import CabinetPage from '../../containers/page/cabinet/Cabinet';
 let Content = (props) => {
     return (
         <div className='body-content'>
+
+            {
+                (props.isFetchingData === true) 
+                ? <div className='spinner'></div>
+                : null
+            }
+
             <Route exact path='/' component={HomePage} />
 
             <Route path='/login' component={() => (
@@ -37,6 +45,8 @@ const mapStateToProps = state => {
         isLogined: state.Login.isLogined,
         isRegisteredSuccess: state.Register.isRegisteredSuccess,
         isRegisteredFailure: state.Register.isRegisteredFailure,
+        // Some data is fetching on the site
+        isFetchingData: state.globalState.isFetching,
     }
 }
 

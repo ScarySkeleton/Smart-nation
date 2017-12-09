@@ -1,18 +1,18 @@
 import {
     take,
     call,
-    put
-} from 'redux-saga/effects';
+    put } from 'redux-saga/effects';
 
 import { 
     FETCH_ADD_BOOK,
     successAddBook,
-    failureAddBook,
-} from './addBook.action';
+    failureAddBook } from './addBook.action';
+import {
+    isFetching,
+    isntFetching } from '../../../../../services/store/globalState/global.actions';
 
 import {
-    addBook
-} from '../../../../../services/Api';
+    addBook } from '../../../../../services/Api';
 
 export default function* watchAddingBook() {
     while(true) {
@@ -23,9 +23,14 @@ export default function* watchAddingBook() {
 
 function* callAddingBook(data) {
     try {
+        // SET Global state - fetching
+        yield put(isFetching());
+        // API
         const response = yield call(addBook(data));
         yield put(successAddBook(response));
     } catch(err) {
         yield put(failureAddBook());
+    } finally {
+        yield put(isntFetching());
     }
 }

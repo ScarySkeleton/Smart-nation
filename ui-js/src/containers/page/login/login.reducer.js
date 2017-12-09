@@ -5,12 +5,12 @@ import userDataMock from './Mocks/userMock.js';
 
 const initState = {
     userdata: {
-        name: userDataMock.data[0].name,
-        surname: userDataMock.data[0].surname,
-        userName: userDataMock.data[0].login,
-        role: userDataMock.data[0].role,
+        name: null,//,userDataMock.data[0].name,
+        surname: null,//userDataMock.data[0].surname,
+        userName: null,//userDataMock.data[0].login,
+        role: null,//userDataMock.data[0].role,
     },
-    isLogined: true,
+    isLogined: false,
     loginFetch: false,
 };
 

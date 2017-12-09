@@ -6,6 +6,11 @@ function statusChecker(response) {
     return Promise.reject(response);
 }
 
+/*
+    ================================================================
+                    USER LOGIN\LOGOUT\REGESTRATION
+    ================================================================
+*/
 export function loginRequest(userData) {
     return function () {
         return fetch("http://localhost:50363/Account/Login", {
@@ -47,9 +52,7 @@ export function registrationRequest(userData) {
 }
 
 export function logoutRequest() {
-    
-    //return function() {
-        console.log("logout"); 
+    return function() {
         return fetch("http://localhost:50363/Account/Logout", {
             method: "POST", 
             headers: {
@@ -58,15 +61,15 @@ export function logoutRequest() {
             },
             mode: "cors",
             credentials: "include",
-            body: JSON.stringify({
-                Email: "das@mail.ru",
-                Phone: "+380555",
-                Password: "SDAS"
-            })
         });
-    //}
+    }
 }
 
+/*
+    ================================================
+                    USER CABINET
+    ================================================
+*/
 export function getCabinetData(data) {
     return function() {
         return {
@@ -79,8 +82,40 @@ export function getCabinetData(data) {
 
 export function addBook(data) {
     return function() {
-        return {
-            bookId: 2,
-        }
+        return fetch("http://localhost:50363/PersonalCabinet/AddBook", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json, text/javascript, */*; q=0.01',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            mode: "cors",
+            credentials: "include",
+            body: JSON.stringify(data)
+        })
+        .then(statusChecker)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        })
+    }
+}
+
+export function getBookShelfBooks() {
+    return function() {
+        return fetch("http://localhost:50363/PersonalCabinet/GetAllUserBooks", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json, text/javascript, */*; q=0.01',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            mode: "cors",
+            credentials: "include"
+        })
+        .then(statusChecker)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+            return json;
+        })
     }
 }

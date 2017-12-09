@@ -1,10 +1,14 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
+import './addBookForm.scss';
 import Select from '../../../../../components/select/Select';
 import {
     fetchAddBook
 } from './addBook.action';
+import {
+    isFetching,
+    isntFetching } from '../../../../../services/store/globalState/global.actions';
 
 import Types from './Mocks/type.js';
 import Genres from './Mocks/genre.js';
@@ -23,25 +27,31 @@ class AddBookForm extends PureComponent {
             type: Types[0],
             genre: Genres[0],
             photo: '',
+            price: 0,
+
+            errorMessage: '',
         }
         
         this.nameUpdate = this.nameUpdate.bind(this);
         this.authorUpdate = this.authorUpdate.bind(this);
         this.listUpdate = this.listUpdate.bind(this);
         this.imageChoosen = this.imageChoosen.bind(this);
+        this.priceUpdate = this.priceUpdate.bind(this);
         this.reset = this.reset.bind(this);
         this.addBook = this.addBook.bind(this);
     }
 
     nameUpdate(e) {
         this.setState({
-            name: e.target.value
+            name: e.target.value,
+            errorMessage: '',
         })
     }
 
     authorUpdate(e) {
         this.setState({
-            author: e.target.value
+            author: e.target.value,
+            errorMessage: '',
         })
     }
 
@@ -63,18 +73,49 @@ class AddBookForm extends PureComponent {
     }
 
     imageChoosen(e) {
+        let input = e.target;
+        let reader = new FileReader();
+
+        reader.onload = () => {
+            let binaryFile = reader.result;
+            this.setState({
+                photoInBinary: binaryFile,
+                errorMessage: '',
+            });
+        }
+        reader.onerror = () => {
+            this.setState({
+                errorMessage: 'File was not loaded.' 
+            })
+        }
+        reader.onloadend = () => {
+            this.props.isntFetching();
+        }
+
+        this.props.isFetching();
+        reader.readAsBinaryString(input.files[0]);
+
         this.setState({
-            photo: e.target.value
+            photo: input.files[0].name
+        })
+    }
+
+    priceUpdate(e) {
+        this.setState({
+            price: e.target.price
         })
     }
 
     reset() {
         this.setState({
-            types: Types[0],
-            genres: Genres[0]
+            name: '',
+            author: '',
+            type: Types[0],
+            genre: Genres[0],
+            photo: '',
+            price: 0,
+            errorMessage: '',
         });
-        this.name = '';
-        this.author = '';
     }
 
     addBook() {
@@ -83,8 +124,8 @@ class AddBookForm extends PureComponent {
             author: this.state.author, 
             type: this.state.type,
             genre: this.state.genre,
-            photo: this.photo,
-            price: 0,
+            photo: this.state.photo,
+            price: this.state.price,
         }
 
         const config = {
@@ -96,23 +137,42 @@ class AddBookForm extends PureComponent {
         if(toValidate.validate()) {
             // TODO:
             //      Show error's message
+            this.setState({
+                errorMessage: toValidate.messages
+            })
             return;
         }
         
         this.props.fetchAddingBook(data);
     }
 
-    render() {        
+    render() { 
         return (
             <div className='container add-book-form'>
                 <h3>
                     Enter all needed data, thx!
                 </h3>
 
+                { 
+                    this.state.errorMessage &&  <p 
+                        className='container add-book-form__error-message'>
+                        {   this.state.errorMessage.map((message, index) => {
+                                return (
+                                    <label key={index}>
+                                        {message}
+                                    </label>
+                                )
+                            })
+                        }
+                     </p>
+                }
+               
+
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Name*: </label>
                     <input className='container add-book-form__container_data-field' 
                         type='text'
+                        value={this.state.name}
                         onChange={this.nameUpdate} />
                 </div>
 
@@ -120,19 +180,24 @@ class AddBookForm extends PureComponent {
                     <label className='container add-book-form__container_description'> Author*: </label>
                     <input className='container add-book-form__container_data-field' 
                         type='text'
+                        value={this.state.author}
                         onChange={this.authorUpdate} />
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Type*: </label>
-                    <Select data={Types} selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select' 
-                        selected={this.state.type} onSelect={this.listUpdate} /> 
+                    <Select data={Types} 
+                        selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select' 
+                        selected={this.state.type}
+                        onSelect={this.listUpdate} /> 
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Genre*: </label>
-                    <Select data={Genres} selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select'
-                        selected={this.state.genre} onSelect={this.listUpdate} />
+                    <Select data={Genres}
+                        selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select'
+                        selected={this.state.genre}
+                        onSelect={this.listUpdate} />
                 </div>
 
                 <div className='container add-book-form__container'>
@@ -146,7 +211,10 @@ class AddBookForm extends PureComponent {
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Price </label>
-                    <input className='container add-book-form__container_data-field' type='number' />
+                    <input className='container add-book-form__container_data-field'
+                    type='number'
+                    value={this.state.price}
+                    onChange={this.priceUpdate} />
                 </div>
 
                 <div className='container add-book-form__container add-book-form__container_control'>
@@ -168,6 +236,8 @@ class AddBookForm extends PureComponent {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAddingBook: (data) => dispatch(fetchAddBook(data)),
+        isFetching: () => dispatch(isFetching()),
+        isntFetching: () => dispatch(isntFetching()),
     }
 }
 
