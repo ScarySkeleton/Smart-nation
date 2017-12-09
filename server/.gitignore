@@ -261,17 +261,17 @@ __pycache__/
 *.pyc
 
 #WokasIgnore vs2017
-.vs/
-server/BookSender/BookSender.csproj.user
-server/BookSender/.vs/
-server/BookSender/obj/
-server/BookSender/bin/
-server/BookSender.Data/bin/
-server/BookSender.Data/obj/
-server/BookSender.Services/bin/
-server/BookSender.Services/obj/
-server/GmailSender/bin/
-server/GmailSender/obj/
-server/XBookSender/bin/
-server/XBookSender/obj/
-server/BookSender/appsettings.json
+../.vs/
+BookSender/BookSender.csproj.user
+BookSender/.vs/
+BookSender/obj/
+BookSender/bin/
+BookSender.Data/bin/
+BookSender.Data/obj/
+BookSender.Services/bin/
+BookSender.Services/obj/
+GmailSender/bin/
+GmailSender/obj/
+XBookSender/bin/
+XBookSender/obj/
+BookSender/appsettings.json
