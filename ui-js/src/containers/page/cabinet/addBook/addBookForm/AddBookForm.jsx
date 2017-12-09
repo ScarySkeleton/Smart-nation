@@ -6,9 +6,6 @@ import Select from '../../../../../components/select/Select';
 import {
     fetchAddBook
 } from './addBook.action';
-import {
-    isFetching
-} from '../../../../../services/store/globalState/global.actions';
 
 import Types from './Mocks/type.js';
 import Genres from './Mocks/genre.js';
@@ -120,7 +117,6 @@ class AddBookForm extends PureComponent {
             return;
         }
         
-        this.props.isFetching();
         this.props.fetchAddingBook(data);
     }
 
@@ -216,7 +212,6 @@ class AddBookForm extends PureComponent {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAddingBook: (data) => dispatch(fetchAddBook(data)),
-        isFetching: () => dispatch(isFetching()),
     }
 }
 

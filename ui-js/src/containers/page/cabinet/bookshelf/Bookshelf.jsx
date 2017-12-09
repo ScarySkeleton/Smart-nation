@@ -5,7 +5,6 @@ import {
     fetchingBookShelfBooks
 } from './bookshelf.actions';
 
-
 class Bookshelf extends PureComponent {
 
     constructor(props) {
@@ -17,7 +16,6 @@ class Bookshelf extends PureComponent {
     }
 
     render() {
-        console.log(this.props.bookShelfBooks);
         return (
             <div className='container bookshelf-cabinet'>
                 {
