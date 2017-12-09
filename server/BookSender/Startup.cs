@@ -39,9 +39,7 @@ namespace BookSender
 			services.AddScoped<IRatingStatusService, RatingStatusService>();
 			services.AddScoped<IReviewService, ReviewService>();
 
-			//string connection = @"Data Source=.\SQLEXPRESS;Initial Catalog=SMARTDB;Integrated Security=True";
-			//string connection = @"Server=tcp:smartserv.database.windows.net,1433;Initial Catalog=SMARTDB;Persist Security Info=False;User ID=Woka;Password='{ezhm-"+"\""+",jim1'; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-			services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
 
             services.Configure<FormOptions>(options => options.BufferBody = true);
             services.AddCors(options =>

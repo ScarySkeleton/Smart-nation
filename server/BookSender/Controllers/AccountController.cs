@@ -14,6 +14,7 @@ using BookSender.Data.Models.AccessoryModels;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using LoginData = BookSender.Data.Models.AccessoryModels.LoginModel;
+using System.Text.RegularExpressions;
 
 namespace BookSender.Controllers
 {
@@ -73,7 +74,12 @@ namespace BookSender.Controllers
             {
                 if (model != null)
                 {
-                    if (String.IsNullOrEmpty(model.Email) == false)
+                    Regex regexEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                    Regex regexPhone = new Regex(@"^+(\d{3}+)(\d{9}+)$");
+                    Match match = regexEmail.Match(model.Email);
+
+
+                    if (match.Success)
                     {
                         BookSender.Data.Models.User user = await _context.Users
                             .Include(u => u.Role)
