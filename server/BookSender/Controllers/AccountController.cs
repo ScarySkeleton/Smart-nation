@@ -61,15 +61,16 @@ namespace BookSender.Controllers
                 if (model != null)
                 {
                     Regex regexEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-                    Regex regexPhone = new Regex(@"^+(\d{3}+)(\d{9}+)$");
-                    Match match = regexEmail.Match(model.Email);
+                    Regex regexPhone = new Regex(@"^\+\d{12}");
+                    Match matchEmail = (model.userLogInfo != null)?regexEmail.Match(model.userLogInfo) : regexEmail.Match("");
+                    Match matchPhone = (model.userLogInfo != null)?regexPhone.Match(model.userLogInfo) : regexPhone.Match("");
 
 
-                    if (match.Success)
+                    if (matchEmail.Success)
                     {
                         BookSender.Data.Models.User user = await _context.Users
                             .Include(u => u.Role)
-                            .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                            .FirstOrDefaultAsync(u => u.Email == model.userLogInfo && u.Password == model.Password);
 
 
 						AccountLoginResponce acc = new AccountLoginResponce
@@ -80,30 +81,25 @@ namespace BookSender.Controllers
 							Role = user.Role != null ? user.Role.Name : "Guest",
 						};
 
-
 						await Authenticate(user);
-
 
 						return Json(acc);
 					}
-					else if (String.IsNullOrEmpty(model.Phone) == false)
+					else if (matchPhone.Success)
 					{
 						BookSender.Data.Models.User user = await _context.Users
 							.Include(u => u.Role)
-							.FirstOrDefaultAsync(u => u.PhoneNumber == model.Phone && u.Password == model.Password);
+							.FirstOrDefaultAsync(u => u.PhoneNumber == model.userLogInfo && u.Password == model.Password);
 
-						AccountLoginResponce acc = new AccountLoginResponce
-						{
-							Login = "voviKAVE",
-							Name = user.FirstName,
-							Surname = user.LastName,
-							Role = "Admin"
-							//Role = user.Role.Name,
-							// StatusCode = StatusCode(500).ToString()
-						};
+                        AccountLoginResponce acc = new AccountLoginResponce
+                        {
+                            Login = user.Email,
+                            Name = user.FirstName,
+                            Surname = user.LastName,
+                            Role = user.Role != null ? user.Role.Name : "Guest",
+                        };
 
-
-						await Authenticate(user, isEmailAuth: false);
+                        await Authenticate(user, isEmailAuth: false);
 
 						return Json(acc);
 					}
@@ -131,36 +127,36 @@ namespace BookSender.Controllers
 
 		}
 
-		[HttpPut]
-		public async Task<JsonResult> NewPassword(string request)
-		{
-			try
-			{
-				dynamic requestDyn = JsonConvert.DeserializeObject(request);
+		//[HttpPut]
+		//public async Task<JsonResult> NewPassword(string request)
+		//{
+		//	try
+		//	{
+		//		dynamic requestDyn = JsonConvert.DeserializeObject(request);
 
-				LoginData model =
-						 new LoginData
-						 { Email = requestDyn.Email, Password = requestDyn.Password, Phone = requestDyn.Phone };
+		//		//LoginData model =
+		//		//		 new LoginData
+		//		//		 { userLogInfo = requestDyn.Email, Password = requestDyn.Password, userLogInfo = requestDyn.Phone };
 
-				Data.Models.User user = await _context.Users
-						 .Include(u => u.Role)
-						 .FirstOrDefaultAsync(u => u.Email == model.Email || u.PhoneNumber == model.Phone);
+		//		//Data.Models.User user = await _context.Users
+		//		//		 .Include(u => u.Role)
+		//		//		 .FirstOrDefaultAsync(u => u.Email == model.Email || u.PhoneNumber == model.Phone);
 
-				if (String.IsNullOrEmpty(model.Password) == false)
-				{
-					user.Password = model.Password;
-					await _context.SaveChangesAsync();
+		//		if (String.IsNullOrEmpty(model.Password) == false)
+		//		{
+		//			user.Password = model.Password;
+		//			await _context.SaveChangesAsync();
 
-					return Json(" 'Answer' : 'Password was successfully updated' ");
-				}
-				else
-					throw new Exception("Empty password string");
-			}
-			catch (Exception ex)
-			{
-				return Json($" 'Answer' ; 'Something goes wrong', 'Error' : '{ex.Message}' ");
-			}
-		}
+		//			return Json(" 'Answer' : 'Password was successfully updated' ");
+		//		}
+		//		else
+		//			throw new Exception("Empty password string");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return Json($" 'Answer' ; 'Something goes wrong', 'Error' : '{ex.Message}' ");
+		//	}
+		//}
 
 		private async Task Authenticate(Data.Models.User user, bool isEmailAuth = true)
 		{
