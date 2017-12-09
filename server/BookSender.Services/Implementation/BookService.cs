@@ -44,6 +44,7 @@ namespace BookSender.Services
 			existed.Author = book.Author;
 			existed.Description = existed.Description;
 			existed.CurrentUserId = book.CurrentUserId;
+            existed.BookTypeId = book.BookTypeId;
 			existed.ISBN = book.ISBN;
 			existed.Price = book.Price;
 			existed.PrintedOn = book.PrintedOn;
