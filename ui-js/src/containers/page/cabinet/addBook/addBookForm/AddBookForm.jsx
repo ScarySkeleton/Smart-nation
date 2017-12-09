@@ -6,6 +6,9 @@ import Select from '../../../../../components/select/Select';
 import {
     fetchAddBook
 } from './addBook.action';
+import {
+    isFetching,
+    isntFetching } from '../../../../../services/store/globalState/global.actions';
 
 import Types from './Mocks/type.js';
 import Genres from './Mocks/genre.js';
@@ -70,8 +73,30 @@ class AddBookForm extends PureComponent {
     }
 
     imageChoosen(e) {
+        let input = e.target;
+        let reader = new FileReader();
+
+        reader.onload = () => {
+            let binaryFile = reader.result;
+            this.setState({
+                photoInBinary: binaryFile,
+                errorMessage: '',
+            });
+        }
+        reader.onerror = () => {
+            this.setState({
+                errorMessage: 'File was not loaded.' 
+            })
+        }
+        reader.onloadend = () => {
+            this.props.isntFetching();
+        }
+
+        this.props.isFetching();
+        reader.readAsBinaryString(input.files[0]);
+
         this.setState({
-            photo: e.target.value
+            photo: input.files[0].name
         })
     }
 
@@ -89,6 +114,7 @@ class AddBookForm extends PureComponent {
             genre: Genres[0],
             photo: '',
             price: 0,
+            errorMessage: '',
         });
     }
 
@@ -120,8 +146,7 @@ class AddBookForm extends PureComponent {
         this.props.fetchAddingBook(data);
     }
 
-    render() {
-        console.log(this.state.errorMessage);    
+    render() { 
         return (
             <div className='container add-book-form'>
                 <h3>
@@ -181,7 +206,6 @@ class AddBookForm extends PureComponent {
                         className='container add-book-form__container_data-field'
                         type='file'
                         accept="image/x-png,image/gif,image/jpeg"
-                        value={this.state.photo}
                         onChange={this.imageChoosen} />
                 </div>
 
@@ -212,6 +236,8 @@ class AddBookForm extends PureComponent {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAddingBook: (data) => dispatch(fetchAddBook(data)),
+        isFetching: () => dispatch(isFetching()),
+        isntFetching: () => dispatch(isntFetching()),
     }
 }
 
