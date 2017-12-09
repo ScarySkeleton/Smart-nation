@@ -7,9 +7,11 @@ using BookSender.Data.Models;
 using BookSender.Data;
 using Microsoft.EntityFrameworkCore;
 using BookSender.Models.AccessoryModels;
+using Microsoft.AspNetCore.Cors;
 
 namespace BookSender.Controllers
 {
+    [EnableCors("CorsPolicy")]
     public class PersonalCabinetController : Controller
     {
         private readonly ApplicationContext _context;

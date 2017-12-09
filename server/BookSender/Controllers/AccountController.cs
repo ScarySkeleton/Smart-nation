@@ -61,11 +61,12 @@ namespace BookSender.Controllers
                 if (model != null)
                 {
                     Regex regexEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-                    Regex regexPhone = new Regex(@"^+(\d{3}+)(\d{9}+)$");
-                    Match match = regexEmail.Match(model.Email);
+                    Regex regexPhone = new Regex(@"^\+\d{12}");
+                    Match matchEmail = regexEmail.Match(model.Email);
+                    Match matchPhone = regexPhone.Match(model.Phone);
 
 
-                    if (match.Success)
+                    if (matchEmail.Success)
                     {
                         BookSender.Data.Models.User user = await _context.Users
                             .Include(u => u.Role)
@@ -80,30 +81,25 @@ namespace BookSender.Controllers
 							Role = user.Role != null ? user.Role.Name : "Guest",
 						};
 
-
 						await Authenticate(user);
-
 
 						return Json(acc);
 					}
-					else if (String.IsNullOrEmpty(model.Phone) == false)
+					else if (matchPhone.Success)
 					{
 						BookSender.Data.Models.User user = await _context.Users
 							.Include(u => u.Role)
 							.FirstOrDefaultAsync(u => u.PhoneNumber == model.Phone && u.Password == model.Password);
 
-						AccountLoginResponce acc = new AccountLoginResponce
-						{
-							Login = "voviKAVE",
-							Name = user.FirstName,
-							Surname = user.LastName,
-							Role = "Admin"
-							//Role = user.Role.Name,
-							// StatusCode = StatusCode(500).ToString()
-						};
+                        AccountLoginResponce acc = new AccountLoginResponce
+                        {
+                            Login = user.Email,
+                            Name = user.FirstName,
+                            Surname = user.LastName,
+                            Role = user.Role != null ? user.Role.Name : "Guest",
+                        };
 
-
-						await Authenticate(user, isEmailAuth: false);
+                        await Authenticate(user, isEmailAuth: false);
 
 						return Json(acc);
 					}
