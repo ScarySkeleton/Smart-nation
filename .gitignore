@@ -262,6 +262,8 @@ __pycache__/
 
 #WokasIgnore vs2017
 
+server/.vs/
+ server/BookSender/BookSender.csproj.user
 server/BookSender/obj/
 server/BookSender/bin/
 server/BookSender.Data/obj/
