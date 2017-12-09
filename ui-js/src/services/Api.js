@@ -57,11 +57,6 @@ export function logoutRequest() {
             },
             mode: "cors",
             credentials: "include",
-            body: JSON.stringify({
-                Email: "das@mail.ru",
-                Phone: "+380555",
-                Password: "SDAS"
-            })
         });
     }
 }
@@ -77,7 +72,6 @@ export function getCabinetData(data) {
 }
 
 export function addBook(data) {
-    console.log(JSON.stringify(data));
     return function() {
         return fetch("http://localhost:50363/PersonalCabinet/AddBook", {
             method: "POST",
@@ -89,6 +83,10 @@ export function addBook(data) {
             credentials: "include",
             body: JSON.stringify(data)
         })
-        .then(statusChecker);
+        .then(statusChecker)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        })
     }
 }
