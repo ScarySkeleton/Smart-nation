@@ -125,6 +125,7 @@ class AddBookForm extends PureComponent {
             type: this.state.type,
             genre: this.state.genre,
             photo: this.state.photo,
+            photoInBinary: this.state.photoInBinary,
             price: this.state.price,
         }
 
