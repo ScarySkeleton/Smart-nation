@@ -12,6 +12,7 @@ import CabinetNav from './nav/Nav';
 import CabinetHome from './home/Home';
 import CabinetInfo from './info/Info';
 import CabinetBookshelf from './bookshelf/Bookshelf';
+import CabinetAddBook from './addBook/AddBook';
 
 class Cabinet extends PureComponent {
     constructor(props) {
@@ -30,6 +31,7 @@ class Cabinet extends PureComponent {
                 <Switch>
                     <Route exact path='/cabinet/info' component={CabinetInfo} />
                     <Route exact path='/cabinet/my-bookshelf' component={CabinetBookshelf} />
+                    <Route exact path='/cabinet/add-book' component={CabinetAddBook} />
                     <Route path='/cabinet/' component={CabinetHome} />
                 </Switch>
             </div>
