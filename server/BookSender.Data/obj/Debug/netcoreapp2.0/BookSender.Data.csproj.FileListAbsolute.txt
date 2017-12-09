@@ -1,0 +1,9 @@
+C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Data\bin\Debug\netcoreapp2.0\BookSender.Data.deps.json
+C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Data\bin\Debug\netcoreapp2.0\BookSender.Data.dll
+C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Data\obj\Debug\netcoreapp2.0\BookSender.Data.csprojResolveAssemblyReference.cache
+C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Data\obj\Debug\netcoreapp2.0\BookSender.Data.csproj.CoreCompileInputs.cache
+C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Data\obj\Debug\netcoreapp2.0\BookSender.Data.AssemblyInfoInputs.cache
+C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Data\obj\Debug\netcoreapp2.0\BookSender.Data.AssemblyInfo.cs
+C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Data\bin\Debug\netcoreapp2.0\BookSender.Data.pdb
+C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Data\obj\Debug\netcoreapp2.0\BookSender.Data.dll
+C:\Users\prola\Source\Repos\Smart-nation\server\BookSender.Data\obj\Debug\netcoreapp2.0\BookSender.Data.pdb

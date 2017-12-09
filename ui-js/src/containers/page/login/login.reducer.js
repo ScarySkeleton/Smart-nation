@@ -1,13 +1,16 @@
 import * as actions from './login.actions.js';
 
+// Mock 
+import userDataMock from './Mocks/userMock.js';
+
 const initState = {
     userdata: {
-        name: null,
-        surname: null,
-        userName: null,
-        role: null,
+        name: userDataMock.data[0].name,
+        surname: userDataMock.data[0].surname,
+        userName: userDataMock.data[0].login,
+        role: userDataMock.data[0].role,
     },
-    isLogined: false,
+    isLogined: true,
     loginFetch: false,
 };
 

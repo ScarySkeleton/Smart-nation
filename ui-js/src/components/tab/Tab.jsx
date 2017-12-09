@@ -1,15 +1,17 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
-const Tab = props => {
+let Tab = props => {
+    const prevPath = props.match.url === '/' ? '' : props.match.url;
     const resolvePath = path => '/'.concat(path.toLowerCase().replace(" ", "-"));
     return (
         <li className='tab__item'>
             <NavLink
                 className={'tab__link' + (props.isLogined) ? '-Logined' : '-unLogined'}
                 activeClassName='tab__link-active'
-                to={resolvePath(props.name.toLowerCase())}
+                to={prevPath + resolvePath(props.name.toLowerCase())}
                 >
                 {props.name}
             </NavLink>
@@ -27,4 +29,4 @@ Tab.propTypes = {
     isLogined: propTypes.bool,
 }
 
-export default Tab;
+export default Tab = withRouter(Tab);

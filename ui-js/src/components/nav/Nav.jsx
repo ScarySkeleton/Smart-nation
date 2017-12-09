@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 import './nav.scss';
 import Tab from '../tab/Tab.jsx';
 
 const loginedNav = [
     "Cabinet",
-    "Bookshelf"
+    "Bookshelf",
+    "Logout"
 ];
 
 const unLoginedNav = [
@@ -34,27 +35,25 @@ class Nav extends PureComponent {
 
     render() {
         return (
-                <ul className='container ul nav__ul'>
-                    {
-                        (this.props.isLogined) 
-                                                ? 
-
-                        loginedNav.map((el, index) => {
-                            return <Tab
-                                key={index}
-                                name={el}
-                                isLogined={true} />
-                        })
-                        
-                                                :
-                        unLoginedNav.map((el, index) => {
-                            return <Tab 
-                                key={index}
-                                name={el}
-                                isLogined={false} />
-                        })
-                    }
-                </ul>
+            <ul className='container ul nav__ul'>
+                {
+                    (this.props.isLogined) 
+                    ? 
+                    loginedNav.map((el, index) => {
+                        return <Tab
+                            key={index}
+                            name={el}
+                            isLogined={true} />
+                    })
+                    :
+                    unLoginedNav.map((el, index) => {
+                        return <Tab 
+                            key={index}
+                            name={el}
+                            isLogined={false} />
+                    })
+                }
+            </ul>
         );
     }
 };

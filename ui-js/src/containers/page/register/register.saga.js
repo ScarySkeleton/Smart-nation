@@ -1,4 +1,4 @@
-import { call, take, put, fork, all } from 'redux-saga/effects';
+import { call, take, put } from 'redux-saga/effects';
 import {
     REGISTER_REQUEST,
     registerSuccess,
@@ -15,7 +15,7 @@ export default function* watchRegistration() {
 
 export function* fetchRegistrationRequest(userData) {
     try {
-        const response = yield call(registrationRequest(userData));
+        yield call(registrationRequest(userData)); // const response = 
         yield put(registerSuccess());
     } catch (error) {
         yield put(registerFailure());

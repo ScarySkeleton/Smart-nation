@@ -115,12 +115,13 @@ class RegisterContainer extends PureComponent {
 
                 <Link to='/login'> Have an account </Link>
 
-                <button onClick={this.Clear}>
-                    Clear
-                </button>
-                <button onClick={this.registerRequest}>
+                <button className="register__block-btn" onClick={this.registerRequest}>
                     Register
                 </button>
+                <button className="register__block-btn" onClick={this.Clear}>
+                    Clear
+                </button>
+                
             </div>
         );
     }
