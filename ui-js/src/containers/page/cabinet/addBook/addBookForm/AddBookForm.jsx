@@ -23,12 +23,14 @@ class AddBookForm extends PureComponent {
             type: Types[0],
             genre: Genres[0],
             photo: '',
+            price: 0,
         }
         
         this.nameUpdate = this.nameUpdate.bind(this);
         this.authorUpdate = this.authorUpdate.bind(this);
         this.listUpdate = this.listUpdate.bind(this);
         this.imageChoosen = this.imageChoosen.bind(this);
+        this.priceUpdate = this.priceUpdate.bind(this);
         this.reset = this.reset.bind(this);
         this.addBook = this.addBook.bind(this);
     }
@@ -68,13 +70,21 @@ class AddBookForm extends PureComponent {
         })
     }
 
+    priceUpdate(e) {
+        this.setState({
+            price: e.target.price
+        })
+    }
+
     reset() {
         this.setState({
-            types: Types[0],
-            genres: Genres[0]
+            name: '',
+            author: '',
+            type: Types[0],
+            genre: Genres[0],
+            photo: '',
+            price: 0,
         });
-        this.name = '';
-        this.author = '';
     }
 
     addBook() {
@@ -83,8 +93,8 @@ class AddBookForm extends PureComponent {
             author: this.state.author, 
             type: this.state.type,
             genre: this.state.genre,
-            photo: this.photo,
-            price: 0,
+            photo: this.state.photo,
+            price: this.state.price,
         }
 
         const config = {
@@ -113,6 +123,7 @@ class AddBookForm extends PureComponent {
                     <label className='container add-book-form__container_description'> Name*: </label>
                     <input className='container add-book-form__container_data-field' 
                         type='text'
+                        value={this.state.name}
                         onChange={this.nameUpdate} />
                 </div>
 
@@ -120,19 +131,24 @@ class AddBookForm extends PureComponent {
                     <label className='container add-book-form__container_description'> Author*: </label>
                     <input className='container add-book-form__container_data-field' 
                         type='text'
+                        value={this.state.author}
                         onChange={this.authorUpdate} />
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Type*: </label>
-                    <Select data={Types} selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select' 
-                        selected={this.state.type} onSelect={this.listUpdate} /> 
+                    <Select data={Types} 
+                        selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select' 
+                        selected={this.state.type}
+                        onSelect={this.listUpdate} /> 
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Genre*: </label>
-                    <Select data={Genres} selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select'
-                        selected={this.state.genre} onSelect={this.listUpdate} />
+                    <Select data={Genres}
+                        selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select'
+                        selected={this.state.genre}
+                        onSelect={this.listUpdate} />
                 </div>
 
                 <div className='container add-book-form__container'>
@@ -141,12 +157,16 @@ class AddBookForm extends PureComponent {
                         className='container add-book-form__container_data-field'
                         type='file'
                         accept="image/x-png,image/gif,image/jpeg"
+                        value={this.state.photo}
                         onChange={this.imageChoosen} />
                 </div>
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Price </label>
-                    <input className='container add-book-form__container_data-field' type='number' />
+                    <input className='container add-book-form__container_data-field'
+                    type='number'
+                    value={this.state.price}
+                    onChange={this.priceUpdate} />
                 </div>
 
                 <div className='container add-book-form__container add-book-form__container_control'>
