@@ -3332,7 +3332,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\prola\\.nuget\\packages\\": {},
+    "C:\\Users\\coold\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -3341,17 +3341,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\BookSender.Data\\BookSender.Data.csproj",
+      "projectUniqueName": "C:\\Users\\coold\\source\\repos\\te\\Smart-nation\\server\\BookSender.Data\\BookSender.Data.csproj",
       "projectName": "BookSender.Data",
-      "projectPath": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\BookSender.Data\\BookSender.Data.csproj",
-      "packagesPath": "C:\\Users\\prola\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\prola\\Source\\Repos\\Smart-nation\\server\\BookSender.Data\\obj\\",
+      "projectPath": "C:\\Users\\coold\\source\\repos\\te\\Smart-nation\\server\\BookSender.Data\\BookSender.Data.csproj",
+      "packagesPath": "C:\\Users\\coold\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\coold\\source\\repos\\te\\Smart-nation\\server\\BookSender.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\prola\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\coold\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3382,7 +3382,7 @@
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "2.0.0",
+            "version": "2.0",
             "autoReferenced": true
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
