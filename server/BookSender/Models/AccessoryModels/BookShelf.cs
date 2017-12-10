@@ -7,11 +7,12 @@ namespace BookSender.Models.AccessoryModels
 {
     public class BookShelf
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Author { get; set; }
         public DateTime? CreateOn { get; set; }
         public string Description { get; set; }
         public Decimal? Price { get; set; }
+        public string Title { get; set; }
         public string ContributorFirstName { get; set; }
         public string ContributorLastName { get; set; }
         public string FirstName { get; set; }

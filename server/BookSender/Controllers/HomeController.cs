@@ -36,7 +36,7 @@ namespace BookSender.Controllers
             string sqlExpression = "FindSearchedBook";
             var SearchedTitle = new SqlParameter("@searchedTitle", filteringModel.Title);
             var SearchedAuthor = new SqlParameter("@searchedAuthor", filteringModel.Author);
-            var BookGenre = new SqlParameter("@bookGenre", filteringModel.Gener);
+            var BookGener = new SqlParameter("@bookGener", filteringModel.Gener);
             var BookType = new SqlParameter("@bookType", filteringModel.Type);
             try
             {
@@ -47,7 +47,7 @@ namespace BookSender.Controllers
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(SearchedTitle);
                     command.Parameters.Add(SearchedAuthor);
-                    command.Parameters.Add(BookGenre);
+                    command.Parameters.Add(BookGener);
                     command.Parameters.Add(BookType);
 
                     var reader = command.ExecuteReader();
@@ -64,13 +64,14 @@ namespace BookSender.Controllers
                                     CreateOn = reader.GetDateTime(2),
                                     Description = reader.GetString(3),
                                     Price = reader.GetDecimal(4),
-                                    ContributorFirstName = reader.GetString(5),
-                                    ContributorLastName = reader.GetString(6),
-                                    FirstName = reader.GetString(7),
-                                    LastName = reader.GetString(8),
-                                    PhoneNumber = reader.GetString(9),
-                                    Genre = reader.GetString(10),
-                                    BookType = reader.GetString(11)
+                                    Title = reader.GetString(5),
+                                    ContributorFirstName = reader.GetString(6),
+                                    ContributorLastName = reader.GetString(7),
+                                    FirstName = reader.GetString(8),
+                                    LastName = reader.GetString(9),
+                                    PhoneNumber = reader.GetString(10),
+                                    Genre = reader.GetString(11),
+                                    BookType = reader.GetString(12)
                                 });
                         }
                     }
