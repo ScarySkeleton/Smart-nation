@@ -9,14 +9,14 @@ class SearchContainer extends PureComponent {
         this.search = this.search.bind(this);
     }
 
-    search() {
-        console.log(search);
+    search(...data) {
+        console.log(data);
     }
 
     render() {
         return ( 
             <Search
-            clickToSearch={this.search} />
+                clickToSearch={this.search} />
         );
     };
 };
