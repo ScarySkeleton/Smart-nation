@@ -29,7 +29,7 @@ namespace BookSender.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult GetAllSearchedBooks(FilteringModel filteringModel)
+        public JsonResult GetAllSearchedBooks([FromBody] FilteringModel filteringModel)
         {
             List<BookShelf> bookList = new List<BookShelf>();
 
