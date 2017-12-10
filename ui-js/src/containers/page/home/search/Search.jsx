@@ -18,8 +18,8 @@ class SearchContainer extends PureComponent {
         this.props.searchBooks({
             Title: titleValue,
             Author: authorValue,
-            Gener: null, 
-            Type: null,
+            Gener: "", 
+            Type: "",
             //issueValue,
             //categoryValue
         })

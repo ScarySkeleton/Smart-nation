@@ -36,7 +36,7 @@ namespace BookSender.Controllers
             string sqlExpression = "FindSearchedBook";
             var SearchedTitle = new SqlParameter("@searchedTitle", filteringModel.Title);
             var SearchedAuthor = new SqlParameter("@searchedAuthor", filteringModel.Author);
-            var BookGenre = new SqlParameter("@bookGenre", filteringModel.Gener);
+            var BookGener = new SqlParameter("@bookGener", filteringModel.Gener);
             var BookType = new SqlParameter("@bookType", filteringModel.Type);
             try
             {
@@ -47,11 +47,11 @@ namespace BookSender.Controllers
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(SearchedTitle);
                     command.Parameters.Add(SearchedAuthor);
-                    command.Parameters.Add(BookGenre);
+                    command.Parameters.Add(BookGener);
                     command.Parameters.Add(BookType);
 
-                    var reader = command.ExecuteReader();
-
+                    connection.Open();
+                    var reader = command.ExecuteReader();   
                     if (reader.HasRows)
                     {
                         while (reader.Read())
@@ -74,8 +74,8 @@ namespace BookSender.Controllers
                                 });
                         }
                     }
-
                     reader.Close();
+                    connection.Close();
                 }
                 return Json(bookList);
             }
