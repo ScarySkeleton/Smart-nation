@@ -38,43 +38,51 @@ namespace BookSender.Controllers
             var SearchedAuthor = new SqlParameter("@searchedAuthor", filteringModel.Author);
             var BookGenre = new SqlParameter("@bookGenre", filteringModel.Gener);
             var BookType = new SqlParameter("@bookType", filteringModel.Type);
-
-            using (SqlConnection connection = new SqlConnection(_context.Database.GetDbConnection().ConnectionString))
+            try
             {
-
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add(SearchedTitle);
-                command.Parameters.Add(SearchedAuthor);
-                command.Parameters.Add(BookGenre);
-                command.Parameters.Add(BookType);
-
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
+                using (SqlConnection connection = new SqlConnection(_context.Database.GetDbConnection().ConnectionString))
                 {
-                    while (reader.Read())
-                    {
-                        bookList.Add(
-                            new BookShelf {
-                                Id = reader.GetInt32(0),
-                                Author = reader.GetString(1),
-                                CreateOn = reader.GetDateTime(2),
-                                Description = reader.GetString(3),
-                                Price = reader.GetDecimal(4),
-                                ContributorFirstName = reader.GetString(5),
-                                ContributorLastName = reader.GetString(6),
-                                FirstName = reader.GetString(7),
-                                LastName = reader.GetString(8),
-                                PhoneNumber = reader.GetString(9),
-                                Genre = reader.GetString(10),
-                                BookType = reader.GetString(11)
-                            });
-                    }
-                }
 
-                reader.Close();
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(SearchedTitle);
+                    command.Parameters.Add(SearchedAuthor);
+                    command.Parameters.Add(BookGenre);
+                    command.Parameters.Add(BookType);
+
+                    var reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            bookList.Add(
+                                new BookShelf
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Author = reader.GetString(1),
+                                    CreateOn = reader.GetDateTime(2),
+                                    Description = reader.GetString(3),
+                                    Price = reader.GetDecimal(4),
+                                    ContributorFirstName = reader.GetString(5),
+                                    ContributorLastName = reader.GetString(6),
+                                    FirstName = reader.GetString(7),
+                                    LastName = reader.GetString(8),
+                                    PhoneNumber = reader.GetString(9),
+                                    Genre = reader.GetString(10),
+                                    BookType = reader.GetString(11)
+                                });
+                        }
+                    }
+
+                    reader.Close();
+                }
+                return Json(bookList);
             }
-            return Json(bookList);
+            catch (Exception ex)
+            {
+                return Json("zrada");
+            }
         }
 
         public IActionResult About()
