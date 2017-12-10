@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BookSender.Models;
 using BookSender.Data;
+using BookSender.Data.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 using BookSender.Models.AccessoryModels;

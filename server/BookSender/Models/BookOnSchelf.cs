@@ -2,7 +2,7 @@
 
 namespace BookSender.Models
 {
-	public class Book
+	public class BookOnShelf
     {
 		public int Id { get; set; }
 
@@ -32,13 +32,5 @@ namespace BookSender.Models
 
 		public bool IsUsable { get; set; }
 
-
-		public Picture Picture { get; set; }
-
-		public User CurrentUser { get; set; }
-
-		public User Contributor { get; set; }
-
-		public Genre Genre { get; set; }
 	}
 }

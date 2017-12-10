@@ -95,6 +95,7 @@ export function addBook(data) {
         .then(statusChecker)
         .then(response => response.json())
         .then(json => {
+            // Doing something after adding book
             console.log(json);
         })
     }

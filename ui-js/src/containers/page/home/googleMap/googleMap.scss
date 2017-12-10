@@ -1,0 +1,18 @@
+.google-map {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    &__container {
+        height: 400px;
+
+        &_element {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-color: rgb(229, 227, 223)
+        }
+    }
+}
