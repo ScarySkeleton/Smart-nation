@@ -26,8 +26,9 @@ export function searchBooks(searchData) {
         .then(statusChecker)
         .then(response => response.json())
         .then(json => {
-            console.log(json);
-            return json;
+            return {
+                searchedBooks: json
+            };
         });
     }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import './searchResult.scss';
 import Table from '../../../../components/table/Table';
 
 const columns = [
@@ -54,21 +55,21 @@ const columns = [
     }
 ];
 
-let SearchResult = props => (
-    <div className='container search-result'>
+let SearchResult = props => {
+    return <div className='container search-result'>
         {
-            props.searchBooks 
+            props.searchedBooks.length
             ? <div className='container search-result__books'>
                 <Table 
                     className={'container search-result__books_table'} 
-                    data={props.searchBooks}
+                    data={props.searchedBooks}
                     columns={columns}
                     />
                 </div>
             : <div className='container search-result__books_empty'>No books, sorry :((</div>            
         }
     </div>
-)
+}
 
 const mapStateToProps = state => {
     return {
