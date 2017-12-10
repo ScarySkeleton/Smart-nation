@@ -9,10 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using BookSender.Models.AccessoryModels;
 using Microsoft.AspNetCore.Cors;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using BookSender.Models;
 
 namespace BookSender.Controllers
 {
     [EnableCors("CorsPolicy")]
+	[Authorize]
     public class PersonalCabinetController : Controller
     {
         private readonly ApplicationContext _context;
@@ -30,7 +33,7 @@ namespace BookSender.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBook([FromBody] BookModel incomingBook)
+        public async Task<JsonResult> AddBook([FromBody] BookModel incomingBook)
         {
             try
             {
@@ -64,7 +67,7 @@ namespace BookSender.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> GetAllUserBooks()
+		public async Task<JsonResult> GetAllUserBooks()
 		{
 
 			try
@@ -77,7 +80,29 @@ namespace BookSender.Controllers
 				{
 					List<Book> userBooks = await _context.Books.Where(
 												b => b.ContributorId == user.Id).ToListAsync();
-					return Json(userBooks);
+
+					List<BookOnShelf> booksOnShelf = new List<BookOnShelf>();
+					
+					foreach(var book in userBooks)
+					{
+						booksOnShelf.Add(new BookOnShelf() {
+							Id = book.Id,
+							AmazonId = book.AmazonId,
+							Title = book.Title,
+							Author = book.Author,
+							ConributorId = book.ContributorId,
+							CurrentUserId = book.CurrentUserId,
+							Description = book.Description,
+							CreatedOn = book.CreatedOn,
+							PrintedOn = book.PrintedOn,
+							GenreId = book.GenreId,
+							ISBN = book.ISBN,
+							IsUsable = book.IsUsable,
+							Price = book.Price
+						});
+					}
+
+					return Json(booksOnShelf);
 				}
 				else
 				{
