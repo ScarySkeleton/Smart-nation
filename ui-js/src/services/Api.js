@@ -27,6 +27,7 @@ export function searchBooks(searchData) {
         .then(response => response.json())
         .then(json => {
             console.log(json);
+            return json;
         });
     }
 }
