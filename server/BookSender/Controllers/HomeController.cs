@@ -23,7 +23,7 @@ namespace BookSender.Controllers
         {
             _context = context;
         }
-
+		[HttpPost]
         public async Task<JsonResult> Index(FilteringModel filteringModel)
         {
             List<BookShelf> bookList = new List<BookShelf>();

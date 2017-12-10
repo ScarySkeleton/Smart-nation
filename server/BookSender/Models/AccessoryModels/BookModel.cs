@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 
 namespace BookSender.Models.AccessoryModels
 {
-    public class BookModel
-    {
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public string Type { get; set; }
-        public string Genre { get; set; }
-        public string Photo { get; set; }
-        public string Price { get; set; }
-    }
+	public class BookModel
+	{
+		public string name { get; set; }
+		public string author { get; set; }
+		public string type { get; set; }
+		public string genre { get; set; }
+		public string photo { get; set; }
+		public string photoInBinary { get; set; }
+		public int price { get; set; }
+	}
 }
