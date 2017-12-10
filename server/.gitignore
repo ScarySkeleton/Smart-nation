@@ -299,5 +299,7 @@ GmailSender/bin/
 GmailSender/obj/
 XBookSender/bin/
 XBookSender/obj/
+XBookSender.Test/obj/
+XBookSender.Test/bin/
 BookSender/appsettings.json
 >>>>>>> da7df53c087813ca48b64897ac709eb26e129a63:server/.gitignore
