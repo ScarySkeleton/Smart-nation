@@ -12,7 +12,6 @@ function statusChecker(response) {
     ================================================
 */
 export function searchBooks(searchData) {
-    console.log(searchData);
     return function() {
         return fetch("http://localhost:50363/Home/GetAllSearchedBooks", {
             method: "POST",
