@@ -7,6 +7,31 @@ function statusChecker(response) {
 }
 
 /*
+    ================================================
+                    MAIN BOOK SEARCH
+    ================================================
+*/
+export function searchBooks(searchData) {
+    return function() {
+        return fetch("http://localhost:50363/Home/GetAllSearchedBooks", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json, text/javascript, */*; q=0.01',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            mode: "cors",
+            credentials: "include",
+            body: JSON.stringify(searchData)
+        })
+        .then(statusChecker)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        });
+    }
+}
+
+/*
     ================================================================
                     USER LOGIN\LOGOUT\REGESTRATION
     ================================================================
@@ -31,7 +56,8 @@ export function loginRequest(userData) {
                 , name: json.name
                 , surname: json.surname
                 , role: json.role
-        }});
+            }
+        });
     }
 };
 

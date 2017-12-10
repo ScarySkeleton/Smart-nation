@@ -29,7 +29,7 @@ namespace BookSender.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult GetAllSearchedBooks(FilteringModel filteringModel)
+        public JsonResult GetAllSearchedBooks([FromBody] FilteringModel filteringModel)
         {
             List<BookShelf> bookList = new List<BookShelf>();
 
@@ -50,8 +50,8 @@ namespace BookSender.Controllers
                     command.Parameters.Add(BookGener);
                     command.Parameters.Add(BookType);
 
-                    var reader = command.ExecuteReader();
-
+                    connection.Open();
+                    var reader = command.ExecuteReader();   
                     if (reader.HasRows)
                     {
                         while (reader.Read())
@@ -75,8 +75,8 @@ namespace BookSender.Controllers
                                 });
                         }
                     }
-
                     reader.Close();
+                    connection.Close();
                 }
                 return Json(bookList);
             }
