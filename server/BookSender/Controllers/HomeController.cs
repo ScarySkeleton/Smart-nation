@@ -22,14 +22,19 @@ namespace BookSender.Controllers
         {
             _context = context;
         }
-
-        public async Task<JsonResult> Index(FilteringModel filteringModel)
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult GetAllSearchedBooks(FilteringModel filteringModel)
         {
             List<BookShelf> bookList = new List<BookShelf>();
 
             string sqlExpression = "FindSearchedBook";
-
-            var SearchString = new SqlParameter("@searchedString", filteringModel.SearchResult);
+            var SearchedTitle = new SqlParameter("@searchedTitle", filteringModel.Title);
+            var SearchedAuthor = new SqlParameter("@searchedAuthor", filteringModel.Author);
             var BookGenre = new SqlParameter("@bookGenre", filteringModel.Gener);
             var BookType = new SqlParameter("@bookType", filteringModel.Type);
 
@@ -38,7 +43,8 @@ namespace BookSender.Controllers
 
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add(SearchString);
+                command.Parameters.Add(SearchedTitle);
+                command.Parameters.Add(SearchedAuthor);
                 command.Parameters.Add(BookGenre);
                 command.Parameters.Add(BookType);
 
