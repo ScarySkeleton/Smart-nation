@@ -14,57 +14,68 @@ using BookSender.Models;
 
 namespace BookSender.Controllers
 {
-    [EnableCors("CorsPolicy")]
+	[EnableCors("CorsPolicy")]
 	[Authorize]
-    public class PersonalCabinetController : Controller
-    {
-        private readonly ApplicationContext _context;
+	public class PersonalCabinetController : Controller
+	{
+		private readonly ApplicationContext _context;
 
 		public PersonalCabinetController(ApplicationContext context
 			)
-        {
-            _context = context;
-        }
+		{
+			_context = context;
+		}
 
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
+		[HttpGet]
+		public ActionResult Index()
+		{
+			return View();
+		}
 
-        [HttpPost]
-        public async Task<JsonResult> AddBook([FromBody] BookModel incomingBook)
-        {
-            try
-            {
-                //Data.Models.User user =  await _context.Users.FirstOrDefaultAsync( u => u.Email == email || u.PhoneNumber == phone);
+		[HttpPost]
+		public async Task<JsonResult> AddBook([FromBody] BookModel incomingBook)
+		{
+			try
+			{
 
-                //if (user != null)
-                //{
-                //incomingBook.ConributorId = user.Id;
-                //incomingBook.CurrentUserId = user.Id;
-                Book book = new Book
-                {
-                    Title = incomingBook.Title,
-                    Author = incomingBook.Author,
-                    Price = Convert.ToDecimal(incomingBook.Price)
-                };
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
 
-                    _context.Books.Add(book);
-                    await _context.SaveChangesAsync();
+				var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
 
-                    return Json("successful");
-                //}
-                //else
-                //{
-                //    throw new Exception("User was not found");
-                //}
-            }
-            catch (Exception e)
-            {
-                return Json("Error: " + e.Message);
-            }           
-        }
+				if (user != null)
+				{
+
+					byte[] ImageData = System.Text.Encoding.UTF8.GetBytes(incomingBook.photoInBinary);
+
+					Book book = new Book
+					{
+						CurrentUserId = user.Id,
+						ContributorId = user.Id,
+						Title = incomingBook.name,
+						Author = incomingBook.author,
+						Price = Convert.ToDecimal(incomingBook.price),
+						Picture = new Data.Models.Picture()
+						{
+							ImageData = ImageData,
+							Name = incomingBook.photo
+						},
+					};
+
+					_context.Books.Add(book);
+					await _context.SaveChangesAsync();
+
+					return Json("successful");
+				}
+				else
+				{
+					throw new Exception("User was not found");
+				}
+			}
+			catch (Exception e)
+			{
+				return Json("Error: " + e.Message);
+			}
+		}
 
 		[HttpPost]
 		public async Task<JsonResult> GetAllUserBooks()
@@ -82,10 +93,11 @@ namespace BookSender.Controllers
 												b => b.ContributorId == user.Id).ToListAsync();
 
 					List<BookOnShelf> booksOnShelf = new List<BookOnShelf>();
-					
-					foreach(var book in userBooks)
+
+					foreach (var book in userBooks)
 					{
-						booksOnShelf.Add(new BookOnShelf() {
+						booksOnShelf.Add(new BookOnShelf()
+						{
 							Id = book.Id,
 							AmazonId = book.AmazonId,
 							Title = book.Title,
@@ -116,35 +128,35 @@ namespace BookSender.Controllers
 		}
 
 		[HttpPost]
-        public async Task<IActionResult> GetDetailedBookInfo([FromBody] Book incomingBook)
-        {
-            try
-            {
-                Data.Models.Book book = await _context.Books.FirstOrDefaultAsync(b => b.Id == incomingBook.Id);
-                if (book != null)
-                {
-                    List<BookHistory> bookHistory = await _context.BookHistoryRecords
-                                                        .Where(bh => bh.Id == incomingBook.Id).ToListAsync();
+		public async Task<IActionResult> GetDetailedBookInfo([FromBody] Book incomingBook)
+		{
+			try
+			{
+				Data.Models.Book book = await _context.Books.FirstOrDefaultAsync(b => b.Id == incomingBook.Id);
+				if (book != null)
+				{
+					List<BookHistory> bookHistory = await _context.BookHistoryRecords
+														.Where(bh => bh.Id == incomingBook.Id).ToListAsync();
 
-                    List<User> userList = new List<User>(); 
+					List<User> userList = new List<User>();
 
-                    foreach (var bh in bookHistory)
-                    {
-                        userList.Add(
-                           await _context.Users.Where(u => u.Id == bh.UserId).FirstOrDefaultAsync()); 
-                    }
+					foreach (var bh in bookHistory)
+					{
+						userList.Add(
+						   await _context.Users.Where(u => u.Id == bh.UserId).FirstOrDefaultAsync());
+					}
 
-                    return Json("");
-                }
-                else
-                {
-                    throw new Exception("Book was not found");
-                }
-            }
-            catch (Exception e)
-            {
-                return Json("Error: " + e.Message);
-            }
-        }
-    }
+					return Json("");
+				}
+				else
+				{
+					throw new Exception("Book was not found");
+				}
+			}
+			catch (Exception e)
+			{
+				return Json("Error: " + e.Message);
+			}
+		}
+	}
 }
