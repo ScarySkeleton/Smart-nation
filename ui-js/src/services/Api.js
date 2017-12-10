@@ -124,7 +124,7 @@ export function addBook(data) {
         .then(response => response.json())
         .then(json => {
             // Doing something after adding book
-            console.log(json);
+            //console.log(json);
         })
     }
 }
