@@ -7,7 +7,8 @@ namespace BookSender.Models.AccessoryModels
 {
     public class FilteringModel
     {
-        public string SearchResult { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
         public string Gener { get; set; }
         public string Type { get; set; }
     }
