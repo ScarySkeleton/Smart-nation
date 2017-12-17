@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Cors;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using BookSender.Models;
+using System.Net;
+using System.Net.Http;
 
 namespace BookSender.Controllers
 {
@@ -33,14 +35,13 @@ namespace BookSender.Controllers
 		}
 
 		[HttpPost]
-		public async Task<JsonResult> AddBook([FromBody] BookModel incomingBook)
+		public  HttpResponseMessage AddBook([FromBody] BookModel incomingBook)
 		{
 			try
 			{
-
 				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
 
-				var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+				var user = _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
 
 				if (user != null)
 				{
@@ -62,18 +63,18 @@ namespace BookSender.Controllers
 					};
 
 					_context.Books.Add(book);
-					await _context.SaveChangesAsync();
+					_context.SaveChangesAsync();
 
-					return Json("successful");
+					return new HttpResponseMessage(HttpStatusCode.Created);
 				}
 				else
 				{
-					throw new Exception("User was not found");
+					return new HttpResponseMessage(HttpStatusCode.Unauthorized);
 				}
 			}
 			catch (Exception e)
 			{
-				return Json("Error: " + e.Message);
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
 			}
 		}
 
