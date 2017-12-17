@@ -60,6 +60,8 @@ namespace BookSender.Controllers
 							ImageData = ImageData,
 							Name = incomingBook.photo
 						},
+						BookTypeId = incomingBook.type,
+						GenreId = incomingBook.genre
 					};
 
 					_context.Books.Add(book);
