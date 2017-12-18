@@ -66,27 +66,31 @@ class LoginContainer extends PureComponent {
         }
 
         return (
-            <div className='container login'>
-                
-                <div className='login__block'>
-                    <label className='login__block-label'> Login\phone </label>
-                    <input className='login__block-input'
-                     type='text' name='login'
-                     onChange={this.userLogInfoChange} />
-                </div>
-                
-                <div className='login__block'>
-                    <label className='login__block-label'> Password </label>
-                    <input className='login__block-input'
-                     type='password' name='password'
-                     onChange={this.userPasswordChange} />
-                </div>
+            <div className='login__page'>
+                <div className='container login'>
 
-                <Link to='/registration'> Don't have account </Link>
+                    <div className='login__title'><h2>Login</h2></div>
 
-                <button className='login__block-btn' onClick={this.loginRequest}>
-                    Enter
-                </button>
+                    <div className='login__form'> 
+                        <div className='login__block'>
+                            <input className='login__block-input'
+                             type='text' name='login'
+                             onChange={this.userLogInfoChange} placeholder='LOGIN/PHONE'/>
+                        </div>
+                        
+                        <div className='login__block'>
+                            <input className='login__block-input'
+                             type='password' name='password'
+                             onChange={this.userPasswordChange} placeholder='PASSWORD' />
+                        </div>
+                    </div>
+                    <div className='login__buttons'>
+                        <button className='login__block-btn' onClick={this.loginRequest}>
+                            LOGIN
+                        </button>
+                        <Link to='/registration' className='login__button__link'> Don't have account </Link>
+                    </div>
+                </div>
             </div>
         );
     };

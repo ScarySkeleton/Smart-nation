@@ -34,20 +34,22 @@ const Search = props => {
 						type="text"
 						ref={author => authorInput = author}
 						placeholder="AUTHOR"/>
+					<input 
+							type="number"
+							ref={year => issueInput = year}
+							placeholder="The year of issue" />
+					<input 
+						type="text"
+						ref={category => categoryInput = category}
+						placeholder="CATEGORY" />
 
-					{/* // TODO: REFACTOR !!!  */}
+					{/* // TODO: REFACTOR !!!
 					<ul className='additional-list'>
 						<li className='additional-list__element'>
-							<input 
-								type="number"
-								ref={year => issueInput = year}
-								placeholder="The year of issue" />
+							
 						</li>
 						<li className='additional-list__element'>
-							<input 
-								type="text"
-								ref={category => categoryInput = category}
-								placeholder="CATEGORY" />
+							
 						</li>
 						<li className='additional-list__element'>
 							Popularity
@@ -56,7 +58,7 @@ const Search = props => {
 							The place
 						</li>
 					</ul>
-					
+*/}
 					<button 
 						type="button"
 						onClick={search}>SEARCH</button>
@@ -67,3 +69,5 @@ const Search = props => {
 };
 
 export default Search;
+
+

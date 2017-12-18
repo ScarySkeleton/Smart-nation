@@ -1,4 +1,4 @@
-.register {
+/*.register {
     margin-top: 10%;
     margin-left: 25%;
     margin-right: 25%;
@@ -38,5 +38,93 @@
         &-btn:hover {
             background: gray;
         }
+    }
+}
+*/
+.register__page{
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+}
+.register {
+    background: rgba(255,255,255,0.7);
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: 1px solid brown;
+    height: 30%;
+    min-height: 350px;
+    .register__title
+        {
+        width: 100%;
+        height: 30%;
+        display: flex;
+            h2 {
+                font-size: 2.5em;
+                color: black;
+                margin: auto;
+            }
+        }
+    .register__form {
+        width: 100%;
+        height: 60%;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        max-width: 50%;
+        .register__block {
+            margin: auto;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            height: 40%;
+            input{
+                width: 60%;
+                height: 80%;
+                border: 2px solid brown;
+                font-family: 'Didact Gothic', sans-serif;
+                font-weight: 600;
+                font-size: 1em;
+                padding: 0 10px 0 10px;
+                &:focus{
+                    &::placeholder{
+                        transform:  scale(0);
+                    }
+                }
+                &::placeholder {
+                    font-weight: 600;
+                    color: black;
+                    text-align: center;
+                    transform:  scale(1);
+                    transition: transform .3s linear;
+                }
+            }
+            label{
+                font-family: 'Didact Gothic', sans-serif;
+            }
+
+        }
+    }
+    .register__buttons{
+        width: 100%;
+        height: 10%;
+
+        button{
+                border: 0;
+                height: 80%;
+                background: brown;
+                width: 150px;
+                color:  #fff;
+                font-weight: 600;
+                transition: all .2s linear;
+                box-shadow: 0 0 10px #821a07;
+                &:hover{
+                    letter-spacing: 2px;
+                }
+            }
+        .register__button__link{
+            margin-left: 20px;
+        }    
     }
 }

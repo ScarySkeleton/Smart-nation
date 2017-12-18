@@ -19,6 +19,7 @@ class HomeContainer extends PureComponent {
         return (
             <div className='container home'>
               <Search />
+              {/*
               <SearchResult />
               
               <GoogleMaps
@@ -28,7 +29,7 @@ class HomeContainer extends PureComponent {
                 mapElement={<div style={{ height: `100%` }} />} 
                 />
                 
-                {/* <GoogleMaps
+                <GoogleMaps
                 googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
                 loadingElement={<GoogleMapLoading />}
                 containerElement={<GoogleMapContainer />}
