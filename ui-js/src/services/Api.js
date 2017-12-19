@@ -1,3 +1,5 @@
+import {apiAuthPostFetch} from './ApiFetch';
+
 const API_PATH = '/';
 
 function statusChecker(response) {
@@ -31,6 +33,15 @@ export function searchBooks(searchData) {
             };
         });
     }
+}
+
+/*
+    =================================================================
+                            BOOK REQUEST
+    =================================================================
+*/
+export function getOrderBookData(bookData) {
+    return apiAuthPostFetch("Book/OrderBook", bookData);
 }
 
 /*

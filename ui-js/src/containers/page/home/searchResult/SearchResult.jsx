@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import './searchResult.scss';
-import Table from '../../../../components/table/Table';
+import Table from './table/Table';
 
 const columns = [
     {
@@ -11,47 +11,55 @@ const columns = [
     },
     {
         Header: 'Author',
-        accessor: 'Author',
+        accessor: 'author',
+    },
+    {
+        Header: 'Title',
+        accessor: 'title'
     },
     {
         Header: 'Create on',
-        accessor: 'CreateOn',
+        accessor: 'createOn',
     },
     {
         Header: 'Description',
-        accessor: 'Description',
+        accessor: 'description',
     },
     {
         Header: 'Price',
-        accessor: 'Price',
+        accessor: 'price',
     },
     {
         Header: 'ContributorFirstName',
-        accessor: 'ContributorFirstName',
+        accessor: 'contributorFirstName',
     },
     {
         Header: 'ContributorLastName',
-        accessor: 'ContributorLastName',
+        accessor: 'contributorLastName',
     },
     {
         Header: 'FirstName',
-        accessor: 'FirstName',
+        accessor: 'firstName',
     },
     {
         Header: 'LastName',
-        accessor: 'LastName',
+        accessor: 'lastName',
     },
     {
         Header: 'PhoneNumber',
-        accessor: 'PhoneNumber',
+        accessor: 'phoneNumber',
     },
     {
         Header: 'Genre',
-        accessor: 'Genre',
+        accessor: 'genre',
     },
     {
         Header: 'BookType',
-        accessor: 'BookType',
+        accessor: 'bookType',
+    },
+    {
+        Header: 'Order book',
+        accessor: 'orderBook'
     }
 ];
 
@@ -66,7 +74,9 @@ let SearchResult = props => {
                     columns={columns}
                     />
                 </div>
-            : <div className='container search-result__books_empty'>No books, sorry :((</div>            
+            : <div className='container search-result__books_empty'>
+                Feel free to search any book you want!
+            </div>            
         }
     </div>
 }

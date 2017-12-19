@@ -5,11 +5,13 @@ import { withRouter } from 'react-router';
 
 import './content.scss';
 import PrivateRoute from '../../services/router/PrivateRoute';
+
 import HomePage from '../../containers/page/home/Home';
 import LoginPage from '../../containers/page/login/Login';
 import Logout from '../../components/logout/Logout';
 import RegistrationPage from '../../containers/page/register/Register';
 import CabinetPage from '../../containers/page/cabinet/Cabinet';
+import {OrderBook} from '../../containers/book/orderBook/OrderBook';
 
 let Content = (props) => {
     return (
@@ -34,7 +36,8 @@ let Content = (props) => {
                 : ( <RegistrationPage /> )
             )} />
             <Route path='/logout' component={Logout} />
-
+            
+            <PrivateRoute path='/orderBook/:id' component={OrderBook} isLogined={!props.isLogined} /> {/* "!"FOR DEBUGGING OFFLINE ONLY  */}
             <PrivateRoute path='/cabinet' component={CabinetPage} isLogined={props.isLogined} />            
         </div>
     )
