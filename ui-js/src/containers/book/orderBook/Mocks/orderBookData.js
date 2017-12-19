@@ -7,6 +7,7 @@ export const oderBookData = {
     description: "Book description here",
     genre: "Novel",
     type: "Book",
+    image: null,
     // Contibutor info
     contributorAccount: "sophiika", // ID or Account nickname
     contributorName: "Sophiika",

@@ -7,6 +7,7 @@ function statusChecker(response) {
 }
 
 export function apiAuthPostFetch(path, data) {
+    console.log(`starting to fetching data from ${path}`);
     return function() {
         return fetch(`${API_PATH}/${path}`, {
             method: "POST",

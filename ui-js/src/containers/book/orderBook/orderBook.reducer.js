@@ -10,6 +10,7 @@ const initState = {
     description: null,
     genre: null,
     type: null,
+    image: null,
     // Contibutor info
     contributorAccount: null, // ID or Account nickname
     contributorName: null,
