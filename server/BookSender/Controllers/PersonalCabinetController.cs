@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using BookSender.Models;
 using System.Net;
 using System.Net.Http;
+using BookSender.Helpers;
 
 namespace BookSender.Controllers
 {
@@ -46,11 +47,7 @@ namespace BookSender.Controllers
 				if (user != null)
 				{
 
-					byte[] ImageData = null;
-					if (incomingBook.photoInBinary != null)
-					{
-						ImageData = System.Text.Encoding.UTF8.GetBytes(incomingBook.photoInBinary);
-					}
+					byte[] ImageData = PictureHelper.ConvertToImage(incomingBook.photoInBinary);
 
 					Book book = new Book
 					{
@@ -59,11 +56,11 @@ namespace BookSender.Controllers
 						Title = incomingBook.name,
 						Author = incomingBook.author,
 						Price = Convert.ToDecimal(incomingBook.price),
-						Picture = new Data.Models.Picture()
+						Picture = ImageData != null ? new Data.Models.Picture()
 						{
 							ImageData = ImageData,
 							Name = incomingBook.photo
-						},
+						} : null,
 						BookTypeId = incomingBook.type,
 						GenreId = incomingBook.genre
 					};
@@ -97,10 +94,58 @@ namespace BookSender.Controllers
 			}
 		}
 
-		[HttpPost]
 		public async Task<JsonResult> GetAllUserBooks()
 		{
 
+			try
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+
+				if (user != null)
+				{
+					List<Book> userBooks = await _context.Books.Where(
+												b => b.CurrentUserId == user.Id).ToListAsync();
+
+					List<BookOnShelf> booksOnShelf = new List<BookOnShelf>();
+
+					foreach (var book in userBooks)
+					{
+						booksOnShelf.Add(new BookOnShelf()
+						{
+							Id = book.Id,
+							AmazonId = book.AmazonId,
+							Title = book.Title,
+							Author = book.Author,
+							ConributorId = book.ContributorId,
+							CurrentUserId = book.CurrentUserId,
+							Description = book.Description,
+							CreatedOn = book.CreatedOn,
+							PrintedOn = book.PrintedOn,
+							GenreId = book.GenreId,
+							ISBN = book.ISBN,
+							IsUsable = book.IsUsable,
+							Price = book.Price,
+							PhotoInBinary = PictureHelper.ConvertToString(book.Picture.ImageData)
+						});
+					}
+
+					return Json(booksOnShelf);
+				}
+				else
+				{
+					throw new Exception("User was not found");
+				}
+			}
+			catch (Exception e)
+			{
+				return Json("Error: " + e.Message);
+			}
+		}
+
+		public async Task<JsonResult> GetAllBooksAdded()
+		{
 			try
 			{
 				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
@@ -130,7 +175,8 @@ namespace BookSender.Controllers
 							GenreId = book.GenreId,
 							ISBN = book.ISBN,
 							IsUsable = book.IsUsable,
-							Price = book.Price
+							Price = book.Price,
+							PhotoInBinary = PictureHelper.ConvertToString(book.Picture.ImageData)
 						});
 					}
 
