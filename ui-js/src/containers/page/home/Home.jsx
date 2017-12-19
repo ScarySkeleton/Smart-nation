@@ -19,7 +19,6 @@ class HomeContainer extends PureComponent {
      }
 
     render() {
-        console.log(searchCoordinateResult);
         return (
             <div className='container home'>
               <Search />
