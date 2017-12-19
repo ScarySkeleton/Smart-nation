@@ -14,5 +14,7 @@ namespace BookSender.Models.AccessoryModels
 		public string photo { get; set; }
 		public string photoInBinary { get; set; }
 		public int price { get; set; }
+		public string AltitudeCoordinate { get; set; }
+		public string LongtiudeCoordinate { get; set; }
 	}
 }
