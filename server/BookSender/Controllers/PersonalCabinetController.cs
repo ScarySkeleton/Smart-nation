@@ -35,7 +35,7 @@ namespace BookSender.Controllers
 		}
 
 		[HttpPost]
-		public  HttpResponseMessage AddBook([FromBody] BookModel incomingBook)
+		public HttpResponseMessage AddBook([FromBody] BookModel incomingBook)
 		{
 			try
 			{
@@ -46,7 +46,11 @@ namespace BookSender.Controllers
 				if (user != null)
 				{
 
-					byte[] ImageData = System.Text.Encoding.UTF8.GetBytes(incomingBook.photoInBinary);
+					byte[] ImageData = null;
+					if (incomingBook.photoInBinary != null)
+					{
+						ImageData = System.Text.Encoding.UTF8.GetBytes(incomingBook.photoInBinary);
+					}
 
 					Book book = new Book
 					{
@@ -65,7 +69,20 @@ namespace BookSender.Controllers
 					};
 
 					_context.Books.Add(book);
-					_context.SaveChangesAsync();
+					_context.SaveChanges();
+
+
+					BookHistory bookHistory = new BookHistory
+					{
+						Book = book,
+						GetBookOn = DateTime.UtcNow,
+						UserId = user.Id,
+						AltitudeCoordinate = incomingBook.AltitudeCoordinate,
+						LongtiudeCoordinate = incomingBook.LongtiudeCoordinate
+					};
+
+					_context.BookHistoryRecords.Add(bookHistory);
+					_context.SaveChanges();
 
 					return new HttpResponseMessage(HttpStatusCode.Created);
 				}
