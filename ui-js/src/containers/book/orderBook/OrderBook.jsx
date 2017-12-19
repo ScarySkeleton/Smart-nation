@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import {withRouter} from 'react-router';
 import {connect} from 'react-redux';
 
+import './orderBook.scss';
 import {orderBookRequest} from './orderBook.action';
 
 class OrderBook extends PureComponent {
@@ -9,9 +10,9 @@ class OrderBook extends PureComponent {
         super(props);
     }
 
-    componentDidMount() {
-        this.props.getOrderBookData({id: this.props.match.params.id});
-    }
+    // componentWillMount() {
+    //     this.props.getOrderBookData({id: this.props.match.params.id});
+    // }
 
     render() {
         console.log(this.props.bookData);
