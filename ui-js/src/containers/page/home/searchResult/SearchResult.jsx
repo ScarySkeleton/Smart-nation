@@ -66,7 +66,9 @@ let SearchResult = props => {
                     columns={columns}
                     />
                 </div>
-            : <div className='container search-result__books_empty'>No books, sorry :((</div>            
+            : <div className='container search-result__books_empty'>
+                Feel free to search any book you want!
+            </div>            
         }
     </div>
 }
