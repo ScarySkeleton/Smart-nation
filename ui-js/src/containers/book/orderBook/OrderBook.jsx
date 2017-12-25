@@ -10,9 +10,9 @@ class OrderBook extends PureComponent {
         super(props);
     }
 
-    // componentWillMount() {
-    //     this.props.getOrderBookData({id: this.props.match.params.id});
-    // }
+    componentDidMount() {
+        this.props.getOrderBookData({id: this.props.match.params.id});
+    }
 
     render() {
         console.log(this.props.bookData);

@@ -16,15 +16,11 @@ export default function* watchOrderBookGetDataRequest() {
 function* fetchOrderBookGetDataRequest(bookData) {
     try {
         yield put(isFetching());
-        console.log("try");
         const response = yield call(getOrderBookData(bookData));
         yield put(orderBookSuccess(response));
     } catch(error) {
-        console.log("catch");
         yield put(orderBookFailure());
     } finally {
-        console.log("finally");
         yield put(isntFetching());
-        return "done";
     }
 }

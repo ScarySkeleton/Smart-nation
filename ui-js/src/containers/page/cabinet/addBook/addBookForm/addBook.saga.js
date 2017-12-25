@@ -11,8 +11,7 @@ import {
     isFetching,
     isntFetching } from '../../../../../services/store/globalState/global.actions';
 
-import {
-    addBook } from '../../../../../services/Api';
+import { addBook } from '../../../../../services/Api';
 
 export default function* watchAddingBook() {
     while(true) {

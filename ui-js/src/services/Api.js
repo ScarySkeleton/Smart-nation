@@ -1,6 +1,7 @@
+
 import {apiAuthPostFetch} from './ApiFetch';
 
-const API_PATH = '/';
+const API_PATH='http://localhost:50363';
 
 function statusChecker(response) {
     if(response.status >= 200 && response.status < 300)
@@ -15,7 +16,7 @@ function statusChecker(response) {
 */
 export function searchBooks(searchData) {
     return function() {
-        return fetch("http://localhost:50363/Home/GetAllSearchedBooks", {
+        return fetch(`${API_PATH}/Home/GetAllSearchedBooks`, {
             method: "POST",
             headers: {
                 Accept: 'application/json, text/javascript, */*; q=0.01',
@@ -51,7 +52,7 @@ export function getOrderBookData(bookData) {
 */
 export function loginRequest(userData) {
     return function () {
-        return fetch("http://localhost:50363/Account/Login", {
+        return fetch(`${API_PATH}/Account/Login`, {
             method: "POST",
             headers: {
                 Accept: 'application/json, text/javascript, */*; q=0.01',
@@ -76,7 +77,7 @@ export function loginRequest(userData) {
 
 export function registrationRequest(userData) {
     return function() {
-        return fetch("http://localhost:50363/Account/Register", {
+        return fetch(`${API_PATH}/Account/Register`, {
             method: "POST",
             headers: {
                 Accept: 'application/json, text/javascript, */*; q=0.01',
@@ -92,7 +93,7 @@ export function registrationRequest(userData) {
 
 export function logoutRequest() {
     return function() {
-        return fetch("http://localhost:50363/Account/Logout", {
+        return fetch(`${API_PATH}/Account/Logout`, {
             method: "POST", 
             headers: {
                 Accept: 'application/json, text/javascript, */*; q=0.01',
@@ -121,7 +122,7 @@ export function getCabinetData(data) {
 
 export function addBook(data) {
     return function() {
-        return fetch("http://localhost:50363/PersonalCabinet/AddBook", {
+        return fetch(`${API_PATH}/PersonalCabinet/AddBook`, {
             method: "POST",
             headers: {
                 Accept: 'application/json, text/javascript, */*; q=0.01',
@@ -135,14 +136,15 @@ export function addBook(data) {
         .then(response => response.json())
         .then(json => {
             // Doing something after adding book
-            //console.log(json);
+            console.log(json);
         })
     }
 }
 
 export function getBookShelfBooks() {
+    console.log("SD");
     return function() {
-        return fetch("http://localhost:50363/PersonalCabinet/GetAllUserBooks", {
+        return fetch(`${API_PATH}/PersonalCabinet/GetAllUserBooks`, {
             method: "POST",
             headers: {
                 Accept: 'application/json, text/javascript, */*; q=0.01',

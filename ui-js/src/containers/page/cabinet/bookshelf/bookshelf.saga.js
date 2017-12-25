@@ -35,6 +35,6 @@ function* fetchBookShelfBooks() {
     } catch(err) {
         yield put(fetchingBookShelfBooksFailure());
     } finally {
-        yield put(isntFetching());
+       yield put(isntFetching());
     }
 }
