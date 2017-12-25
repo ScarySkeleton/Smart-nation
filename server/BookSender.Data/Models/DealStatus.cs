@@ -8,6 +8,6 @@ namespace BookSender.Data.Models
 
 		public int Name { get; set; }
 
-		public DateTime ExpirationTime { get; set; }
+		public int ExpirationTime { get; set; }
 	}
 }
