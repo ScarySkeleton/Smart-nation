@@ -238,6 +238,7 @@ namespace BookSender.Controllers
                 if (user != null && newPassword != null)
                 {
                     user.Password = newPassword;
+					_context.SaveChanges();
                     return new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
@@ -264,7 +265,9 @@ namespace BookSender.Controllers
                 if (user != null && firstName != null)
                 {
                     user.FirstName = firstName;
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+					_context.SaveChanges();
+
+					return new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
@@ -290,7 +293,9 @@ namespace BookSender.Controllers
                 if (user != null && lastName != null)
                 {
                     user.LastName = lastName;
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+					_context.SaveChanges();
+
+					return new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
@@ -316,7 +321,9 @@ namespace BookSender.Controllers
                 if (user != null && email != null)
                 {
                     user.Email = email;
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+					_context.SaveChanges();
+
+					return new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
@@ -342,7 +349,9 @@ namespace BookSender.Controllers
                 if (user != null && phoneNumber != null)
                 {
                     user.PhoneNumber = phoneNumber;
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+					_context.SaveChanges();
+
+					return new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
@@ -375,7 +384,9 @@ namespace BookSender.Controllers
                 if (user != null)
                 {
                     user.BirthDate = date;
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+					_context.SaveChanges();
+
+					return new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
@@ -414,7 +425,9 @@ namespace BookSender.Controllers
                 {
                     user.Picture = new Picture();
                     user.Picture.ImageData = ImageData;
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+					_context.SaveChanges();
+
+					return new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
