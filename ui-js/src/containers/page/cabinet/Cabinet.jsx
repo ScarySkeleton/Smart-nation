@@ -19,7 +19,7 @@ class Cabinet extends PureComponent {
         super(props);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.loadCabinetData({userId: 1});
     }
 

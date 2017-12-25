@@ -1,7 +1,7 @@
 
 import {apiAuthPostFetch} from './ApiFetch';
 
-const API_PATH = '/';
+const API_PATH='http://localhost:50363';
 
 function statusChecker(response) {
     if(response.status >= 200 && response.status < 300)
@@ -155,7 +155,6 @@ export function getBookShelfBooks() {
         .then(statusChecker)
         .then(response => response.json())
         .then(json => {
-            console.log(json);
             return json;
         })
     }
