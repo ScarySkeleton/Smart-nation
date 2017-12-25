@@ -23,8 +23,7 @@ namespace BookSender.Controllers
     {
         private readonly ApplicationContext _context;
 
-        public PersonalCabinetController(ApplicationContext context
-            )
+        public PersonalCabinetController(ApplicationContext context)
         {
             _context = context;
         }
