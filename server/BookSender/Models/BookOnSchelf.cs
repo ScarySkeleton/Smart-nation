@@ -30,6 +30,8 @@ namespace BookSender.Models
 
 		public int? PictureId { get; set; }
 
+		public string PhotoInBinary { get; set; }
+
 		public bool IsUsable { get; set; }
 
 	}

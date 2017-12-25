@@ -10,29 +10,6 @@ namespace XBookSender.Test
 {
     public class BookServiceTest
     {
-        //private static ApplicationContext applicationContext;
-        //IBookService book = new BookService (applicationContext);
-
-        private IBookService _bookService;
-
-        public BookServiceTest(IBookService bookService)
-        {
-            _bookService = bookService;
-        }
-
-        [Fact]
-        public void PassingTest()
-        {
-            var i = new List<Book>();
-            Assert.Equal(i, _bookService.BooksSearch(""));
-        }
-
-        [Fact]
-        public void FallingTest()
-        {
-            Assert.Equal(1, _bookService.BooksSearch("5tvyjb").Count);
-        }
-        
-        
+       
     }
 }

@@ -1,4 +1,7 @@
-const API_PATH = 'http://localhost:50363';
+
+import {apiAuthPostFetch} from './ApiFetch';
+
+const API_PATH = '/';
 
 function statusChecker(response) {
     if(response.status >= 200 && response.status < 300)
@@ -31,6 +34,15 @@ export function searchBooks(searchData) {
             };
         });
     }
+}
+
+/*
+    =================================================================
+                            BOOK REQUEST
+    =================================================================
+*/
+export function getOrderBookData(bookData) {
+    return apiAuthPostFetch("Book/OrderBook", bookData);
 }
 
 /*

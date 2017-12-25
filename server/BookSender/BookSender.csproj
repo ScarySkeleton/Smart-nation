@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <StartupObject>BookSender.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

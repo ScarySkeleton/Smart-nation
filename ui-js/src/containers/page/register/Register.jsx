@@ -73,55 +73,64 @@ class RegisterContainer extends PureComponent {
 
     render() {
         return (
+            <div className='register__page'>
             <div className='container register'>
-                <div className='register__block'>
-                    <label className='register__block-label'> Phone </label>
-                    <input className='register__block-input'
-                        type='text' name='register'
-                        ref={curr => this.userPhone = curr}
-                        onChange={this.userPhoneChange} />
-                </div>
-                <div className='register__message'>
-                    <label className='register__message-label'
-                        ref={curr => this.userPhoneNode = curr}>
-                    </label>
-                </div>
-                
-                <div className='register__block'>
-                    <label className='register__block-label'> Password </label>
-                    <input className='register__block-input'
-                        type='password' name='password'
-                        ref={curr => this.userPassword = curr}
-                        onChange={this.userPasswordChange} />
-                </div>
-                <div className='register__message'>
-                    <label className='register__message-label'
-                        ref={curr => this.userPasswordNode = curr}>
-                    </label>
-                </div>
+                <div className='register__title'><h2>Register</h2></div>
+                <div className='register__form'> 
+                    
+                        <div className='register__block'>
+                            <input className='register__block-input'
+                                type='text' name='register'
+                                ref={curr => this.userPhone = curr}
+                                onChange={this.userPhoneChange} 
+                                placeholder='Phone'
+                                />
+                        </div>
+                        <div className='register__message'>
+                            <label className='register__message-label'
+                                ref={curr => this.userPhoneNode = curr}>
+                            </label>
+                        </div>
+                            
+                        <div className='register__block'>
+                            <input className='register__block-input'
+                                type='password' name='password'
+                                ref={curr => this.userPassword = curr}
+                                onChange={this.userPasswordChange} 
+                                placeholder='Password'
+                                />
+                        </div>
+                        <div className='register__message'>
+                            <label className='register__message-label'
+                                ref={curr => this.userPasswordNode = curr}>
+                            </label>
+                        </div>
 
-                <div className='register__block'>
-                    <label className='register__block-label'> Confirm password </label>
-                    <input className='register__block-input'
-                        type='password' name='confirmPassword'
-                        ref={curr => this.userPasswordConfirm = curr}
-                        onChange={this.userPasswordConfirmationChange} />
-                </div>
-                <div className='register__message'>
-                    <label className='register__message-label'
-                        ref={curr => this.userPasswordConfirmNode = curr}>
-                    </label>
-                </div>
+                        <div className='register__block'>
+                            <input className='register__block-input'
+                                type='password' name='confirmPassword'
+                                ref={curr => this.userPasswordConfirm = curr}
+                                onChange={this.userPasswordConfirmationChange} 
+                                placeholder='Confirm password'
+                                />
+                        </div>
+                        <div className='register__message'>
+                            <label className='register__message-label'
+                                ref={curr => this.userPasswordConfirmNode = curr}>
+                            </label>
+                        </div>
 
-                <Link to='/login'> Have an account </Link>
+                        
 
-                <button className="register__block-btn" onClick={this.registerRequest}>
-                    Register
-                </button>
-                <button className="register__block-btn" onClick={this.Clear}>
-                    Clear
-                </button>
-                
+                    </div> 
+                    <div className='register__buttons'>
+                    <button className="register__block-btn" onClick={this.registerRequest}>
+                        Register
+                    </button> 
+                    <Link className="register__button__link" to='/login'> Have an account </Link> 
+                    </div>  
+                     
+                </div>
             </div>
         );
     }
