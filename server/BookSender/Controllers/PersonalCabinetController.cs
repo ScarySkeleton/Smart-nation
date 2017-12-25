@@ -224,5 +224,217 @@ namespace BookSender.Controllers
 				return Json("Error: " + e.Message);
 			}
 		}
+
+		#region Edit UserData
+
+		public HttpResponseMessage ChangePassword(string newPassword)
+		{
+			try
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user != null && newPassword != null)
+				{
+					user.Password = newPassword;
+					return new HttpResponseMessage(HttpStatusCode.OK);
+				}
+				else
+				{
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+				}
+
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+		public HttpResponseMessage ChangeFirstName(string firstName)
+		{
+			try
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user != null && firstName != null)
+				{
+					user.FirstName = firstName;
+					return new HttpResponseMessage(HttpStatusCode.OK);
+				}
+				else
+				{
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+				}
+
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+
+		public HttpResponseMessage ChangeLastName(string lastName)
+		{
+			try
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user != null && lastName != null)
+				{
+					user.LastName = lastName;
+					return new HttpResponseMessage(HttpStatusCode.OK);
+				}
+				else
+				{
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+				}
+
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+		public HttpResponseMessage ChangeEmail(string email)
+		{
+			try
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user != null && email != null)
+				{
+					user.Email = email;
+					return new HttpResponseMessage(HttpStatusCode.OK);
+				}
+				else
+				{
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+				}
+
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+		public HttpResponseMessage ChangePhoneNumber(string phoneNumber)
+		{
+			try
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user != null && phoneNumber != null)
+				{
+					user.PhoneNumber = phoneNumber;
+					return new HttpResponseMessage(HttpStatusCode.OK);
+				}
+				else
+				{
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+				}
+
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+
+		public HttpResponseMessage ChangeBirthDate(string birthDate)
+		{
+			try
+			{
+				if (birthDate == null)
+				{
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+				}
+
+				DateTime date = Convert.ToDateTime(birthDate);
+
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user != null)
+				{
+					user.BirthDate = date;
+					return new HttpResponseMessage(HttpStatusCode.OK);
+				}
+				else
+				{
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+				}
+
+			}
+			catch (FormatException ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+		public HttpResponseMessage ChangePhoto(string photoInBinary)
+		{
+			try
+			{
+				if (photoInBinary == null)
+				{
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+				}
+
+				byte[] ImageData = PictureHelper.ConvertToImage(photoInBinary);
+
+
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user != null)
+				{
+					user.Picture = new Picture();
+					user.Picture.ImageData = ImageData;
+					return new HttpResponseMessage(HttpStatusCode.OK);
+				}
+				else
+				{
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+				}
+
+			}
+			catch (FormatException ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+		#endregion
 	}
 }
