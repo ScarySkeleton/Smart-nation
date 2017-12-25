@@ -47,7 +47,11 @@ namespace BookSender.Controllers
                 if (user != null)
                 {
 
-                    byte[] ImageData = PictureHelper.ConvertToImage(incomingBook.photoInBinary);
+					byte[] ImageData = null;
+					if(incomingBook.photoInBinary != null)
+					{
+						ImageData = PictureHelper.ConvertToImage(incomingBook.photoInBinary);
+					}
 
                     Book book = new Book
                     {
