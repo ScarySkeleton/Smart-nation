@@ -14,9 +14,9 @@ namespace BookSender.Data.Models
 
 		public int? DealStatusId { get; set; }
 
-		public DateTime  CreatedOn { get; set; }
+		public DateTime CreatedOn { get; set; }
 
-		public DateTime EndedOn { get; set; }
+		public DateTime? EndedOn { get; set; }
 
 		public DateTime ModifiedOn { get; set; }
 

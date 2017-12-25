@@ -9,6 +9,7 @@ using BookSender.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BookSender.Data.Models;
 
 namespace BookSender.Controllers
 {
@@ -21,13 +22,14 @@ namespace BookSender.Controllers
 		{
 			_context = context;
 		}
-
+        [HttpGet]
 		public IActionResult Index()
 		{
 
 			return View();
 		}
 
+        [HttpPost]
 		public JsonResult Order(int bookId)
 		{
 			try
@@ -38,9 +40,24 @@ namespace BookSender.Controllers
 
 				var book = _context.Books.FirstOrDefault(b => b.Id == bookId);
 
-				if (book != null)
+				if (book != null && user != null)
 				{
-					BookForOrder bookModel = new BookForOrder
+                    Deal deal = new Deal
+                    {
+                        DonorId = book.CurrentUserId,
+                        AcceptorId = user.Id,
+                        BookId = book.Id,
+                        DealStatusId = 1,
+                        CreatedOn = DateTime.Now,
+                        ExpiredOn = DateTime.Now.AddDays(_context.DealStatuses.FirstOrDefault(d => d.Id == 1).ExpirationTime),
+                        ModifiedOn = DateTime.Now,
+                        EndedOn = null
+                    };
+
+                    _context.Deals.Add(deal);
+                    _context.SaveChanges();
+
+                    BookForOrder bookModel = new BookForOrder
 					{
 						Title = book.Title,
 						Author = book.Author,
@@ -57,7 +74,7 @@ namespace BookSender.Controllers
 						OwnerLastName = book.CurrentUser.LastName,
 						OwnerPhoneNumber = book.CurrentUser.PhoneNumber,
 					};
-
+                    
 					return Json(bookModel);
 				}
 				else
