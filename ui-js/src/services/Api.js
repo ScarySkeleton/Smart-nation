@@ -136,12 +136,13 @@ export function addBook(data) {
         .then(response => response.json())
         .then(json => {
             // Doing something after adding book
-            //console.log(json);
+            console.log(json);
         })
     }
 }
 
 export function getBookShelfBooks() {
+    console.log("SD");
     return function() {
         return fetch(`${API_PATH}/PersonalCabinet/GetAllUserBooks`, {
             method: "POST",
@@ -155,6 +156,7 @@ export function getBookShelfBooks() {
         .then(statusChecker)
         .then(response => response.json())
         .then(json => {
+            console.log(json);
             return json;
         })
     }
