@@ -23,8 +23,7 @@ namespace BookSender.Controllers
     {
         private readonly ApplicationContext _context;
 
-        public PersonalCabinetController(ApplicationContext context
-            )
+        public PersonalCabinetController(ApplicationContext context)
         {
             _context = context;
         }
@@ -110,7 +109,9 @@ namespace BookSender.Controllers
                 if (user != null)
                 {
                     List<Book> userBooks = await _context.Books.Where(
-                                                b => b.CurrentUserId == user.Id).ToListAsync();
+                                                b => b.CurrentUserId == user.Id)
+												.Include(b => b.Picture)
+												.ToListAsync();
 
                     List<BookOnShelf> booksOnShelf = new List<BookOnShelf>();
 
@@ -131,7 +132,7 @@ namespace BookSender.Controllers
                             ISBN = book.ISBN,
                             IsUsable = book.IsUsable,
                             Price = book.Price,
-                            PhotoInBinary = PictureHelper.ConvertToString(book.Picture.ImageData)
+                            PhotoInBinary = book.Picture != null ? PictureHelper.ConvertToString(book.Picture.ImageData) : null
                         });
                     }
 
