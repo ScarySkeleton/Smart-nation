@@ -42,7 +42,25 @@ export function searchBooks(searchData) {
     =================================================================
 */
 export function getOrderBookData(bookData) {
-    return apiAuthPostFetch("Book/OrderBook", bookData);
+    //return apiAuthPostFetch("Order/Order", bookData);
+    //console.log(bookData.id);
+    return function () {
+        return fetch(`${API_PATH}/Order/Order`, {
+            method: "POST",
+            headers: {
+                Accept: 'application/json, text/javascript, */*; q=0.01',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            mode: "cors",
+            credentials: "include",
+            body: JSON.stringify(bookData.id)
+        })
+        .then(statusChecker)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        });
+    }
 }
 
 /*
