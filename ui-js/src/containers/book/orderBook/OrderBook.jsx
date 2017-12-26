@@ -15,7 +15,6 @@ class OrderBook extends PureComponent {
     }
 
     render() {
-        console.log(this.props.bookData);
         return (
             <div className='container book-order'>
                 order book

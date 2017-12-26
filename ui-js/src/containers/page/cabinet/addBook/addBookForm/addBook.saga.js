@@ -1,17 +1,14 @@
-import {
-    take,
+import {take,
     call,
-    put } from 'redux-saga/effects';
+    put} from 'redux-saga/effects';
 
-import { 
-    FETCH_ADD_BOOK,
+import {FETCH_ADD_BOOK,
     successAddBook,
-    failureAddBook } from './addBook.action';
-import {
-    isFetching,
-    isntFetching } from '../../../../../services/store/globalState/global.actions';
+    failureAddBook} from './addBook.action';
+import {isFetching,
+    isntFetching} from '../../../../../services/store/globalState/global.actions';
 
-import { addBook } from '../../../../../services/Api';
+import {addBook} from '../../../../../services/Api';
 
 export default function* watchAddingBook() {
     while(true) {

@@ -42,7 +42,25 @@ export function searchBooks(searchData) {
     =================================================================
 */
 export function getOrderBookData(bookData) {
-    return apiAuthPostFetch("Book/OrderBook", bookData);
+    //return apiAuthPostFetch("Order/Order", bookData);
+    //console.log(bookData.id);
+    return function () {
+        return fetch(`${API_PATH}/Order/Order`, {
+            method: "POST",
+            headers: {
+                Accept: 'application/json, text/javascript, */*; q=0.01',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            mode: "cors",
+            credentials: "include",
+            body: JSON.stringify(bookData.id)
+        })
+        .then(statusChecker)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        });
+    }
 }
 
 /*
@@ -120,7 +138,11 @@ export function getCabinetData(data) {
     }
 }
 
-export function addBook(data) {
+export function addBook(bookData) {
+    // return apiAuthPostFetch("PersonalCabinet/AddBook", bookData)
+    //     .then(json => {
+    //         console.log(json);
+    //     })
     return function() {
         return fetch(`${API_PATH}/PersonalCabinet/AddBook`, {
             method: "POST",
@@ -130,7 +152,7 @@ export function addBook(data) {
             },
             mode: "cors",
             credentials: "include",
-            body: JSON.stringify(data)
+            body: JSON.stringify(bookData)
         })
         .then(statusChecker)
         .then(response => response.json())
@@ -142,22 +164,23 @@ export function addBook(data) {
 }
 
 export function getBookShelfBooks() {
-    console.log("SD");
-    return function() {
-        return fetch(`${API_PATH}/PersonalCabinet/GetAllUserBooks`, {
-            method: "POST",
-            headers: {
-                Accept: 'application/json, text/javascript, */*; q=0.01',
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-            mode: "cors",
-            credentials: "include"
-        })
-        .then(statusChecker)
-        .then(response => response.json())
-        .then(json => {
-            console.log(json);
-            return json;
-        })
-    }
+    console.log("get Book Shelf Books");
+    return apiAuthPostFetch("PersonalCabinet/GetAllUserBooks");
+    // return function() {
+    //     return fetch(`${API_PATH}/PersonalCabinet/GetAllUserBooks`, {
+    //         method: "POST",
+    //         headers: {
+    //             Accept: 'application/json, text/javascript, */*; q=0.01',
+    //             'Content-type': 'application/json; charset=UTF-8',
+    //         },
+    //         mode: "cors",
+    //         credentials: "include"
+    //     })
+    //     .then(statusChecker)
+    //     .then(response => response.json())
+    //     .then(json => {
+    //         console.log(json);
+    //         return json;
+    //     })
+    // }
 }

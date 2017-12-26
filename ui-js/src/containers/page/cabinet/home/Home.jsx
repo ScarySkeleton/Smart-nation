@@ -10,7 +10,6 @@ class Home extends PureComponent {
     }
 
     render() {
-
         return (
             <div className='container home-cabinet'>
                 <img src={avatar} className='avatar' alt='avatar' />
