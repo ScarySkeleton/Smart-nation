@@ -49,5 +49,20 @@ namespace BookSender.Controllers
 
 		}
 
+		public JsonResult GetAllDealStatuses()
+		{
+			try
+			{
+				List<DealStatus> statuses = _context.DealStatuses.ToList();
+
+				return Json(statuses);
+			}
+			catch (Exception ex)
+			{
+				return Json("Error: " + ex.Message);
+			}
+
+		}
+
 	}
 }

@@ -239,7 +239,7 @@ namespace BookSender.Controllers
 
 				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
 
-				if(user != null)
+				if (user != null)
 				{
 					UserInfo uInfo = new UserInfo
 					{
@@ -262,7 +262,7 @@ namespace BookSender.Controllers
 				}
 				return Json("Error");
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				return Json("Error");
 			}
@@ -485,6 +485,102 @@ namespace BookSender.Controllers
 				return new HttpResponseMessage(HttpStatusCode.BadRequest);
 			}
 
+		}
+
+		#endregion
+
+		#region User's Deals
+
+		public async Task<JsonResult> GetAllMyDealsAsAcceptor()
+		{
+
+			try
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+
+				if (user != null)
+				{
+					List<Deal> userDeals = await _context.Deals.Where(
+												b => b.AcceptorId == user.Id)
+												.ToListAsync();
+
+					List<DealModel> dealsList = new List<DealModel>();
+
+					foreach (var deal in userDeals)
+					{
+						dealsList.Add(new DealModel()
+						{
+							Id = deal.Id,
+							BookId = deal.BookId,
+							AcceptorId = deal.AcceptorId,
+							DonorId = deal.DonorId,
+							DealStatusId = deal.DealStatusId,
+							CreatedOn = deal.CreatedOn,
+							EndedOn = deal.EndedOn,
+							ExpiredOn = deal.ExpiredOn,
+							ModifiedOn = deal.ModifiedOn
+						});
+					}
+
+					return Json(dealsList);
+				}
+				else
+				{
+					throw new Exception("User was not found");
+				}
+			}
+			catch (Exception e)
+			{
+				return Json("Error: " + e.Message);
+			}
+		}
+
+		public async Task<JsonResult> GetAllMyDealsAsDonor()
+		{
+
+			try
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+
+				if (user != null)
+				{
+					List<Deal> userDeals = await _context.Deals.Where(
+												b => b.DonorId == user.Id)
+												.ToListAsync();
+
+					List<DealModel> dealsList = new List<DealModel>();
+
+					foreach (var deal in userDeals)
+					{
+						dealsList.Add(new DealModel()
+						{
+							Id = deal.Id,
+							BookId = deal.BookId,
+							AcceptorId = deal.AcceptorId,
+							DonorId = deal.DonorId,
+							DealStatusId = deal.DealStatusId,
+							CreatedOn = deal.CreatedOn,
+							EndedOn = deal.EndedOn,
+							ExpiredOn = deal.ExpiredOn,
+							ModifiedOn = deal.ModifiedOn
+						});
+					}
+
+					return Json(dealsList);
+				}
+				else
+				{
+					throw new Exception("User was not found");
+				}
+			}
+			catch (Exception e)
+			{
+				return Json("Error: " + e.Message);
+			}
 		}
 
 		#endregion
