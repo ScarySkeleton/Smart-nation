@@ -1,3 +1,4 @@
+@import './style/reset.scss';
 @import '/style/variables.scss';
 
 body {
@@ -6,4 +7,12 @@ body {
     background-color: $white;
     font-family: sans-serif;
   }
+
+h1 {
+  
+}
+
+.bold {
+  font-weight: bold;
+}
   
