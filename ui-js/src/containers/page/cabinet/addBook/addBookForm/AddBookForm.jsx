@@ -13,6 +13,8 @@ import {
 import Types from './Mocks/type.js';
 import Genres from './Mocks/genre.js';
 
+import { geolocated } from 'react-geolocated';
+
 import { valid } from '../../../../../services/Utils';
 
 class AddBookForm extends PureComponent {
@@ -100,6 +102,10 @@ class AddBookForm extends PureComponent {
         })
     }
 
+    getGeoLocation() {
+
+    }
+
     priceUpdate(e) {
         this.setState({
             price: e.target.price
@@ -126,7 +132,9 @@ class AddBookForm extends PureComponent {
             genre: this.state.genre,
             photo: this.state.photo,
             photoInBinary: this.state.photoInBinary,
-            price: this.state.price,
+            AltitudeCoordinat: this.props.coords ? this.props.coords.latitude : null,
+            LongtiudeCoordinate: this.props.coords ? this.props.coords.longitude : null,
+            price: this.state.price || 0,
         }
 
         const config = {
@@ -211,6 +219,24 @@ class AddBookForm extends PureComponent {
                 </div>
 
                 <div className='container add-book-form__container'>
+                    <label className='container add-book-form__container_description'> Your current coordinate </label>
+                        {
+                            !this.props.isGeolocationAvailable
+                            ? <div>Your browser does not support Geolocation</div>
+                            : !this.props.isGeolocationEnabled
+                              ? <div>Geolocation is not enabled</div>
+                              : this.props.coords
+                                ? <table>
+                                  <tbody>
+                                    <tr><td>latitude</td><td>{this.props.coords.latitude}</td></tr>
+                                    <tr><td>longitude</td><td>{this.props.coords.longitude}</td></tr>
+                                  </tbody>
+                                </table>
+                                : <div>Getting the location data&hellip; </div>
+                        }                    
+                </div>
+
+                <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Price </label>
                     <input className='container add-book-form__container_data-field'
                     type='number'
@@ -241,5 +267,12 @@ const mapDispatchToProps = dispatch => {
         isntFetching: () => dispatch(isntFetching()),
     }
 }
+
+AddBookForm = geolocated({
+    positionOptions: {
+      enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+  })(AddBookForm);
 
 export default AddBookForm = connect(null, mapDispatchToProps)(AddBookForm);

@@ -35,7 +35,7 @@ namespace BookSender.Controllers
 		}
 
 		[HttpPost]
-		public HttpResponseMessage AddBook([FromBody] BookModel incomingBook)
+		public JsonResult AddBook([FromBody] BookModel incomingBook)
 		{
 			try
 			{
@@ -84,17 +84,17 @@ namespace BookSender.Controllers
 					_context.BookHistoryRecords.Add(bookHistory);
 					_context.SaveChanges();
 
-					return new HttpResponseMessage(HttpStatusCode.Created);
+                    return null;// new HttpResponseMessage(HttpStatusCode.Created);
 				}
 				else
 				{
-					return new HttpResponseMessage(HttpStatusCode.Unauthorized);
-				}
+                    return null;//  new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                }
 			}
 			catch (Exception e)
 			{
-				return new HttpResponseMessage(HttpStatusCode.BadRequest);
-			}
+                return null;// new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
 		}
 
 		public async Task<JsonResult> GetAllUserBooks()

@@ -140,6 +140,7 @@ export function addBook(bookData) {
     //     .then(json => {
     //         console.log(json);
     //     })
+    console.log(bookData);
     return function() {
         return fetch(`${API_PATH}/PersonalCabinet/AddBook`, {
             method: "POST",
