@@ -8,8 +8,7 @@ const cabinetReducer = (state = initState, action) => {
     switch(action.type) {
         case actions.LOAD_DATA: 
             return {
-                ...state, 
-                userId: action.userId,
+                ...state
             }
         case actions.LOAD_DATA_SUCCESS: {
             return {

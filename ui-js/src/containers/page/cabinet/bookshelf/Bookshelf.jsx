@@ -7,10 +7,6 @@ import {
 
 class Bookshelf extends PureComponent {
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         this.props.fetchBooks();
     }

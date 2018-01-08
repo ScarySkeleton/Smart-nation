@@ -1,5 +1,4 @@
 import * as actions from './orderBook.action';
-import {oderBookData} from './Mocks/orderBookData';
 
 const initState = {
     // About the book
@@ -22,7 +21,7 @@ const initState = {
     ownerAccount: null,
 }
 
-const orderBookReducer = (state = oderBookData, action) => { // ONLY FOR DEBUGGING
+const orderBookReducer = (state = initState, action) => { // ONLY FOR DEBUGGING
     switch(action.type) {
 
         case actions.ORDER_BOOK_GET_DATA_REQUEST:

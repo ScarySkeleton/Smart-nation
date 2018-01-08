@@ -2,10 +2,9 @@ export const LOAD_DATA = 'LOAD_DATA';
 export const LOAD_DATA_SUCCESS = 'LOAD_DATA_SUCCESS';
 export const LOAD_DATA_FAILURE = 'LOAD_DATA_FAILURE';
 
-export const loadData = (payload) => {
+export const loadData = () => {
     return {
-        type: LOAD_DATA,
-        payload,
+        type: LOAD_DATA
     }
 };
 

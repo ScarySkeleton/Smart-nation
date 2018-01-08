@@ -7,7 +7,7 @@ function statusChecker(response) {
 }
 
 export function apiAuthPostFetch(path, data) {
-    console.log(`starting to fetching data from ${path}`);
+    console.log(`starting auth fetch data from ${path}, data: `, data);
     return function() {
         return fetch(`${API_PATH}/${path}`, {
             method: "POST",
@@ -28,6 +28,8 @@ export function apiAuthPostFetch(path, data) {
 }
 
 export function apiNonAuthPostFetch(path, data) {
+    console.log(`starting auth fetch data from ${path}, data:`, data);
+    console.log(API_PATH, path);
     return function() {
         return fetch(`${API_PATH}/${path}`, {
             method: "POST",

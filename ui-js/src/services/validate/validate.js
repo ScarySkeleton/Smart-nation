@@ -18,10 +18,10 @@ let validator = {
                     continue;
                 
                 if(!checker) {
-                    throw {
+                    throw new Error({
                         name: "ValidatorError",
                         message: "No handler to validate type " + type,
-                    }
+                    })
                 }
                 
                 result = checker.validate(data[i]);

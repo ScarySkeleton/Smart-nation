@@ -1,5 +1,5 @@
 
-import {apiAuthPostFetch} from './ApiFetch';
+import {apiAuthPostFetch} from './ApiFetch'; //apiNonAuthPostFetch
 
 const API_PATH='http://localhost:50363';
 
@@ -41,10 +41,8 @@ export function searchBooks(searchData) {
                             BOOK REQUEST
     =================================================================
 */
-export function getOrderBookData(bookData) {
-    //return apiAuthPostFetch("Order/Order", bookData);
-    //console.log(bookData.id);
-    return function () {
+export function getOrderBookData(bookId) {
+    return function() {
         return fetch(`${API_PATH}/Order/Order`, {
             method: "POST",
             headers: {
@@ -52,13 +50,12 @@ export function getOrderBookData(bookData) {
                 'Content-type': 'application/json; charset=UTF-8',
             },
             mode: "cors",
-            credentials: "include",
-            body: JSON.stringify(bookData.id)
+            body: JSON.stringify(bookId)
         })
         .then(statusChecker)
         .then(response => response.json())
         .then(json => {
-            console.log(json);
+            return json;
         });
     }
 }
@@ -128,7 +125,7 @@ export function logoutRequest() {
                     USER CABINET
     ================================================
 */
-export function getCabinetData(data) {
+export function getCabinetData() {
     return function() {
         return {
             userId: 1,

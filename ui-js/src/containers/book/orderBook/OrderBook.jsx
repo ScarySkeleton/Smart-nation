@@ -7,12 +7,9 @@ import defBookImg from 'img/cabinet/book.png'
 import {orderBookRequest} from './orderBook.action';
 
 class OrderBook extends PureComponent {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
-        //this.props.getOrderBookData({id: this.props.match.params.id});
+        this.props.getOrderBookData({id: this.props.match.params.id});
     }
 
     render() {

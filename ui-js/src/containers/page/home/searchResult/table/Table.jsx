@@ -2,9 +2,8 @@ import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {Link} from 'react-router-dom';
 
-import {OrderBook} from '../../../../book/orderBook/OrderBook';
-
 const Table = ({className, data, columns}) => {
+    data.map(book => addOrderButtonToEachBook(book));
     return (
         <div className={className}>
             <BootstrapTable data={data} striped={true} hover={true}>
@@ -20,12 +19,24 @@ const Table = ({className, data, columns}) => {
                 <TableHeaderColumn dataField="createdOn" dataSort={true}>
                     Added to system
                 </TableHeaderColumn>
-                <TableHeaderColumn dataField="orderBook" dataSort={false}>
-                    <Link to={'/order-book/'+data.id} className="orderBook"> Order </Link>
+                <TableHeaderColumn  
+                    dataField="orderBook"
+                    dataSort={false}
+                    dataFormat={showOrderButton}>
+                    Order the book
                 </TableHeaderColumn>
             </BootstrapTable>
         </div>
     )
+}
+
+const addOrderButtonToEachBook = book => 
+    book.orderBook = {
+        order: <Link to={`orderBook/${book.id}`} className="orderBook">Order</Link>
+    }
+
+const showOrderButton = book => {
+    return book.order;
 }
 
 export default Table;

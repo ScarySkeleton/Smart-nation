@@ -1,13 +1,9 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 
 import './home.scss';
 import avatar from '../../../../img/cabinet/book.png';
 
 class Home extends PureComponent {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (

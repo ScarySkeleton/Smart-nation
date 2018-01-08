@@ -67,13 +67,11 @@ let SearchResult = props => {
     return <div className='container search-result'>
         {
             props.searchedBooks.length
-            ? <div className='container search-result__books'>
-                <Table 
+            ? <Table 
                     className={'container search-result__books_table'} 
                     data={props.searchedBooks}
                     columns={columns}
                     />
-                </div>
             : <div className='container search-result__books_empty'>
                 Feel free to search any book you want!
             </div>            

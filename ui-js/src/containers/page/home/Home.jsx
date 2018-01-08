@@ -10,14 +10,8 @@ import './googleMap/googleMap.scss';
 // Google map
 import GoogleMaps from './googleMap/googleMap';
 import GoogleMapLoading from './googleMap/googleMapLoading';
-import GoogleMapContainer from './googleMap/googleMapContainer';
-import GoogleMapElement from './googleMap/googleMapElement';
 
 class HomeContainer extends PureComponent {
-     constructor(props) {
-         super(props);
-     }
-
     render() {
         return (
             <div className='container home'>
@@ -34,12 +28,6 @@ class HomeContainer extends PureComponent {
                 /> 
             </div>
         )
-    }
-}
-
-const mapStateToProps = state => {
-    return {
-        searchResult: state.searchBooks.searchedBooks
     }
 }
 

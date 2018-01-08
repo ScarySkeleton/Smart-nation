@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -15,12 +14,9 @@ import CabinetBookshelf from './bookshelf/Bookshelf';
 import CabinetAddBook from './addBook/AddBook';
 
 class Cabinet extends PureComponent {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
-        this.props.loadCabinetData({userId: 1});
+        this.props.loadCabinetData();
     }
 
     render() {
@@ -39,17 +35,9 @@ class Cabinet extends PureComponent {
     }
 };
 
-Cabinet.propTypes = {
-
-};
-
-Cabinet.defultProps = {
-
-};
-
 const mapDispatchToProps = dispatch => {
     return {
-        loadCabinetData: (data) => dispatch(loadData(data)),
+        loadCabinetData: () => dispatch(loadData()),
     }
 }
 

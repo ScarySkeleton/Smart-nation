@@ -10,15 +10,15 @@ import {getCabinetData} from '../../../services/Api';
 
 export default function* watchFetchCabinetData() {
     while(true) {
-        const action = yield take(LOAD_DATA);
-        yield call(fetchCabinetData, action.payload);
+        yield take(LOAD_DATA);
+        yield call(fetchCabinetData);
     }
 }
 
-export function* fetchCabinetData(data) {
+export function* fetchCabinetData() {
     try {
         yield put(isFetching());
-        const response = yield call(getCabinetData(data));
+        const response = yield call(getCabinetData());
         yield put(loadDataSuccess(response));
     } catch(e) {
         yield put(loadDataFailure());

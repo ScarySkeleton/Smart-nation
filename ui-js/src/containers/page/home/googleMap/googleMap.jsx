@@ -9,6 +9,7 @@ const GoogleMaps = withScriptjs(withGoogleMap((props) =>
             props.searchResult.map((result, index) => {
                 if(result.lat && result.lng)
                     return <Marker key={index} position={{ lat: result.lat, lng: result.lng }} />
+                return null;
             })
         }
     </GoogleMap>

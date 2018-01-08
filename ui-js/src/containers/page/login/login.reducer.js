@@ -1,8 +1,5 @@
 import * as actions from './login.actions.js';
 
-// Mock 
-import userDataMock from './Mocks/userMock.js';
-
 const initState = {
     userdata: {
         name: null,//,userDataMock.data[0].name,
