@@ -28,7 +28,6 @@ namespace BookSender.Controllers
 	public class AccountController : Controller
 	{
 		private ApplicationContext _context;
-		private readonly IUserService _userSrevice;
 		public AccountController(ApplicationContext context)
 		{
 			_context = context;

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookSender.Data.Models;
+using System.Net.Http;
+using System.Net;
 
 namespace BookSender.Controllers
 {
@@ -22,14 +24,14 @@ namespace BookSender.Controllers
 		{
 			_context = context;
 		}
-        [HttpGet]
+		[HttpGet]
 		public IActionResult Index()
 		{
 
 			return View();
 		}
 
-        [HttpPost]
+		[HttpPost]
 		public JsonResult Order(int bookId)
 		{
 			try
@@ -42,22 +44,22 @@ namespace BookSender.Controllers
 
 				if (book != null && user != null)
 				{
-                    Deal deal = new Deal
-                    {
-                        DonorId = book.CurrentUserId,
-                        AcceptorId = user.Id,
-                        BookId = book.Id,
-                        DealStatusId = 1,
-                        CreatedOn = DateTime.Now,
-                        ExpiredOn = DateTime.Now.AddDays(_context.DealStatuses.FirstOrDefault(d => d.Id == 1).ExpirationTime),
-                        ModifiedOn = DateTime.Now,
-                        EndedOn = null
-                    };
+					Deal deal = new Deal
+					{
+						DonorId = book.CurrentUserId,
+						AcceptorId = user.Id,
+						BookId = book.Id,
+						DealStatusId = 1,
+						CreatedOn = DateTime.UtcNow,
+						ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(d => d.Id == 1).ExpirationTime),
+						ModifiedOn = DateTime.UtcNow,
+						EndedOn = null
+					};
 
-                    _context.Deals.Add(deal);
-                    _context.SaveChanges();
+					_context.Deals.Add(deal);
+					_context.SaveChanges();
 
-                    BookForOrder bookModel = new BookForOrder
+					BookForOrder bookModel = new BookForOrder
 					{
 						Title = book.Title,
 						Author = book.Author,
@@ -74,7 +76,7 @@ namespace BookSender.Controllers
 						OwnerLastName = book.CurrentUser.LastName,
 						OwnerPhoneNumber = book.CurrentUser.PhoneNumber,
 					};
-                    
+
 					return Json(bookModel);
 				}
 				else
@@ -87,5 +89,118 @@ namespace BookSender.Controllers
 				return Json("Error: " + e.Message);
 			}
 		}
+
+		public async Task<HttpResponseMessage> DeclineDeal(int? dealId)
+		{
+			try
+			{
+				Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+
+				deal.DealStatusId = 3;
+				deal.ModifiedOn = DateTime.UtcNow;
+				deal.ExpiredOn = DateTime.UtcNow;
+				deal.EndedOn = DateTime.UtcNow;
+
+				_context.SaveChanges();
+
+				return new HttpResponseMessage(HttpStatusCode.OK);
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+		public async Task<HttpResponseMessage> ApproveDeal(int? dealId)
+		{
+			try
+			{
+				Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+
+				deal.DealStatusId = 2;
+				deal.ModifiedOn = DateTime.UtcNow;
+				deal.ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(s => s.Id == 2).ExpirationTime);
+
+				_context.SaveChanges();
+
+				return new HttpResponseMessage(HttpStatusCode.OK);
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+		public async Task<HttpResponseMessage> BookRecieved(int? dealId)
+		{
+			try
+			{
+				Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+
+				deal.DealStatusId = 4;
+				deal.ModifiedOn = DateTime.UtcNow;
+				deal.ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(s => s.Id == 4).ExpirationTime);
+
+				_context.SaveChanges();
+
+				return new HttpResponseMessage(HttpStatusCode.OK);
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+		public async Task<HttpResponseMessage> CloseDeal(int? dealId)
+		{
+			try
+			{
+				Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+
+				DateTime bookRecievedOn = deal.ModifiedOn;
+
+				deal.DealStatusId = 6;
+				deal.ModifiedOn = DateTime.UtcNow;
+				deal.ExpiredOn = DateTime.UtcNow;
+				deal.EndedOn = DateTime.UtcNow;
+
+
+				var bookHistoryPrevous = await _context.BookHistoryRecords
+														.Where(bh => bh.BookId == deal.BookId)
+														.OrderByDescending(bh => bh.GetBookOn)
+														.FirstOrDefaultAsync();
+
+				if (bookHistoryPrevous == null)
+					return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+				bookHistoryPrevous.GiveBookOn = DateTime.UtcNow;
+
+				//TODO: Add new Cords for Book
+				BookHistory bookHistoryNew = new BookHistory
+				{
+					BookId = deal.BookId,
+					UserId = deal.AcceptorId,
+					GetBookOn = bookRecievedOn
+				};
+
+
+				await _context.BookHistoryRecords.AddAsync(bookHistoryNew);
+
+				_context.SaveChanges();
+
+				return new HttpResponseMessage(HttpStatusCode.OK);
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
+
+
 	}
 }
