@@ -64,8 +64,8 @@ namespace BookSender.Controllers
 							ImageData = ImageData,
 							Name = incomingBook.photo
 						} : null,
-						BookTypeId = incomingBook.type,
-						GenreId = incomingBook.genre
+						BookTypeId = 1, //incomingBook.type,
+						GenreId = 1//incomingBook.genre
 					};
 
 					_context.Books.Add(book);
@@ -78,8 +78,8 @@ namespace BookSender.Controllers
 						GetBookOn = DateTime.UtcNow,
 						UserId = user.Id,
 						AltitudeCoordinate = incomingBook.AltitudeCoordinate,
-						LongtiudeCoordinate = incomingBook.LongtiudeCoordinate
-					};
+						LongtiudeCoordinate = incomingBook.LongitudeCoordinate
+                    };
 
 					_context.BookHistoryRecords.Add(bookHistory);
 					_context.SaveChanges();
