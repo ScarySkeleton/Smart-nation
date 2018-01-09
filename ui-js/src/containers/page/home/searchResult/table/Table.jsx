@@ -1,12 +1,13 @@
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {Link} from 'react-router-dom';
-
+import './table.scss';
 const Table = ({className, data, columns}) => {
+    console.log(data);
     data.map(book => addOrderButtonToEachBook(book));
     return (
         <div className={className}>
-            <BootstrapTable data={data} striped={true} hover={true}>
+            <BootstrapTable data={data} striped={true} hover={true} version='4'>
                 <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>
                     ID
                 </TableHeaderColumn>
