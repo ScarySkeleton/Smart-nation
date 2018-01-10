@@ -59,4 +59,4 @@ const mapDispatchToProps = dispatch => {
 OrderBook = withRouter(connect(
     mapStateToProps, mapDispatchToProps)(OrderBook));
 
-export {OrderBook};
+export default OrderBook;

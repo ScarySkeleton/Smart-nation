@@ -1,5 +1,5 @@
 
-import {apiAuthPostFetch} from './ApiFetch'; //apiNonAuthPostFetch
+import {apiAuthPostFetch, apiNonAuthPostFetch} from './ApiFetch';
 
 const API_PATH='http://localhost:50363';
 
@@ -34,6 +34,10 @@ export function searchBooks(searchData) {
             };
         });
     }
+}
+
+export function getBookPageData(bookId) {
+    return apiNonAuthPostFetch('/Home/GetBookPageData,', bookId);
 }
 
 /*

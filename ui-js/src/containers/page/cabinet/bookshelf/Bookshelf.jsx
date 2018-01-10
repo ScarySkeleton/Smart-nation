@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import {
     fetchingBookShelfBooks
@@ -19,13 +20,18 @@ class Bookshelf extends PureComponent {
                     ?    this.props.bookShelfBooks.map(book => {
                             return (
                                 <div className='container bookshelf-cabinet__book'>
-                                    {book}
+                                    <Link to={`${book.id}`}>
+                                        <div className='container bookshelf-cabinet__book_title book__title'>
+                                        </div>
+                                        <div className='container bookshelf-cabinet__book_image book__image'>
+                                        </div>
+                                    </Link>
                                 </div>
                             )
                         })
                     : (
                         <div className='container bookshelf-cabinet__no-books'>
-                            No books
+                            You don't have any books
                         </div>
                     )
                 }

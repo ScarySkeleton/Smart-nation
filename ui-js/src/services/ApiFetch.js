@@ -12,15 +12,17 @@ function statusChecker(response) {
     return Promise.reject(response);
 }
 
-function errorHandler(error) {
+function errorHandler(path, data, error) {
     // TODO 
     //  Show error message
-    return Promise.reject(error);
+    console.log(`Error was occure when send request via ${path} address with ${data} data, error: ${error}`);
+    console.log(path, data, error);
+    
+    //return Promise.reject(error);
 }
 
 export function apiAuthPostFetch(path, data) {
     console.log(`starting auth fetch data from ${path}, data: `, data);
-    console.log(JSON.stringify(data));
     //return function() {
         return fetch(`${API_PATH}/${path}`, {
             method: "POST",
@@ -29,19 +31,18 @@ export function apiAuthPostFetch(path, data) {
             credentials: "include",
             body: JSON.stringify(data)
         })
+        .catch(errorHandler(path, data))
         .then(statusChecker)
         .then(response => response.json())
         .then(json => {
             return json;
         })
-        .catch(errorHandler)
     //}
 }
 
 export function apiNonAuthPostFetch(path, data) {
     console.log(`starting auth fetch data from ${path}, data:`, data);
-    console.log(API_PATH, path);
-    return function() {
+    //return function() {
         return fetch(`${API_PATH}/${path}`, {
             method: "POST",
             headers: {
@@ -51,10 +52,12 @@ export function apiNonAuthPostFetch(path, data) {
             mode: "cors",
             body: JSON.stringify(data)
         })
+        .catch(errorHandler(path, data))
         .then(statusChecker)
         .then(response => response.json())
+        .catch(errorHandler)
         .then(json => {
             return json;
-        });
-    }
+        })
+    //}
 }

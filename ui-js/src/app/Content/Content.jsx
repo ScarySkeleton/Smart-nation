@@ -12,7 +12,8 @@ import LoginPage from '../../containers/page/login/Login';
 import Logout from '../../components/logout/Logout';
 import RegistrationPage from '../../containers/page/register/Register';
 import CabinetPage from '../../containers/page/cabinet/Cabinet';
-import {OrderBook} from '../../containers/book/orderBook/OrderBook';
+import OrderBook from '../../containers/book/orderBook/OrderBook';
+import Book from '../../containers/page/book/Book';
 
 let Content = (props) => (
     <div className='body-content'>
@@ -31,6 +32,7 @@ let Content = (props) => (
         )} />
         <Route path='/logout' component={Logout} />
         
+        <Route path='/book/:id' component={Book} /> 
         <PrivateRoute path='/orderBook/:id' component={OrderBook} isLogined={props.isLogined} /> {/* "!"FOR DEBUGGING OFFLINE ONLY  */}
         <PrivateRoute path='/cabinet' component={CabinetPage} isLogined={props.isLogined} />            
     </div>
