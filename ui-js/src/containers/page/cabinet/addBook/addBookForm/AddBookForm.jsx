@@ -254,7 +254,6 @@ class AddBookForm extends PureComponent {
                         add book
                     </button>
                 </div>
-
             </div>
         )
     }
