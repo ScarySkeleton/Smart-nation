@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
-
 import {
     fetchingBookShelfBooks
 } from './bookshelf.actions';
+import defaulBookImage from '../../../../img/cabinet/book_1.svg';
+
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 
 class Bookshelf extends PureComponent {
 
@@ -21,11 +22,35 @@ class Bookshelf extends PureComponent {
                             return (
                                 <div className='container bookshelf-cabinet__book'>
                                     <Link to={`${book.id}`}>
-                                        <div className='container bookshelf-cabinet__book_title book__title'>
+                                        <div className='bookshelf-cabinet__book_title book__title'>
+                                            {book.Title}
                                         </div>
-                                        <div className='container bookshelf-cabinet__book_image book__image'>
+                                        <div className='bookshelf-cabinet__book_image book__image'>
+                                        {
+                                            !!book.PhotoInBinary
+                                            ? <image src={book.PhotoInBinary} alt={book.Title} />
+                                            : <image src={defaulBookImage} />
+                                        }
                                         </div>
                                     </Link>
+                                    {/* <div className='bookshelf-cabinet__book_description book__description'>
+                                    </div>
+                                    <div className='bookshelf-cabinet__book_author book__author'>
+                                    </div>
+                                    <div className='bookshelf-cabinet__book_raiting book__raiting'>
+                                    </div>
+                                    <div className='bookshelf-cabinet__book_contributor book__user-contributor'>
+                                    </div>
+                                    <div className='bookshelf-cabinet__book_time-created book__time-created'>
+                                    </div>
+                                    <div className='bookshelf-cabinet__book_time-printed book__time-printed'>
+                                    </div>
+                                    <div className='bookshelf-cabinet__book_isbn book__isbn'>
+                                    </div>
+                                    <div className='bookshelf-cabinet__book_price book__price'>
+                                    </div>
+                                    <div className='bookshelf-cabinet__book_is-usable book__is-usable'>
+                                    </div> */}
                                 </div>
                             )
                         })

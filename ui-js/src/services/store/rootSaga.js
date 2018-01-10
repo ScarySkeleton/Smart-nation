@@ -8,6 +8,7 @@ import addingBookProcess from '../../containers/page/cabinet/addBook/addBookForm
 import fetchingBookShelfBooks from '../../containers/page/cabinet/bookshelf/bookshelf.saga';
 import fetchingOrderBookData from '../../containers/book/orderBook/orderBook.saga';
 import watchFetchingBook from '../../containers/page/book/book.saga';
+import watchFetchingBookAddComment from '../../containers/page/book/bookAddComment/bookAddComment.saga';
 
 export default function* rootSaga() {
     yield all([
@@ -19,5 +20,6 @@ export default function* rootSaga() {
         fetchingBookShelfBooks(),
         fetchingOrderBookData(),
         watchFetchingBook(),
+        watchFetchingBookAddComment(),
     ]);
 }

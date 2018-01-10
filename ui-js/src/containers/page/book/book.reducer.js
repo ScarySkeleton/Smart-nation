@@ -7,7 +7,7 @@ const initState = {
 }
 
 const bookReducer = (state = initState, action) => {
-    console.log(state, action);
+
     switch(action.type) {
         case actions.FETCH_BOOK:
             return {
