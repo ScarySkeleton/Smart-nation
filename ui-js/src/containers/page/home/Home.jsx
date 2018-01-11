@@ -14,7 +14,7 @@ import GoogleMapLoading from './googleMap/googleMapLoading';
 class HomeContainer extends PureComponent {
     render() {
         return (
-            <div className='container home'>
+            <div className='home'>
               <Search />
               
               <SearchResult />

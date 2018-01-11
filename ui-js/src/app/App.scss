@@ -29,5 +29,7 @@ body {
   	flex-direction: column;
   	height: 100%;
 	background-image: url(./Resources/back.jpg);
+	background-repeat: no-repeat;
+    background-attachment: fixed;
 	background-size: cover;
 }

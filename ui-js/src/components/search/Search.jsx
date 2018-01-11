@@ -1,6 +1,9 @@
 import React from 'react';
-
 import './search.scss';
+
+const LAST_YEAR=1800;
+
+let CUR_YEAR=new Date().getFullYear();
 
 const Search = props => {
 
@@ -36,6 +39,8 @@ const Search = props => {
 						placeholder="AUTHOR"/>
 					<input 
 							type="number"
+							min={LAST_YEAR}
+							max={CUR_YEAR}
 							ref={year => issueInput = year}
 							placeholder="The year of issue" />
 					<input 

@@ -16,7 +16,7 @@ class OrderBook extends PureComponent {
         console.log(this.props.bookData);
         const data = this.props.bookData;
         return (
-            <div className='container book-order'>
+            <div className='book-order'>
                 <div className='book-order__image'>
                     {
                         data.image !== null 
@@ -59,4 +59,4 @@ const mapDispatchToProps = dispatch => {
 OrderBook = withRouter(connect(
     mapStateToProps, mapDispatchToProps)(OrderBook));
 
-export {OrderBook};
+export default OrderBook;

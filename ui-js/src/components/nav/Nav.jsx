@@ -35,7 +35,7 @@ class Nav extends PureComponent {
 
     render() {
         return (
-            <ul className='container ul nav__ul'>
+            <ul className='ul nav__ul'>
                 {
                     (this.props.isLogined) 
                     ? 

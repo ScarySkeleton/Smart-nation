@@ -1,5 +1,5 @@
 
-import {apiAuthPostFetch} from './ApiFetch'; //apiNonAuthPostFetch
+import {apiAuthPostFetch, apiNonAuthPostFetch} from './ApiFetch';
 
 const API_PATH='http://localhost:50363';
 
@@ -34,6 +34,14 @@ export function searchBooks(searchData) {
             };
         });
     }
+}
+
+export function getBookPageData(bookId) {
+    return apiNonAuthPostFetch('/Home/GetBookPageData,', bookId);
+}
+
+export function setBookAddComment(commentData) {
+    return apiNonAuthPostFetch('/Home/SetBookComment,', commentData);
 }
 
 /*
@@ -164,21 +172,4 @@ export function addBook(bookData) {
 export function getBookShelfBooks() {
     console.log("get Book Shelf Books");
     return apiAuthPostFetch("PersonalCabinet/GetAllUserBooks");
-    // return function() {
-    //     return fetch(`${API_PATH}/PersonalCabinet/GetAllUserBooks`, {
-    //         method: "POST",
-    //         headers: {
-    //             Accept: 'application/json, text/javascript, */*; q=0.01',
-    //             'Content-type': 'application/json; charset=UTF-8',
-    //         },
-    //         mode: "cors",
-    //         credentials: "include"
-    //     })
-    //     .then(statusChecker)
-    //     .then(response => response.json())
-    //     .then(json => {
-    //         console.log(json);
-    //         return json;
-    //     })
-    // }
 }

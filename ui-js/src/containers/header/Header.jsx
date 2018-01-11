@@ -10,7 +10,7 @@ class HeaderContainer extends PureComponent {
     render() {
 
         return (
-            <div className='container header'>
+            <div className='header'>
                 <Logo />
                 <div className='header-title'>
                     <blockquote className='header-title-blockquote'>“A room without books is like a body without a soul.”
