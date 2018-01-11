@@ -6,7 +6,7 @@ namespace BookSender.Data.Models
     {
         public int Id { get; set; }
 
-        public int? CurrentUserId { get; set; }
+        public int CurrentUserId { get; set; }
 
         public string Title { get; set; }
 

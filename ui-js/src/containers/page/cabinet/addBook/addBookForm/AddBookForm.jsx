@@ -158,11 +158,7 @@ class AddBookForm extends PureComponent {
 
     render() { 
         return (
-            <div className='container add-book-form'>
-                <h3>
-                    Enter all needed data, thx!
-                </h3>
-
+            <div className='col-md-6 add-book-form'>
                 { 
                     this.state.errorMessage &&  <p 
                         className='container add-book-form__error-message'>
@@ -177,40 +173,40 @@ class AddBookForm extends PureComponent {
                      </p>
                 }
 
-                <div className='container add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Name*: </label>
-                    <input className='container add-book-form__container_data-field' 
+                <div className='form-group add-book-form__container'>
+                    <label className='container add-book-form__container_description'> Name<span className='requred_star'>*</span>: </label>
+                    <input className='form-control add-book-form__container_data-field' 
                         type='text'
                         value={this.state.name}
                         onChange={this.nameUpdate} />
                 </div>
 
-                <div className='container add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Author*: </label>
-                    <input className='container add-book-form__container_data-field' 
+                <div className='form-group add-book-form__container'>
+                    <label className='container add-book-form__container_description'> Author<span className='requred_star'>*</span>: </label>
+                    <input className='form-control add-book-form__container_data-field' 
                         type='text'
                         value={this.state.author}
                         onChange={this.authorUpdate} />
                 </div>
 
-                <div className='container add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Type*: </label>
+                <div className='form-group add-book-form__container'>
+                    <label className='container add-book-form__container_description'> Type<span className='requred_star'>*</span>: </label>
                     <Select data={Types} 
-                        selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select' 
+                        selectClassName='form-control add-book-form__container_data-field add-book-form__container_data-field-select' 
                         selected={this.state.type}
                         onSelect={this.listUpdate} /> 
                 </div>
 
-                <div className='container add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Genre*: </label>
+                <div className='form-group add-book-form__container'>
+                    <label className='container add-book-form__container_description'> Genre<span className='requred_star'>*</span>: </label>
                     <Select data={Genres}
-                        selectClassName='container add-book-form__container_data-field add-book-form__container_data-field-select'
+                        selectClassName='form-control add-book-form__container_data-field add-book-form__container_data-field-select'
                         selected={this.state.genre}
                         onSelect={this.listUpdate} />
                 </div>
 
-                <div className='container add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Photo </label>
+                <div className='form-group add-book-form__container'>
+                    <label className='form-control add-book-form__container_description'> Photo </label>
                     <input 
                         className='container add-book-form__container_data-field'
                         type='file'
@@ -236,20 +232,21 @@ class AddBookForm extends PureComponent {
                         }                    
                 </div>
 
-                <div className='container add-book-form__container'>
+                <div className='form-group add-book-form__container'>
                     <label className='container add-book-form__container_description'> Price </label>
-                    <input className='container add-book-form__container_data-field'
+                    <input className='form-control add-book-form__container_data-field'
                     type='number'
                     value={this.state.price}
+                    min = '0'
                     onChange={this.priceUpdate} />
                 </div>
 
                 <div className='container add-book-form__container add-book-form__container_control'>
-                    <button className='add-book-form__container_button add-book-form__container_button-reset'
+                    <button className='btn btn-secondary add-book-form__container_button add-book-form__container_button-reset'
                         onClick={this.reset}>
                         reset
                     </button>
-                    <button className='add-book-form__container_button add-book-form__container_button-add'
+                    <button className='btn btn-success add-book-form__container_button add-book-form__container_button-add'
                         onClick={this.addBook}>
                         add book
                     </button>
