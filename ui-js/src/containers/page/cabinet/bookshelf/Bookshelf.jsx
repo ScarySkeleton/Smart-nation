@@ -17,7 +17,6 @@ class Bookshelf extends PureComponent {
     render() {
         return (
             <div className='container bookshelf-cabinet'>
-            <image src={defaulBookPicture} alt='Default book picture' />
                 {
                     (this.props.bookShelfBooks.length)
                     ?    this.props.bookShelfBooks.map((book, index) => {

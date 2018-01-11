@@ -157,7 +157,6 @@ class AddBookForm extends PureComponent {
     }
 
     render() { 
-        console.log(this.props.isBookAddedSuccess);
         return (
             <div className='container add-book-form'>
                 <h3>
