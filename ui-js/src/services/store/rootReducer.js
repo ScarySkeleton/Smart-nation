@@ -11,6 +11,7 @@ import BookShelf from '../../containers/page/cabinet/bookshelf/bookshelf.reducer
 import OrderBook from '../../containers/book/orderBook/orderBook.reducer';
 import Book from '../../containers/page/book/book.reducer';
 import BookAddComment from '../../containers/page/book/bookAddComment/bookAddComment.reducer';
+import UserInfo from '../../containers/page/cabinet/info/info.reducer';
 
 export default combineReducers({
     globalState,
@@ -23,5 +24,6 @@ export default combineReducers({
     BookShelf,
     OrderBook,
     Book,
-    BookAddComment
+    BookAddComment,
+    UserInfo
 });

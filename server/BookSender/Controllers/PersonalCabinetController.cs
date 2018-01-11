@@ -41,7 +41,7 @@ namespace BookSender.Controllers
             {
                 var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
 
-                var user = _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+                var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
 
                 if (user != null)
                 {
@@ -69,12 +69,11 @@ namespace BookSender.Controllers
 					};
 
                     _context.Books.Add(book);
-                    _context.SaveChanges();
-
+					_context.SaveChanges();
 
 					BookHistory bookHistory = new BookHistory
 					{
-						Book = book,
+						BookId = book.Id,
 						GetBookOn = DateTime.UtcNow,
 						UserId = user.Id,
 						AltitudeCoordinate = incomingBook.AltitudeCoordinate,
@@ -248,16 +247,16 @@ namespace BookSender.Controllers
                         LastName = user.LastName,
                         Email = user.Email,
                         PhoneNumber = user.PhoneNumber,
-                        RoleName = user.Role.Name,
+                        RoleName = user.Role != null ? user.Role.Name : "Guest",
                         AvailableFrom = user.AvailableFrom,
                         AvailableTill = user.AvailableTill,
                         BirthDate = user.BirthDate,
                         RegisteredOn = user.RegisteredOn,
-                        RatingStatusName = user.RatingStatus.Name,
+                        RatingStatusName = user.RatingStatus != null ?  user.RatingStatus.Name : null,
                         PhotoinBinary = user.Picture != null ? PictureHelper.ConvertToString(user.Picture.ImageData) : null
                     };
 
-                   return Json(uInfo);
+                    return Json(uInfo);
                 }
                 return Json("Error");
             }

@@ -134,12 +134,12 @@ export function logoutRequest() {
     ================================================
 */
 export function getCabinetData() {
+    console.log("Get user info")
     return function() {
-        return {
-            userId: 1,
-            photo: null,
-            description: 'My name is user and I like to read',
-        }
+        return apiAuthPostFetch("PersonalCabinet/GetUserInfo")
+            .then(data => {
+                return data;
+            });
     }
 }
 
@@ -148,7 +148,6 @@ export function addBook(bookData) {
     //     .then(json => {
     //         console.log(json);
     //     })
-    console.log(bookData);
     return function() {
         return fetch(`${API_PATH}/PersonalCabinet/AddBook`, {
             method: "POST",
@@ -162,14 +161,16 @@ export function addBook(bookData) {
         })
         .then(statusChecker)
         .then(response => response.json())
-        .then(json => {
-            // Doing something after adding book
-            console.log(json);
-        })
     }
 }
 
 export function getBookShelfBooks() {
     console.log("get Book Shelf Books");
-    return apiAuthPostFetch("PersonalCabinet/GetAllUserBooks");
+    return function() {
+        return apiAuthPostFetch("PersonalCabinet/GetAllUserBooks")
+            .then(data => {
+                return data;
+            });
+    }
+    
 }

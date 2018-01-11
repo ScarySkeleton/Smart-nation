@@ -76,7 +76,12 @@ class AddBookForm extends PureComponent {
 
     imageChoosen(e) {
         let input = e.target;
+        let file = input.files[0];
         let reader = new FileReader();
+
+        if(!file) {
+            return;
+        }
 
         reader.onload = () => {
             let binaryFile = reader.result;
@@ -90,20 +95,16 @@ class AddBookForm extends PureComponent {
                 errorMessage: 'File was not loaded.' 
             })
         }
-        reader.onloadend = () => {
+        reader.onloadend = () => {            
             this.props.isntFetching();
         }
 
         this.props.isFetching();
-        reader.readAsBinaryString(input.files[0]);
+        reader.readAsDataURL(input.files[0]);
 
         this.setState({
             photo: input.files[0].name
         })
-    }
-
-    getGeoLocation() {
-
     }
 
     priceUpdate(e) {
@@ -156,6 +157,7 @@ class AddBookForm extends PureComponent {
     }
 
     render() { 
+        console.log(this.props.isBookAddedSuccess);
         return (
             <div className='container add-book-form'>
                 <h3>
@@ -175,7 +177,6 @@ class AddBookForm extends PureComponent {
                         }
                      </p>
                 }
-               
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Name*: </label>
@@ -267,6 +268,12 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
+const mapStateToProps = state => { 
+    return {
+        isBookAddedSuccess: state.AddBook
+    }
+}
+
 AddBookForm = geolocated({
     positionOptions: {
       enableHighAccuracy: false,
@@ -274,4 +281,4 @@ AddBookForm = geolocated({
     userDecisionTimeout: 5000,
   })(AddBookForm);
 
-export default AddBookForm = connect(null, mapDispatchToProps)(AddBookForm);
+export default AddBookForm = connect(mapStateToProps, mapDispatchToProps)(AddBookForm);

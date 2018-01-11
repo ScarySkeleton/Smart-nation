@@ -3,9 +3,10 @@ import {
 } from './bookshelf.actions';
 import defaulBookImage from '../../../../img/cabinet/book_1.svg';
 
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+//import Image from 'react-image';
 
 class Bookshelf extends PureComponent {
 
@@ -18,17 +19,17 @@ class Bookshelf extends PureComponent {
             <div className='container bookshelf-cabinet'>
                 {
                     (this.props.bookShelfBooks.length)
-                    ?    this.props.bookShelfBooks.map(book => {
+                    ?    this.props.bookShelfBooks.map((book, index) => {
                             return (
-                                <div className='container bookshelf-cabinet__book'>
-                                    <Link to={`${book.id}`}>
+                                <div className='container bookshelf-cabinet__book' key={index}>
+                                    <Link to={`book/${book.id}`}>
                                         <div className='bookshelf-cabinet__book_title book__title'>
-                                            {book.Title}
+                                            {book.title}
                                         </div>
                                         <div className='bookshelf-cabinet__book_image book__image'>
                                         {
-                                            !!book.PhotoInBinary
-                                            ? <image src={book.PhotoInBinary} alt={book.Title} />
+                                            !!book.photoInBinary
+                                            ? <img src={book.photoInBinary} alt={book.title} scale="0" />
                                             : <image src={defaulBookImage} />
                                         }
                                         </div>
