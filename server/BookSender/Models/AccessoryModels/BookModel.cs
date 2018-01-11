@@ -12,7 +12,7 @@ namespace BookSender.Models.AccessoryModels
 		public string type { get; set; }
 		public string genre { get; set; }
 		public string photo { get; set; }
-		public string photoInBinary { get; set; }
+        public string photoInBinary { get; set; }
 		public int price { get; set; }
 		public string AltitudeCoordinate { get; set; }
 		public string LongitudeCoordinate { get; set; }
