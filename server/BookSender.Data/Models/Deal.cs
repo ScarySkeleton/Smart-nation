@@ -6,11 +6,11 @@ namespace BookSender.Data.Models
     {
 		public int Id { get; set; }
 
-		public int? DonorId { get; set; }
+		public int DonorId { get; set; }
 
-		public int? AcceptorId { get; set; }
+		public int AcceptorId { get; set; }
 
-		public int? BookId { get; set; }
+		public int BookId { get; set; }
 
 		public int? DealStatusId { get; set; }
 
