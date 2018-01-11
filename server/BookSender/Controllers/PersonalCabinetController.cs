@@ -52,33 +52,33 @@ namespace BookSender.Controllers
                         ImageData = PictureHelper.ConvertToImage(incomingBook.photoInBinary);
                     }
 
-                    Book book = new Book
-                    {
-                        CurrentUserId = user.Id,
-                        ContributorId = user.Id,
-                        Title = incomingBook.name,
-                        Author = incomingBook.author,
-                        Price = Convert.ToDecimal(incomingBook.price),
-                        Picture = ImageData != null ? new Data.Models.Picture()
-                        {
-                            ImageData = ImageData,
-                            Name = incomingBook.photo
-                        } : null,
-                        BookTypeId = incomingBook.type,
-                        GenreId = incomingBook.genre
-                    };
+					Book book = new Book
+					{
+						CurrentUserId = user.Id,
+						ContributorId = user.Id,
+						Title = incomingBook.name,
+						Author = incomingBook.author,
+						Price = Convert.ToDecimal(incomingBook.price),
+						Picture = ImageData != null ? new Data.Models.Picture()
+						{
+							ImageData = ImageData,
+							Name = incomingBook.photo
+						} : null,
+						BookTypeId = 1, //incomingBook.type,
+						GenreId = 1//incomingBook.genre
+					};
 
                     _context.Books.Add(book);
                     _context.SaveChanges();
 
 
-                    BookHistory bookHistory = new BookHistory
-                    {
-                        Book = book,
-                        GetBookOn = DateTime.UtcNow,
-                        UserId = user.Id,
-                        AltitudeCoordinate = incomingBook.AltitudeCoordinat,
-                        LongtiudeCoordinate = incomingBook.LongtiudeCoordinate
+					BookHistory bookHistory = new BookHistory
+					{
+						Book = book,
+						GetBookOn = DateTime.UtcNow,
+						UserId = user.Id,
+						AltitudeCoordinate = incomingBook.AltitudeCoordinate,
+						LongtiudeCoordinate = incomingBook.LongitudeCoordinate
                     };
 
                     _context.BookHistoryRecords.Add(bookHistory);

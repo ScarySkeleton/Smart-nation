@@ -131,9 +131,9 @@ class AddBookForm extends PureComponent {
             type: this.state.type,
             genre: this.state.genre,
             photo: this.state.photo,
-            photoInBinary: this.state.photoInBinary,
-            AltitudeCoordinat: this.props.coords ? this.props.coords.latitude : null,
-            LongtiudeCoordinate: this.props.coords ? this.props.coords.longitude : null,
+            photoInBinary: "", // this.state.photoInBinary,
+            AltitudeCoordinate: this.props.coords ? this.props.coords.latitude.toString() : "",
+            LongitudeCoordinate: this.props.coords ? this.props.coords.longitude.toString() : "",
             price: this.state.price || 0,
         }
 
