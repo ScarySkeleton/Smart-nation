@@ -39,8 +39,7 @@ namespace BookSender.Controllers
 		{
 			try
 			{
-
-				_context.Users.Add(new Data.Models.User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru" });
+				_context.Users.Add(new User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru" , RatingStatusId = 1, RoleId = 2});
 
 				await _context.SaveChangesAsync();
 
