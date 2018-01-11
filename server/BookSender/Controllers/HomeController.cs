@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using BookSender.Models.AccessoryModels;
 using System.Data.SqlClient;
 using System.Data;
+using System.Security.Claims;
 
 namespace BookSender.Controllers
 {
@@ -115,7 +116,70 @@ namespace BookSender.Controllers
                 return Json("Select book");
             }
         }
+        [HttpPost]
+        public JsonResult AddComment([FromBody] AddingCommentModel addingComment)
+        {
+            if (addingComment != null)
+            {
+                var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
 
+                if (userId == null)
+                    return Json("Authorize");
+                else
+                {
+                    try
+                    {
+                        Comment comment = new Comment
+                        {
+                            UserId = Convert.ToInt32(userId),
+                            BookId = addingComment.BookId,
+                            CommentBody = addingComment.CommentText,
+                            CreatedOn = DateTime.Now
+                        };
+
+                        _context.Comments.Add(comment);
+                        _context.SaveChanges();
+
+                        return Json("Success");
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json("Failed");
+                    }
+                }
+            }
+            else
+                return Json("Failed");       
+        }
+        [HttpPost]
+        public JsonResult DeleteComment([FromBody] DeleteCommentModel deleteComment)
+        {
+            if (deleteComment != null)
+            {
+                var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+                if (userId == null)
+                    return Json("Authorize");
+                else
+                {
+                    try
+                    {
+                        Comment comment = new Comment { Id = deleteComment.CommentId };
+                        _context.Comments.Attach(comment);
+                        _context.Comments.Remove(comment);
+                        _context.SaveChanges();
+
+                        return Json("Success");
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json("Failed");
+                    }
+                }
+            }
+            else
+                return Json("Failed");
+        }
 
         public IActionResult About()
         {

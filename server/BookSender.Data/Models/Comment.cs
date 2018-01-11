@@ -10,9 +10,9 @@ namespace BookSender.Data.Models
         [Required]
         public int Id { get; set; }
         [Required]
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
         [Required]
-        public int? BookId { get; set; }
+        public int BookId { get; set; }
 
         public string CommentBody { get; set; }
 
