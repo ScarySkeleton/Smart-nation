@@ -157,6 +157,7 @@ class AddBookForm extends PureComponent {
     }
 
     render() { 
+        console.log(this.props.isBookAddedSuccess);
         return (
             <div className='container add-book-form'>
                 <h3>
@@ -267,6 +268,12 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
+const mapStateToProps = state => { 
+    return {
+        isBookAddedSuccess: state.AddBook
+    }
+}
+
 AddBookForm = geolocated({
     positionOptions: {
       enableHighAccuracy: false,
@@ -274,4 +281,4 @@ AddBookForm = geolocated({
     userDecisionTimeout: 5000,
   })(AddBookForm);
 
-export default AddBookForm = connect(null, mapDispatchToProps)(AddBookForm);
+export default AddBookForm = connect(mapStateToProps, mapDispatchToProps)(AddBookForm);

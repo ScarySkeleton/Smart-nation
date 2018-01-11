@@ -1,20 +1,18 @@
 import {put, take, call} from 'redux-saga/effects';
 
-import {
-    FETCHING_USER_INFO,
+import {FETCHING_USER_INFO,
     fetchingUserInfoSuccess,
-    fetchingUserInfoFailure } from './info.actions';
+    fetchingUserInfoFailure} from './info.actions';
 // Global action
-import {
-    isFetching,
-    isntFetching } from '../../../../services/store/globalState/global.actions';
+import {isFetching,
+    isntFetching} from '../../../../services/store/globalState/global.actions';
 // API
 // import {
 //     getUserInfo
 // } from '../../../../services/Api';
 
 
-export default function* watchFetchingUserInfo() {
+export default function* watchUserInfo() {
     while(true) {
         //yield take(FETCHING_USER_INFO);
         //yield call(fetchUserInfo);

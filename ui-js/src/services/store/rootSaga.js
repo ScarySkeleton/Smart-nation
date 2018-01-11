@@ -9,7 +9,7 @@ import fetchingBookShelfBooks from '../../containers/page/cabinet/bookshelf/book
 import fetchingOrderBookData from '../../containers/book/orderBook/orderBook.saga';
 import watchFetchingBook from '../../containers/page/book/book.saga';
 import watchFetchingBookAddComment from '../../containers/page/book/bookAddComment/bookAddComment.saga';
-import watchFetchingUserInfo from '../../containers/page/cabinet/info/info.saga';
+import watchUserInfo from '../../containers/page/cabinet/info/info.saga';
 
 export default function* rootSaga() {
     yield all([
@@ -22,6 +22,6 @@ export default function* rootSaga() {
         fetchingOrderBookData(),
         watchFetchingBook(),
         watchFetchingBookAddComment(),
-        watchFetchingUserInfo(),
+        watchUserInfo(),
     ]);
 }

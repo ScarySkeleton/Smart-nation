@@ -17,7 +17,7 @@ class Info extends PureComponent {
 
 const mapStateToProps = state => {
     return {
-        Cabinet: state.UserInfo
+        userInfo: state.Cabinet
     }
 }
 

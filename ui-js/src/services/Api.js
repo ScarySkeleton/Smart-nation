@@ -148,7 +148,6 @@ export function addBook(bookData) {
     //     .then(json => {
     //         console.log(json);
     //     })
-    console.log(bookData);
     return function() {
         return fetch(`${API_PATH}/PersonalCabinet/AddBook`, {
             method: "POST",
@@ -162,10 +161,6 @@ export function addBook(bookData) {
         })
         .then(statusChecker)
         .then(response => response.json())
-        .then(json => {
-            // Doing something after adding book
-            console.log(json);
-        })
     }
 }
 
