@@ -247,7 +247,6 @@ namespace BookSender.Controllers
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         Email = user.Email,
-                        Password = user.Password,
                         PhoneNumber = user.PhoneNumber,
                         RoleName = user.Role.Name,
                         AvailableFrom = user.AvailableFrom,
