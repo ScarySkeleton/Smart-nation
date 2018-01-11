@@ -1,9 +1,30 @@
-import React from 'react';
+import {fetchingUserInfo} from './info.actions';
 
-const Info = () => (
-    <div className='container info-cabinet'>
-        Info
-    </div>
-);
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 
-export default Info;
+class Info extends PureComponent {
+    
+    render() {
+        console.log(this.props.userInfo);
+        return (
+            <div className='container info-cabinet'>
+                Info
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        Cabinet: state.UserInfo
+    }
+}
+
+// const mapStateToDispatch = dispatch => {
+//     return {
+//         fetchUserInfo: () => dispatch(fetchingUserInfo())
+//     }
+// }
+
+export default Info = connect(mapStateToProps, null)(Info);

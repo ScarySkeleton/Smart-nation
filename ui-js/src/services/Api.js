@@ -134,12 +134,12 @@ export function logoutRequest() {
     ================================================
 */
 export function getCabinetData() {
+    console.log("Get user info")
     return function() {
-        return {
-            userId: 1,
-            photo: null,
-            description: 'My name is user and I like to read',
-        }
+        return apiAuthPostFetch("PersonalCabinet/GetUserInfo")
+            .then(data => {
+                return data;
+            });
     }
 }
 

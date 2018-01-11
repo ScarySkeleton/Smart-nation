@@ -10,29 +10,11 @@ import {Link} from 'react-router-dom';
 
 class Bookshelf extends PureComponent {
 
-    // constructor(props) {
-    //     super(props);
-
-    //     this.insertBinaryImage = this.insertBinaryImage.bind(this);
-    //     this.hexToBase64 = this.hexToBase64.bind(this);
-    // }
-
     componentDidMount() {
         this.props.fetchBooks();
     }
 
-    // insertBinaryImage(binaryImg) {
-    //     //console.log(binaryImg);
-    //     return 'data:image/jpeg;base64,' + this.hexToBase64(binaryImg);
-    // }
-
-    // hexToBase64(data) {
-    //     //console.log(data);
-    //     return btoa(String.fromCharCode.apply(null, data.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
-    // }
-
     render() {
-        console.log(this.props);
         return (
             <div className='container bookshelf-cabinet'>
                 {
@@ -47,7 +29,7 @@ class Bookshelf extends PureComponent {
                                         <div className='bookshelf-cabinet__book_image book__image'>
                                         {
                                             !!book.photoInBinary
-                                            ? <img src={`data:image/png;base64,${book.photoInBinary}`} alt="beastie.png" scale="0" />
+                                            ? <img src={book.photoInBinary} alt={book.title} scale="0" />
                                             : <image src={defaulBookImage} />
                                         }
                                         </div>

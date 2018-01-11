@@ -41,7 +41,6 @@ class AddBookForm extends PureComponent {
         this.priceUpdate = this.priceUpdate.bind(this);
         this.reset = this.reset.bind(this);
         this.addBook = this.addBook.bind(this);
-        this.hexToBase64 = this.hexToBase64.bind(this);
     }
 
     nameUpdate(e) {
@@ -155,10 +154,6 @@ class AddBookForm extends PureComponent {
         }
         
         this.props.fetchAddingBook(data);
-    }
-
-    hexToBase64(str) {
-        return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
     }
 
     render() { 
