@@ -14,8 +14,6 @@ namespace BookSender.Models.AccessoryModels
 
 		public string PhoneNumber { get; set; }
 
-		public string Password { get; set; }
-
 		public string RoleName { get; set; }
 
 		public string FirstName { get; set; }

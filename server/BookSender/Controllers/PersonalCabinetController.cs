@@ -41,7 +41,7 @@ namespace BookSender.Controllers
             {
                 var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
 
-                var user = _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+                var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
 
                 if (user != null)
                 {
@@ -69,12 +69,11 @@ namespace BookSender.Controllers
 					};
 
                     _context.Books.Add(book);
-                    _context.SaveChanges();
-
+					_context.SaveChanges();
 
 					BookHistory bookHistory = new BookHistory
 					{
-						Book = book,
+						BookId = book.Id,
 						GetBookOn = DateTime.UtcNow,
 						UserId = user.Id,
 						AltitudeCoordinate = incomingBook.AltitudeCoordinate,
