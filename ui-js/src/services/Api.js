@@ -171,5 +171,11 @@ export function addBook(bookData) {
 
 export function getBookShelfBooks() {
     console.log("get Book Shelf Books");
-    return apiAuthPostFetch("PersonalCabinet/GetAllUserBooks");
+    return function() {
+        return apiAuthPostFetch("PersonalCabinet/GetAllUserBooks")
+            .then(data => {
+                return data;
+            });
+    }
+    
 }

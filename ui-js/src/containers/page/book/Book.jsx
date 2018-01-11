@@ -14,6 +14,7 @@ class Book extends PureComponent {
     }
     
     render() {
+        console.log(this.props);
         return (
             <div className='container book-wrapper'>
                 <div className='book__title'>
@@ -63,15 +64,17 @@ class Book extends PureComponent {
                 <div className='book__comment-wrapper'>
                     {
                         !!this.props.bookData.comments
-                        ? this.props.bookData.comments.map(comment => {
-                            <div className='book__comment'>
-                                <div className='book__comment_author'>
-                                    {comment.author}
+                        ? this.props.bookData.comments.map((comment, index) => {
+                            return (
+                                <div className='book__comment' key={index}>
+                                    <div className='book__comment_author'>
+                                        {comment.author}
+                                    </div>
+                                    <div className='book__comment_text'>
+                                    {comment.text} 
+                                    </div>
                                 </div>
-                                <div className='book__comment_text'>
-                                   {comment.text} 
-                                </div>
-                            </div>
+                            )
                             })
                         : <div className='book__comment-empty'> 
                             Book doesn't have any comment! 

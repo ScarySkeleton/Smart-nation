@@ -9,14 +9,17 @@ const bookShelfReducer = (state = initState, action) => {
 
         case actions.FETCHING_BOOK_SHELF_BOOKS: {
             return {
-                ...state
+                ...state,
+                bookShelfBooks: [],
             }
         }
         
         case actions.FETCHING_BOOK_SHELF_BOOKS_SUCCESS: {
             return {
                 ...state, 
-                ...action.payload,
+                bookShelfBooks: [
+                    ...action.payload
+                ],
             }
         }
 

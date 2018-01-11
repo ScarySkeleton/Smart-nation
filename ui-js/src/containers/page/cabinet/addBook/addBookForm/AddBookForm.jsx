@@ -41,6 +41,7 @@ class AddBookForm extends PureComponent {
         this.priceUpdate = this.priceUpdate.bind(this);
         this.reset = this.reset.bind(this);
         this.addBook = this.addBook.bind(this);
+        this.hexToBase64 = this.hexToBase64.bind(this);
     }
 
     nameUpdate(e) {
@@ -76,7 +77,12 @@ class AddBookForm extends PureComponent {
 
     imageChoosen(e) {
         let input = e.target;
+        let file = input.files[0];
         let reader = new FileReader();
+
+        if(!file) {
+            return;
+        }
 
         reader.onload = () => {
             let binaryFile = reader.result;
@@ -90,20 +96,16 @@ class AddBookForm extends PureComponent {
                 errorMessage: 'File was not loaded.' 
             })
         }
-        reader.onloadend = () => {
+        reader.onloadend = () => {            
             this.props.isntFetching();
         }
 
         this.props.isFetching();
-        reader.readAsBinaryString(input.files[0]);
+        reader.readAsDataURL(input.files[0]);
 
         this.setState({
             photo: input.files[0].name
         })
-    }
-
-    getGeoLocation() {
-
     }
 
     priceUpdate(e) {
@@ -131,7 +133,7 @@ class AddBookForm extends PureComponent {
             type: this.state.type,
             genre: this.state.genre,
             photo: this.state.photo,
-            photoInBinary: "", // this.state.photoInBinary,
+            photoInBinary: this.state.photoInBinary,
             AltitudeCoordinate: this.props.coords ? this.props.coords.latitude.toString() : "",
             LongitudeCoordinate: this.props.coords ? this.props.coords.longitude.toString() : "",
             price: this.state.price || 0,
@@ -155,6 +157,10 @@ class AddBookForm extends PureComponent {
         this.props.fetchAddingBook(data);
     }
 
+    hexToBase64(str) {
+        return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+    }
+
     render() { 
         return (
             <div className='container add-book-form'>
@@ -175,7 +181,6 @@ class AddBookForm extends PureComponent {
                         }
                      </p>
                 }
-               
 
                 <div className='container add-book-form__container'>
                     <label className='container add-book-form__container_description'> Name*: </label>

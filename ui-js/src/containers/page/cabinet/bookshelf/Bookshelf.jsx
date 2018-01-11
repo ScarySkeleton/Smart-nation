@@ -3,32 +3,51 @@ import {
 } from './bookshelf.actions';
 import defaulBookImage from '../../../../img/cabinet/book_1.svg';
 
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+//import Image from 'react-image';
 
 class Bookshelf extends PureComponent {
+
+    // constructor(props) {
+    //     super(props);
+
+    //     this.insertBinaryImage = this.insertBinaryImage.bind(this);
+    //     this.hexToBase64 = this.hexToBase64.bind(this);
+    // }
 
     componentDidMount() {
         this.props.fetchBooks();
     }
 
+    // insertBinaryImage(binaryImg) {
+    //     //console.log(binaryImg);
+    //     return 'data:image/jpeg;base64,' + this.hexToBase64(binaryImg);
+    // }
+
+    // hexToBase64(data) {
+    //     //console.log(data);
+    //     return btoa(String.fromCharCode.apply(null, data.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+    // }
+
     render() {
+        console.log(this.props);
         return (
             <div className='container bookshelf-cabinet'>
                 {
                     (this.props.bookShelfBooks.length)
-                    ?    this.props.bookShelfBooks.map(book => {
+                    ?    this.props.bookShelfBooks.map((book, index) => {
                             return (
-                                <div className='container bookshelf-cabinet__book'>
-                                    <Link to={`${book.id}`}>
+                                <div className='container bookshelf-cabinet__book' key={index}>
+                                    <Link to={`book/${book.id}`}>
                                         <div className='bookshelf-cabinet__book_title book__title'>
-                                            {book.Title}
+                                            {book.title}
                                         </div>
                                         <div className='bookshelf-cabinet__book_image book__image'>
                                         {
-                                            !!book.PhotoInBinary
-                                            ? <image src={book.PhotoInBinary} alt={book.Title} />
+                                            !!book.photoInBinary
+                                            ? <img src={`data:image/png;base64,${book.photoInBinary}`} alt="beastie.png" scale="0" />
                                             : <image src={defaulBookImage} />
                                         }
                                         </div>
