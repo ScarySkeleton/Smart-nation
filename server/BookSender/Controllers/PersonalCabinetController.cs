@@ -247,12 +247,12 @@ namespace BookSender.Controllers
                         LastName = user.LastName,
                         Email = user.Email,
                         PhoneNumber = user.PhoneNumber,
-                        RoleName = user.Role.Name,
+                        RoleName = user.Role != null ? user.Role.Name : "Guest",
                         AvailableFrom = user.AvailableFrom,
                         AvailableTill = user.AvailableTill,
                         BirthDate = user.BirthDate,
                         RegisteredOn = user.RegisteredOn,
-                        RatingStatusName = user.RatingStatus.Name,
+                        RatingStatusName = user.RatingStatus != null ?  user.RatingStatus.Name : null,
                         PhotoinBinary = user.Picture != null ? PictureHelper.ConvertToString(user.Picture.ImageData) : null
                     };
 
