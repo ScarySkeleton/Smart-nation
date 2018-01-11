@@ -51,7 +51,7 @@ namespace BookSender.Controllers
                     command.Parameters.Add(BookType);
 
                     connection.Open();
-                    var reader = command.ExecuteReader();   
+                    var reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
                         while (reader.Read())
@@ -61,8 +61,8 @@ namespace BookSender.Controllers
                                 {
                                     Id = (reader.IsDBNull(0)) ? 0 : reader.GetInt32(0),
                                     Author = (reader.IsDBNull(1)) ? null : reader.GetString(1),
-                                    CreateOn = (reader.IsDBNull(2)) ? new DateTime(1900,01,01) : reader.GetDateTime(2),
-                                    Description = (reader.IsDBNull(3))? null : reader.GetString(3),
+                                    CreateOn = (reader.IsDBNull(2)) ? new DateTime(1900, 01, 01) : reader.GetDateTime(2),
+                                    Description = (reader.IsDBNull(3)) ? null : reader.GetString(3),
                                     Price = (reader.IsDBNull(4)) ? new Decimal(0.00) : reader.GetDecimal(4),
                                     Title = (reader.IsDBNull(5)) ? null : reader.GetString(5),
                                     ContributorFirstName = (reader.IsDBNull(6)) ? null : reader.GetString(6),
@@ -85,6 +85,37 @@ namespace BookSender.Controllers
                 return Json("zrada");
             }
         }
+        [HttpPost]
+        public JsonResult GetBookPageData([FromBody] int? bookId)
+        {
+            if (bookId != null)
+            {
+                Book book = _context.Books.Where(b => b.Id == bookId).FirstOrDefault();
+
+                List<Comment> bookComments = _context.Comments.Where(c => c.BookId == book.Id).Include("User").ToList();
+
+                //foreach (var com in bookComments)
+                //{
+                //    User user = _context.Users.Where(u => u.Id == com.UserId).FirstOrDefault();
+                //    com.User = user;
+                //}
+
+                List<FullBookInfoHistory> bookHistory = GetAllBookHistory(book.Id);
+
+                return Json(new DetailedBookInfo
+                {
+                    Book = book,
+                    CommentsList = bookComments,
+                    HistoryList = bookHistory
+                });
+
+            }
+            else
+            {
+                return Json("Select book");
+            }
+        }
+
 
         public IActionResult About()
         {
@@ -103,6 +134,48 @@ namespace BookSender.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public List<FullBookInfoHistory> GetAllBookHistory(int bookId)
+        {
+            try
+            {
+                List<FullBookInfoHistory> fullBookIH = new List<FullBookInfoHistory>();
+                List<BookHistory> bookHistory = _context.BookHistoryRecords.Where(bh => bh.BookId == bookId).ToList();
+
+                foreach (var bh in bookHistory)
+                {
+                    User user = _context.Users.Where(u => u.Id == bh.UserId).FirstOrDefault();
+
+                    fullBookIH.Add(
+                        new FullBookInfoHistory
+                        {
+                            Id = bh.Id,
+
+                            AltitudeCoordinate = bh.AltitudeCoordinate,
+
+                            LongtiudeCoordinate = bh.LongtiudeCoordinate,
+
+                            GetBookOn = bh.GetBookOn,
+
+                            GiveBookOn = bh.GiveBookOn,
+
+                            UserEmail = user.Email,
+
+                            UserPhone = user.PhoneNumber,
+
+                            UserFullName = (user.FirstName + user.LastName) ?? "Hiden Assasin"
+
+                        });
+                }
+
+                return fullBookIH;
+            }
+
+            catch
+            {
+                return null;
+            }
         }
     }
 }

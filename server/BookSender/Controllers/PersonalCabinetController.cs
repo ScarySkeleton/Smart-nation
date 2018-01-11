@@ -247,7 +247,6 @@ namespace BookSender.Controllers
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         Email = user.Email,
-                        Password = user.Password,
                         PhoneNumber = user.PhoneNumber,
                         RoleName = user.Role.Name,
                         AvailableFrom = user.AvailableFrom,
@@ -258,7 +257,7 @@ namespace BookSender.Controllers
                         PhotoinBinary = user.Picture != null ? PictureHelper.ConvertToString(user.Picture.ImageData) : null
                     };
 
-                    Json(uInfo);
+                   return Json(uInfo);
                 }
                 return Json("Error");
             }

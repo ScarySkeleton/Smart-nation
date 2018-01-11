@@ -1,0 +1,17 @@
+﻿using BookSender.Data.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace BookSender.Models.AccessoryModels
+{
+    public class DetailedBookInfo
+    {
+        public Book Book { get; set; }
+
+        public List<Comment> CommentsList { get; set; }
+
+        public List<FullBookInfoHistory> HistoryList { get; set; }
+    }
+}
