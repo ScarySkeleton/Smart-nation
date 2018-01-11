@@ -22,7 +22,6 @@ namespace BookSender.Models.AccessoryModels
 
 		public DateTime BirthDate { get; set; }
 
-
 		public string RatingStatusName { get; set; }
 
 		public DateTime AvailableFrom { get; set; }
