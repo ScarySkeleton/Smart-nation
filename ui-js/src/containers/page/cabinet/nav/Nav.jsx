@@ -1,6 +1,6 @@
 import React from 'react';
 import Tab from '../../../../components/tab/Tab';
-
+import './nav.scss';
 const link = [
     "Home",
     "Info",
