@@ -14,7 +14,7 @@ import {isFetching,
 
 export default function* watchUserInfo() {
     while(true) {
-        //yield take(FETCHING_USER_INFO);
+        yield take(FETCHING_USER_INFO);
         //yield call(fetchUserInfo);
     }
 }

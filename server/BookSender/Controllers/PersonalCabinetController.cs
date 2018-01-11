@@ -256,7 +256,7 @@ namespace BookSender.Controllers
                         PhotoinBinary = user.Picture != null ? PictureHelper.ConvertToString(user.Picture.ImageData) : null
                     };
 
-                    Json(uInfo);
+                    return Json(uInfo);
                 }
                 return Json("Error");
             }
