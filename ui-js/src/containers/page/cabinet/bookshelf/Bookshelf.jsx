@@ -1,7 +1,7 @@
 import {
     fetchingBookShelfBooks
 } from './bookshelf.actions';
-import defaulBookImage from '../../../../img/cabinet/book_1.svg';
+import defaulBookPicture from '../../../../img/cabinet/default-book.png';
 
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
@@ -17,6 +17,7 @@ class Bookshelf extends PureComponent {
     render() {
         return (
             <div className='container bookshelf-cabinet'>
+            <image src={defaulBookPicture} alt='Default book picture' />
                 {
                     (this.props.bookShelfBooks.length)
                     ?    this.props.bookShelfBooks.map((book, index) => {
@@ -30,7 +31,7 @@ class Bookshelf extends PureComponent {
                                         {
                                             !!book.photoInBinary
                                             ? <img src={book.photoInBinary} alt={book.title} scale="0" />
-                                            : <image src={defaulBookImage} />
+                                            : <img src={defaulBookPicture} alt='Default book picture' />
                                         }
                                         </div>
                                     </Link>

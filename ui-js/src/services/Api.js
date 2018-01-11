@@ -143,6 +143,20 @@ export function getCabinetData() {
     }
 }
 
+export function changeUserInfoData(userInfoData) {
+    console.log("Change user info data");
+    return function() {
+        return apiAuthPostFetch("PersonalCabinet/EditUserInfo", userInfoData);
+    }
+}
+
+export function changeUserInfoPicture(imageData) {
+    console.log("Change user info picture");
+    return function() {
+        return apiAuthPostFetch("PersonalCabinet/EditUserPicture", imageData);
+    }
+}
+
 export function addBook(bookData) {
     // return apiAuthPostFetch("PersonalCabinet/AddBook", bookData)
     //     .then(json => {

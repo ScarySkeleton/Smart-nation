@@ -4,9 +4,8 @@ import {LOAD_DATA,
     loadDataFailure} from './cabinet.actions';
 
 import {isFetching, isntFetching} from 'services/store/globalState/global.actions';
-//import {isFetching, isntFetching} from 'services/'
 
-import {getCabinetData} from '../../../services/Api';
+import {getCabinetData} from '../../../../services/Api';
 
 export default function* watchFetchCabinetData() {
     while(true) {
