@@ -675,6 +675,7 @@ namespace BookSender.Controllers
 				{
 					List<Deal> userDeals = await _context.Deals.Where(
 												b => b.DonorId == user.Id || b.AcceptorId == user.Id)
+												.Include(b => b.DealStatus)
 												.ToListAsync();
 
 					List<DealModel> dealsList = new List<DealModel>();
@@ -688,6 +689,7 @@ namespace BookSender.Controllers
 							AcceptorId = deal.AcceptorId,
 							DonorId = deal.DonorId,
 							DealStatusId = deal.DealStatusId,
+							DealStatusName = deal.DealStatus.Name,
 							CreatedOn = deal.CreatedOn,
 							EndedOn = deal.EndedOn,
 							ExpiredOn = deal.ExpiredOn,
