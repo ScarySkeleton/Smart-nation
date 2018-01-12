@@ -344,6 +344,8 @@ namespace BookSender.Controllers
 					user.AvailableFrom = userInfo.AvailableFrom;
 					user.AvailableTill = userInfo.AvailableTill;
 
+					_context.SaveChanges();
+
 					return new HttpResponseMessage(HttpStatusCode.OK);
 				}
 				else
@@ -379,6 +381,9 @@ namespace BookSender.Controllers
 					user.Picture = new Picture() {
 						ImageData = ImageData
 					};
+
+					_context.SaveChanges();
+
 					return new HttpResponseMessage(HttpStatusCode.OK);
 				}
 				else

@@ -33,8 +33,8 @@ let Content = (props) => (
         <Route path='/logout' component={Logout} />
         
         <Route path='/book/:id' component={Book} /> 
-        <PrivateRoute path='/orderBook/:id' component={OrderBook} isLogined={props.isLogined} /> {/* "!"FOR DEBUGGING OFFLINE ONLY  */}
-        <PrivateRoute path='/cabinet' component={CabinetPage} isLogined={props.isLogined} />            
+        <PrivateRoute path='/orderBook/:id' component={OrderBook} /> {/* "!"FOR DEBUGGING OFFLINE ONLY  */}
+        <PrivateRoute path='/cabinet' component={CabinetPage} />            
     </div>
 )
 

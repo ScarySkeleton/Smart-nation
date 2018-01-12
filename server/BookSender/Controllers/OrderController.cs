@@ -46,7 +46,7 @@ namespace BookSender.Controllers
 				{
 					Deal deal = new Deal
 					{
-						DonorId = book.CurrentUserId,
+						//DonorId = book.CurrentUserId,
 						AcceptorId = user.Id,
 						BookId = book.Id,
 						DealStatusId = 1,
@@ -181,9 +181,9 @@ namespace BookSender.Controllers
 				//TODO: Add new Cords for Book
 				BookHistory bookHistoryNew = new BookHistory
 				{
-					BookId = deal.BookId,
-					UserId = deal.AcceptorId,
-					GetBookOn = bookRecievedOn
+					//BookId = deal.BookId == null ? deal.BookId : null,
+					//UserId = deal.AcceptorId,
+					//GetBookOn = bookRecievedOn
 				};
 
 

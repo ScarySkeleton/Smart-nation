@@ -1,9 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 
 import './home.scss';
+import {loadData} from './cabinet.actions.js';
 import avatar from '../../../../img/cabinet/book.png';
 
 class Home extends PureComponent {
+
+    componentDidMount() {
+        this.props.loadUserData();
+    }
 
     render() {
         return (
@@ -15,5 +21,12 @@ class Home extends PureComponent {
     }
 }
 
+const mapDispatchToProp = dispatch => {
+    return {
+        loadUserData: () => dispatch(loadData())
+    }
+}
+
+Home = connect(null, mapDispatchToProp)(Home);
 
 export default Home;

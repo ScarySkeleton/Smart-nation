@@ -1,22 +1,45 @@
-export const FETCHING_USER_INFO = 'FETCHING_USER_INFO';
-export const FETCHING_USER_INFO_SUCCESS = 'FETCHING_USER_INFO_SUCCESS';
-export const FETCHING_USER_INFO_FAILURE = 'FETCHING_USER_INFO_FAILURE';
+export const CHANGE_USER_INFO = 'CHANGE_USER_INFO';
+export const CHANGE_USER_INFO_SUCCESS = 'CHANGE_USER_INFO_SUCCESS';
+export const CHANGE_USER_INFO_FAILURE = 'CHANGE_USER_INFO_FAILURE';
 
-export const fetchingUserInfo = () => {
+export const CHANGE_USER_PICTURE = 'CHANGE_USER_PICTURE';
+export const CHANGE_USER_PICTURE_SUCCESS = 'CHANGE_USER_PICTURE_SUCCESS';
+export const CHANGE_USER_PICTURE_FAILURE = 'CHANGE_USER_PICTURE_FAILURE';
+
+export const changeUserInfo = (payload) => {
     return {
-        type: FETCHING_USER_INFO,
+        type: CHANGE_USER_INFO,
+        payload
     }
 }
 
-export const fetchingUserInfoSuccess = (payload) => {
+export const changeUserInfoSuccess = () => {
     return {
-        type: FETCHING_USER_INFO_SUCCESS,
-        payload,
+        type: CHANGE_USER_INFO_SUCCESS,
     }
 }
 
-export const fetchingUserInfoFailure = () => {
+export const changeUserInfoFailure = () => {
     return {
-        type: FETCHING_USER_INFO_FAILURE
+        type: CHANGE_USER_INFO_FAILURE
+    }
+}
+
+export const changeUserPicture = (payload) => {
+    return {
+        type: CHANGE_USER_PICTURE,
+        payload
+    }
+}
+
+export const changeUserPictureSuccess = () => {
+    return {
+        type: CHANGE_USER_PICTURE_SUCCESS
+    }
+}
+
+export const changeUserPictureFailure = () => {
+    return {
+        type: CHANGE_USER_PICTURE_FAILURE
     }
 }
