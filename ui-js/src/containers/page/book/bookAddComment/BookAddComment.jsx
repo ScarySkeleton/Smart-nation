@@ -13,7 +13,6 @@ class BookAddComment extends PureComponent {
     }
 
     onClear() {
-        this.raiting.value = "";
         this.comment.value = "";
     }
 
@@ -22,7 +21,7 @@ class BookAddComment extends PureComponent {
         if(!!comment) {
             this.props.fetchLeavingComment({
                 bookId: this.props.bookId,
-                raiting: this.raiting.value,
+                // raiting: this.raiting.value,
                 comment: comment
             })
 
@@ -34,26 +33,26 @@ class BookAddComment extends PureComponent {
 
     render() {
         return (
-            <div className='book-add-comment'>
-                <input 
+            <div className='book-add-comment form-group'>
+            <label>Please Leave a comment</label>
+                {/* <input 
                     type='number'
                     min="1"
-                    value="9"
                     max="10" 
-                    className='book-add-comment__raiting'
-                    ref={raiting => this.raiting = raiting} />
+                    className='book-add-comment__raiting form-control'
+                    ref={raiting => this.raiting = raiting} /> */}
                 <input 
                     type='text' 
-                    className='book-add-comment__comment'
+                    className='book-add-comment__comment form-control'
                     ref={comment => this.comment = comment} />
                 
                 <button
-                    className="button button__clear"
+                    className="button button__clear btn btn-default"
                     onClick={this.onClear}>
                     Clear
                 </button>
                 <button
-                    className="button button__submit"
+                    className="button button__submit btn btn-primary"
                     onClick={this.onLeave}>
                     Comment!
                 </button>
