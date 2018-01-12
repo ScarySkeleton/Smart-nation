@@ -18,11 +18,13 @@ class BookRequest extends PureComponent {
     }
 
     onClickControlButton({target}) {
-        console.log(target);
-        let method = target.data-method;
-        let dealStatus = target.data-dealStatus;
+        let id = target.dataset.id;
+        let method = target.dataset.method;
 
-        console.log(method, dealStatus);
+        this.props.changeDeal({
+            id,
+            method
+        })
     }
 
     render() {
@@ -73,7 +75,8 @@ class BookRequest extends PureComponent {
                                 <ResolveButtons 
                                     onClickControlButton={this.onClickControlButton}
                                     isDonor={deal.isDonor}
-                                    dealStatus={deal.dealStatusId} />
+                                    dealStatus={deal.dealStatusId}
+                                    dealId={deal.id} />
                             </div>
                         )
                     })

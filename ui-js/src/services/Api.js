@@ -133,9 +133,10 @@ export function getDealData() {
     }
 }
 
-export function changeDealStatus(dealId, dealAction) {
+export function changeDealStatus(dealObj) {
     return function() {
-        return apiAuthPostFetch(`PersonalCabinet/${dealAction}`);
+        const dealId = dealObj.id;
+        return apiAuthPostFetch(`Order/${dealObj.method}`, dealId);
     }
 }
 
