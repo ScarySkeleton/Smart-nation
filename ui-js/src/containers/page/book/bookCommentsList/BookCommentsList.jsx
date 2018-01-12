@@ -1,10 +1,10 @@
 import React from 'react';
 
-const BookCommentsList = prop => (
+const BookCommentsList = ({commentsList}) => (
     <div>
     {
-        !!prop.comments
-        ? prop.comments.map((comment, index) => {
+        !!commentsList.length
+        ? commentsList.map((comment, index) => {
             return (
                 <div className='book__comment' key={index}>
                     <div className='book__comment_author book__comment_author-fio'>
@@ -21,8 +21,7 @@ const BookCommentsList = prop => (
                         {comment.commentBody} 
                     </div>
                 </div>
-            )
-            })
+            )})
         : <div className='book__comment-empty'> 
             Book doesn't have any comment! 
             Be the first who will comment it :) 

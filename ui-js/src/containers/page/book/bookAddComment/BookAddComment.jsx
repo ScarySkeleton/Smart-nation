@@ -68,4 +68,6 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default BookAddComment = connect(null, mapDispatchToProps)(BookAddComment);
+BookAddComment = connect(null, mapDispatchToProps)(BookAddComment);
+
+export {BookAddComment};

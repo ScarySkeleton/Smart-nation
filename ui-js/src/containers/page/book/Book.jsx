@@ -1,9 +1,10 @@
 import {fetchBook} from './book.action';
 import {orderBookRequest} from './orderBook/orderBook.action';
-import BookAddComment from './bookAddComment/BookAddComment';
 import './book.style.scss';
-import defaultBookPicture from '../../../img/cabinet/default-book.png';
+import {BookInfo} from './bookInfo/BookInfo';
 import {BookCommentsList} from './bookCommentsList/BookCommentsList';
+import {BookAddComment} from './bookAddComment/BookAddComment';
+import {BookHistory} from './bookHistory/BookHistory';
 
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
@@ -13,23 +14,51 @@ class Book extends PureComponent {
 
     bookId = this.props.match.params.id;
 
+    constructor(props) {
+        super(props);
+
+        this.orderThisBook = this.orderThisBook.bind(this);
+    }
+
     componentDidMount() {
         this.props.fetchbook(this.bookId);
     }
 
-    orderTheBook() {
-
+    orderThisBook() {
+        console.log(this.props);
+        if(this.props.isLogined)
+            this.props.orderBook(this.bookId);
     }
     
     render() {
-        console.log(this.props);
         const book = this.props.bookPageData.book;
-        const commentsList = this.props.bookPageData.commentsList;
         const historyList = this.props.bookPageData.historyList;
-        console.log(book, commentsList, historyList);
+        const commentsList = this.props.bookPageData.commentsList;
         return (
             <div className='container book-wrapper'>
-               
+
+                <div className='book__info-wrapper'>
+                    <BookInfo book={book} />
+                </div>
+
+                <div className='book__history-wrapper'>
+                    <BookHistory historyList={historyList} />
+                </div>
+
+                <div className='book__comment-wrapper'>
+                    <BookCommentsList commentsList={commentsList} />
+                </div>
+
+                <div className='book__comment-wrapper-add'>
+                    <BookAddComment bookId={this.bookId} />
+                </div>
+
+                <div className='book__controls'>
+                    <button className={`book__controls_order ${this.props.isLogined ? 'button-active' : 'button-unactive'}`}
+                        onClick={this.orderThisBook}>
+                        Order book now!
+                    </button>
+                </div>
             </div>
         )
     }
@@ -37,13 +66,15 @@ class Book extends PureComponent {
 
 const mapStateToProps = state => {
     return {
-        bookPageData: state.Book
+        bookPageData: state.Book,
+        isLogined: state.Login.isLogined
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchbook: (id) => dispatch(fetchBook(id))
+        fetchbook: (id = this.bookId) => dispatch(fetchBook(id)),
+        orderBook: (id = this.bookId) => dispatch(orderBookRequest(id))
     }
 }
 
