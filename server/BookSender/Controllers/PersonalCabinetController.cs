@@ -236,7 +236,9 @@ namespace BookSender.Controllers
 			{
 				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
 
-				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+				var user = _context.Users.Where(u => u.Id == int.Parse(userId))
+										.Include(u => u.Picture)
+										.FirstOrDefault();
 
 				if (user != null)
 				{
@@ -360,29 +362,31 @@ namespace BookSender.Controllers
 		}
 
 		[HttpPost]
-		public HttpResponseMessage EditUserPicture(string imageData)
+		public HttpResponseMessage EditUserPicture([FromBody]string imageData)
 		{
 			try
 			{
 				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
 
-				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+				var user = _context.Users.Where(u => u.Id == int.Parse(userId))
+										.Include(u => u.Picture)
+										.FirstOrDefault();
 
 				if (user != null)
 				{
-
 
 					byte[] ImageData = null;
 					if (imageData != null)
 					{
 						ImageData = PictureHelper.ConvertToImage(imageData);
+						user.Picture = new Picture()
+						{
+							ImageData = ImageData
+						};
+
+						_context.SaveChanges();
 					}
 
-					user.Picture = new Picture() {
-						ImageData = ImageData
-					};
-
-					_context.SaveChanges();
 
 					return new HttpResponseMessage(HttpStatusCode.OK);
 				}
