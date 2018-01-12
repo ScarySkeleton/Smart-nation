@@ -3,10 +3,11 @@ import {loadData} from '../home/cabinet.actions';
 import {isFetching, isntFetching} from '../../../../services/store/globalState/global.actions.js';
 import defaultUserPicture from '../../../../img/default-user.png';
 import defaultBookPictire from '../../../../img/cabinet/default-book.png';
+import './info.scss';
 
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import Dropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone';
 
 class Info extends PureComponent {
 
@@ -120,65 +121,64 @@ class Info extends PureComponent {
         return (
             <div className='container info-cabinet'>
                 <div className='container info-cabinet__container'>
-                    <label> My photo: </label>
-
                     {
                         !!this.state.photoinBinary
                         ? <img src={this.state.photoinBinary}
-                            alt={`${this.state.lastName} ${this.state.firstName}`} />
+                            alt={`${this.state.lastName} ${this.state.firstName}`}
+                            className="rounded img-fluid" />
                         : <img src={defaultUserPicture} alt={'Default user picture'} />
                     }
                 </div>
 
-                <div className='container info-cabinet__container'>
-                    <label> FIO: </label>
+                <div className='form-group info-cabinet__container'>
+                    <label className="info-cabinet__container_description"> FIO: </label>
 
-                    <input className='container info-cabinet__container_data-field' 
+                    <input className='form-control info-cabinet__container_data-field' 
                         type='text'
                         value={this.state.firstName}
                         onChange={e => this.changeValue(e, 'firstName')} />
 
-                    <input className='container info-cabinet__container_data-field' 
+                    <input className='form-control info-cabinet__container_data-field' 
                         type='text'
                         value={this.state.lastName}
                         onChange={e => this.changeValue(e, 'lastName')} />
                 </div>
 
-                <div className='container info-cabinet__container'>
-                    <label> Contact info: </label>
+                <div className='form-group info-cabinet__container'>
+                    <label className="info-cabinet__container_description"> Contact info: </label>
 
-                    <input className='container info-cabinet__container_data-field' 
+                    <input className='form-control info-cabinet__container_data-field' 
                         type='text'
                         value={this.state.email}
                         onChange={e => this.changeValue(e, 'email')} />
 
-                    <input className='container info-cabinet__container_data-field' 
+                    <input className='form-control info-cabinet__container_data-field' 
                         type='text'
                         value={this.state.phoneNumber}
                         onChange={e => this.changeValue(e, 'phoneNumber')} />
 
                 </div>
 
-                <div className='container info-cabinet__container'>
-                    <label> Other info: </label>
+                <div className='form-group info-cabinet__container'>
+                    <label className="info-cabinet__container_description"> Other info: </label>
 
-                    <input className='container info-cabinet__container_data-field' 
+                    <input className='form-control info-cabinet__container_data-field' 
                         type='text'
                         value={this.state.birthDate}
                         onChange={e => this.changeValue(e, 'birthDate')} />
 
-                    <input className='container info-cabinet__container_data-field' 
+                    <input className='form-control info-cabinet__container_data-field' 
                         type='text'
                         value={this.state.availableFrom}
                         onChange={e => this.changeValue(e, 'availableFrom')} />
 
-                    <input className='container info-cabinet__container_data-field' 
+                    <input className='form-control info-cabinet__container_data-field' 
                         type='text'
                         value={this.state.availableTill}
                         onChange={e => this.changeValue(e, 'availableTill')} />
                 </div>
 
-                <div className='container info-cabinet__container'>
+                <div className='form-group   info-cabinet__container'>
                     <label className='container info-cabinet__container_description'> Photo </label>
                     <Dropzone
                         accept="image/jpeg, image/png"
@@ -202,11 +202,11 @@ class Info extends PureComponent {
 
 
                 <div className='container info-cabinet__container info-cabinet__container_control'>
-                    <button className='info-cabinet__container_button info-cabinet__container_button-reset'
+                    <button className='btn info-cabinet__container_button info-cabinet__container_button-reset'
                         onClick={this.reset}>
                         reset
                     </button>
-                    <button className='info-cabinet__container_button info-cabinet__container_button-add'
+                    <button className='btn btn-success info-cabinet__container_button info-cabinet__container_button-add'
                         onClick={this.change}>
                         change
                     </button>
