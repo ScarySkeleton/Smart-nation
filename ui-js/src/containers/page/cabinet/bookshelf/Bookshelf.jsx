@@ -1,7 +1,9 @@
 import {
     fetchingBookShelfBooks
 } from './bookshelf.actions';
+
 import defaulBookPicture from '../../../../img/cabinet/default-book.png';
+import './bookshelf.scss'
 
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
@@ -17,23 +19,31 @@ class Bookshelf extends PureComponent {
     render() {
         return (
             <div className='container bookshelf-cabinet'>
+            <div className='row'>
                 {
                     (this.props.bookShelfBooks.length)
                     ?    this.props.bookShelfBooks.map((book, index) => {
                             return (
-                                <div className='container bookshelf-cabinet__book' key={index}>
-                                    <Link to={`book/${book.id}`}>
-                                        <div className='bookshelf-cabinet__book_title book__title'>
-                                            {book.title}
-                                        </div>
-                                        <div className='bookshelf-cabinet__book_image book__image'>
+                                <div className="title-list-bookShelf col-md-6 col-sm-12 col-lg-6 col-xs-12">
+                                <div className='card bookshelf-cabinet__book' key={index}>
+                                    
+                                    <div className='text-center bookshelf-cabinet__book_image book__image'>
                                         {
                                             !!book.photoInBinary
-                                            ? <img src={book.photoInBinary} alt={book.title} scale="0" />
-                                            : <img src={defaulBookPicture} alt='Default book picture' />
+                                            ? <img className='card-img-left' src={book.photoInBinary} alt={book.title} scale="0" />
+                                            : <img className='card-img-left' src={defaulBookPicture} alt='Default book picture' />
                                         }
+                                        <div className='card-body'>
+                                            <h5 className='card-title bookshelf-cabinet__book_title book__title col align-self-center'>
+                                                {book.title}
+                                            </h5>
+                                            <div className='text-right'>
+                                                <Link to={`book/${book.id}`} className='btn btn-primary to-right-side'>See Details</Link>
+                                            </div>
                                         </div>
-                                    </Link>
+                                        
+                                    </div>
+
                                     {/* <div className='bookshelf-cabinet__book_description book__description'>
                                     </div>
                                     <div className='bookshelf-cabinet__book_author book__author'>
@@ -53,6 +63,7 @@ class Bookshelf extends PureComponent {
                                     <div className='bookshelf-cabinet__book_is-usable book__is-usable'>
                                     </div> */}
                                 </div>
+                                </div>
                             )
                         })
                     : (
@@ -61,6 +72,7 @@ class Bookshelf extends PureComponent {
                         </div>
                     )
                 }
+                </div>
             </div>
         )
     }

@@ -7,9 +7,9 @@ let Tab = props => {
     const prevPath = props.match.url === '/' ? '' : props.match.url;
     const resolvePath = path => '/'.concat(path.toLowerCase().replace(" ", "-"));
     return (
-        <li className='tab__item'>
+        <li className={`tab__item ${props.customClass}`}>
             <NavLink
-                className={'tab__link' + (props.isLogined) ? '-Logined' : '-unLogined'}
+                className={'tab__link' + (props.isLogined) ? `-Logined ${props.customLinkClass}` : ` -unLogined ${props.customLinkClass}`}
                 activeClassName='tab__link-active'
                 to={prevPath + resolvePath(props.name.toLowerCase())}
                 >

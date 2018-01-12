@@ -16,7 +16,7 @@ import OrderBook from '../../containers/book/orderBook/OrderBook';
 import Book from '../../containers/page/book/Book';
 
 let Content = (props) => (
-    <div className='body-content'>
+    <div className='body-content container'>
         <Spinner />
 
         <Route exact path='/' component={HomePage} />

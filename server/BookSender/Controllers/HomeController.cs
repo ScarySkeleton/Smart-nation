@@ -91,7 +91,9 @@ namespace BookSender.Controllers
         {
            if (bookId != null)
             {
-                Book book = _context.Books.Where(b => b.Id == bookId).FirstOrDefault();
+                try
+                {
+                    Book book = _context.Books.Where(b => b.Id == bookId).FirstOrDefault();
 
                 List<Comment> bookComments = _context.Comments.Where(c => c.BookId == book.Id).ToList();
 
@@ -101,15 +103,19 @@ namespace BookSender.Controllers
                     com.User = user;
                 }
 
-                List<FullBookInfoHistory> bookHistory = GetAllBookHistory(book.Id);
+                    List<FullBookInfoHistory> bookHistory = GetAllBookHistory(book.Id);
 
-                return Json(new DetailedBookInfo
+                    return Json(new DetailedBookInfo
+                    {
+                        Book = book,
+                        CommentsList = bookComments,
+                        HistoryList = bookHistory
+                    });
+                }
+                catch (Exception ex)
                 {
-                    Book = book,
-                    CommentsList = bookComments,
-                    HistoryList = bookHistory
-                });
-
+                    return Json("Select book");
+                }
             }
             else
             {
