@@ -1,4 +1,5 @@
 import {fetchBook} from './book.action';
+import {orderBookRequest} from './orderBook/orderBook.action';
 import BookAddComment from './bookAddComment/BookAddComment';
 import './book.style.scss';
 import defaultBookPicture from '../../../img/cabinet/default-book.png';
@@ -15,72 +16,20 @@ class Book extends PureComponent {
     componentDidMount() {
         this.props.fetchbook(this.bookId);
     }
+
+    orderTheBook() {
+
+    }
     
     render() {
         console.log(this.props);
-
         const book = this.props.bookPageData.book;
         const commentsList = this.props.bookPageData.commentsList;
         const historyList = this.props.bookPageData.historyList;
-
         console.log(book, commentsList, historyList);
         return (
             <div className='container book-wrapper'>
-                <div className='book__title'>
-                    {book.title}
-                </div>
-                <div className='book__description'>
-                    {book.title}
-                </div>
-                <div className='book__image'>
-                    {
-                        book
-                        ? <img src={book.PhotoInBinary} alt={book.title} />
-                        : <img src={defaultBookPicture} alt={book.title} />
-                    }
-                </div>
-                <div className='book__author'>
-                    {book.author}
-                </div>
-                <div className='book__raiting'>
-                    Raiting: 
-                </div>
-                <div className='book__user-contributor'>
-                    {
-                        !!book.ContributorId
-                        ? <Link to={book.ContributorId} />
-                        : <div className='book__user-contributor-empty'>
-                            This book was added by community or wished stay hidden.
-                         </div>
-                    }
-                    
-                </div>
-                <div className='book__user-current'>
-                    {book.CurrentUserId}
-                </div>
-                <div className='book__time-created'>
-                    {book.CreatedOn}
-                </div>
-                <div className='book__time-printed'>
-                    {book.PrintedOn}
-                </div>
-                <div className='book__isbn'>
-                    {book.ISBN}
-                </div>
-                <div className='book__price'>
-                    {book.Price}
-                </div>
-                <div className='book__is-usable'>
-                    {book.IsUsable}
-                </div>
-
-                <div className='book__comment-wrapper'>
-                    <BookCommentsList comments={commentsList} />
-                </div>
-
-                <div className='book__comment-wrapper-add'>
-                    <BookAddComment bookId={this.bookId} />
-                </div>
+               
             </div>
         )
     }

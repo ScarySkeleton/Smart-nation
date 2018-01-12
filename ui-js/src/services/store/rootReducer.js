@@ -8,7 +8,7 @@ import Logout from '../../components/logout/logout.reducer';
 import Cabinet from '../../containers/page/cabinet/home/cabinet.reducer';
 import AddBook from '../../containers/page/cabinet/addBook/addBookForm/addBook.reducer';
 import BookShelf from '../../containers/page/cabinet/bookshelf/bookshelf.reducer';
-import OrderBook from '../../containers/book/orderBook/orderBook.reducer';
+import OrderBook from '../../containers/page/book/orderBook/orderBook.reducer';
 import Book from '../../containers/page/book/book.reducer';
 import BookAddComment from '../../containers/page/book/bookAddComment/bookAddComment.reducer';
 //import UserInfo from '../../containers/page/cabinet/info/info.reducer';

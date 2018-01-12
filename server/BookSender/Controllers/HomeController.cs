@@ -86,7 +86,6 @@ namespace BookSender.Controllers
                 return Json("zrada");
             }
         }
-        [HttpPost]
         public JsonResult GetBookPageData([FromBody] int? bookId)
         {
            if (bookId != null)
@@ -97,20 +96,21 @@ namespace BookSender.Controllers
 
                 List<Comment> bookComments = _context.Comments.Where(c => c.BookId == book.Id).ToList();
 
-                foreach (var com in bookComments)
-                {
-                    User user = _context.Users.Where(u => u.Id == com.UserId).FirstOrDefault();
-                    com.User = user;
-                }
+                    //foreach (var com in bookComments)
+                    //{
+                    //    User user = _context.Users.Where(u => u.Id == com.UserId).FirstOrDefault();
+                    //    com.User = user;
+                    //}
 
-                    List<FullBookInfoHistory> bookHistory = GetAllBookHistory(book.Id);
+                    //List<FullBookInfoHistory> bookHistory = GetAllBookHistory(book.Id);
 
-                    return Json(new DetailedBookInfo
-                    {
-                        Book = book,
-                        CommentsList = bookComments,
-                        HistoryList = bookHistory
-                    });
+                    //DetailedBookInfo dd = new DetailedBookInfo
+                    //{
+                    //    Book = book,
+                    //    CommentsList = bookComments,
+                    //    HistoryList = null
+                    //};
+                    return Json(book);
                 }
                 catch (Exception ex)
                 {
