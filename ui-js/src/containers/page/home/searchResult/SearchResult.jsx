@@ -64,7 +64,7 @@ const columns = [
 ];
 
 let SearchResult = props => {
-    return <div className='container search-result'>
+    return <div className='search-result'>
         {
             props.searchedBooks.length
             ? <Table 
