@@ -34,7 +34,7 @@ const ResolveButtons = ({onClickControlButton, isDonor, dealStatus, dealId}) => 
 
     if(!button1Text) {
         return (
-            <div className='message'>
+            <div className='message badge badge-warning'>
                 Waiting approwing from another side.
             </div>
         )
@@ -44,12 +44,14 @@ const ResolveButtons = ({onClickControlButton, isDonor, dealStatus, dealId}) => 
         <div className='deals__control'>
             <button
                 onClick={onClickControlButton}
+                className = 'btn btn-success'
                 data-method={`${callingMethod1}`}
                 data-id={`${dealId}`}>
                 {button1Text}
             </button>
             <button
                 onClick={onClickControlButton}
+                className='btn btn-warning'
                 data-method={`${callingMethod2}`}
                 data-id={`${dealId}`}>
                 {button2Text}
