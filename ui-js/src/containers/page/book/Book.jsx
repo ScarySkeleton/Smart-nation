@@ -54,7 +54,7 @@ class Book extends PureComponent {
                 </div>
 
                 <div className='book__controls'>
-                    <button className={`book__controls_order ${this.props.isLogined ? 'button-active' : 'button-unactive'}`}
+                    <button className={`book__controls_order btn btn-success ${this.props.isLogined ? 'button-active' : 'button-unactive'}`}
                         onClick={this.orderThisBook}>
                         Order book now!
                     </button>
