@@ -88,29 +88,23 @@ namespace BookSender.Controllers
         }
         public JsonResult GetBookPageData([FromBody] int? bookId)
         {
-           if (bookId != null)
+            if (bookId != null)
             {
                 try
                 {
                     Book book = _context.Books.Where(b => b.Id == bookId).FirstOrDefault();
 
-                List<Comment> bookComments = _context.Comments.Where(c => c.BookId == book.Id).ToList();
+                    List<Comment> bookComments = _context.Comments.Where(c => c.BookId == book.Id).Include("User").ToList();
 
-                    //foreach (var com in bookComments)
-                    //{
-                    //    User user = _context.Users.Where(u => u.Id == com.UserId).FirstOrDefault();
-                    //    com.User = user;
-                    //}
+                    List<FullBookInfoHistory> bookHistory = GetAllBookHistory(book.Id);
 
-                    //List<FullBookInfoHistory> bookHistory = GetAllBookHistory(book.Id);
-
-                    //DetailedBookInfo dd = new DetailedBookInfo
-                    //{
-                    //    Book = book,
-                    //    CommentsList = bookComments,
-                    //    HistoryList = null
-                    //};
-                    return Json(book);
+                    DetailedBookInfo dd = new DetailedBookInfo
+                    {
+                        Book = book,
+                        CommentsList = bookComments,
+                        HistoryList = bookHistory
+                    };
+                    return Json(dd);
                 }
                 catch (Exception ex)
                 {
@@ -155,7 +149,7 @@ namespace BookSender.Controllers
                 }
             }
             else
-                return Json("Failed");       
+                return Json("Failed");
         }
         [HttpPost]
         public JsonResult DeleteComment([FromBody] DeleteCommentModel deleteComment)

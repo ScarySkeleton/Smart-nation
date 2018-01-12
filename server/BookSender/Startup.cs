@@ -54,12 +54,9 @@ namespace BookSender
 					.AllowCredentials());
 			});
 
-			services.AddMvc().AddJsonOptions(options =>
-			{
-				options.SerializerSettings.Formatting = Formatting.Indented;
-			});
+			services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-			services.AddAuthentication(options =>
+            services.AddAuthentication(options =>
 			{
 				options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 				options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
