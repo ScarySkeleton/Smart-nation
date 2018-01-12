@@ -34,16 +34,19 @@ class BookRequest extends PureComponent {
             )
         }
         return (
-            <div className='deals'>
+            <div className='container deals'>
+                <div className='row'>
                 {
                     deals.map((deal, index) => {
                         return (
-                            <div className='deals__deal' key={index}>
-                                <div className='dials__deal_book'>
-                                    <Link to={`/book/${deal.bookId}`}>
-                                        Dealing book
-                                    </Link>
-                                </div>
+                            <div className='card deals__deal' key={index}>
+                                <div className = 'card-body'>
+                                    <div className='text-center dials__deal_book'>
+                                        <Link to={`/book/${deal.bookId}`} className='card-title'>
+                                            Dealing book
+                                        </Link>
+                                    </div>
+                                
                                 <div className='deals__deal_status'>
                                     Deal status: {deal.dealStatusName}
                                 </div>
@@ -75,9 +78,11 @@ class BookRequest extends PureComponent {
                                     isDonor={deal.isDonor}
                                     dealStatus={deal.dealStatusId} />
                             </div>
+                            </div>
                         )
                     })
                 }
+                </div>
             </div>
         )
     }
