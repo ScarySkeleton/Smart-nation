@@ -24,6 +24,12 @@ const initState = {
 const orderBookReducer = (state = initState, action) => { // ONLY FOR DEBUGGING
     switch(action.type) {
 
+        case actions.ORDER_BOOK_REQUEST: 
+            return {
+                ...state,
+                ...action.payload,
+            }
+
         case actions.ORDER_BOOK_GET_DATA_REQUEST:
             return {
                 ...state,

@@ -4,6 +4,9 @@ const initState = {
     isBookFetching: false,
     isBookFetchedSuccess: false,
     isBookFetchedFailure: false,
+    book: {}, 
+    commentsList: [],
+    historyList: []
 }
 
 const bookReducer = (state = initState, action) => {

@@ -1,8 +1,6 @@
-import {
-    put,
+import {put,
     take,
-    call
-} from 'redux-saga/effects';
+    call} from 'redux-saga/effects';
 
 import {
     FETCHING_BOOK_SHELF_BOOKS,

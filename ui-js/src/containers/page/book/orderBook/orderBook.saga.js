@@ -1,14 +1,14 @@
 import { call, take, put } from 'redux-saga/effects';
-import {ORDER_BOOK_GET_DATA_REQUEST,
+import {ORDER_BOOK_REQUEST,
     orderBookSuccess,
     orderBookFailure} from './orderBook.action';
 import {isFetching,
-    isntFetching} from '../../../services/store/globalState/global.actions';
-import {getOrderBookData} from '../../../services/Api';
+    isntFetching} from '../../../../services/store/globalState/global.actions';
+import {orderBook} from '../../../../services/Api';
 
-export default function* watchOrderBookGetDataRequest() {
+export default function* watchOrderBookFetchRequest() {
     while(true) {
-        const action = yield take(ORDER_BOOK_GET_DATA_REQUEST);
+        const action = yield take(ORDER_BOOK_REQUEST);
         yield call(fetchOrderBookGetDataRequest, action.payload);
     }
 }
@@ -16,7 +16,7 @@ export default function* watchOrderBookGetDataRequest() {
 function* fetchOrderBookGetDataRequest(bookData) {
     try {
         yield put(isFetching());
-        const response = yield call(getOrderBookData(bookData));
+        const response = yield call(orderBook(bookData));
         yield put(orderBookSuccess(response));
     } catch(error) {
         yield put(orderBookFailure());

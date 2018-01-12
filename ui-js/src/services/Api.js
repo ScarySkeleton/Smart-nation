@@ -25,13 +25,14 @@ export function searchBooks(searchData) {
 
 export function getBookPageData(bookId) {
     return function() {
-        return apiNonAuthPostFetch('Home/GetBookPageData,', bookId);
+        return apiAuthPostFetch('Home/GetBookPageData', bookId)
+            .then(response => response);
     }
 }
 
 export function setBookAddComment(commentData) {
     return function() {
-        return apiNonAuthPostFetch('Home/SetBookComment,', commentData);
+        return apiNonAuthPostFetch('Home/SetBookComment', commentData);
     }
 }
 
@@ -40,7 +41,7 @@ export function setBookAddComment(commentData) {
                             BOOK REQUEST
     =================================================================
 */
-export function getOrderBookData(bookId) {
+export function orderBook(bookId) {
     return function() {
         return apiNonAuthPostFetch('Order/Order', bookId)
             .then(json => {
