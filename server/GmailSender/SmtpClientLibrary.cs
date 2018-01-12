@@ -49,5 +49,11 @@ namespace GmailSender
 
             return password;
         }
+
+        public static void SendOrderRequestMessages()
+        {
+
+        }
+
     }
 }
