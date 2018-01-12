@@ -3,28 +3,32 @@ import defaultBookPicture from '../../../../img/cabinet/default-book.png';
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+import './bookInfo.scss'
+
 const BookInfo = ({book}) => (
     <div className='book__info'>
-        <div className='book__title'>
+        <div className='book__info__title'>
         {
             book.title
             ? <span> {book.title} </span>
             : <span> Title is unknown </span>
         }
         </div>
-        <div className='book__description'>
+        <div className="row">
+        <div className='book__image col-md-3'>
+        {
+            book.picture
+            ? <img className="rounded img-fluid" src={book.picture} alt={book.title} />
+            : <img className="rounded img-fluid" src={defaultBookPicture} alt={book.title} />
+        }
+        </div>
+        <div className='book__description col-md-9'>
         {
             book.description
             ? <span> {book.description} </span>
             : <span> Description is unknown </span>
         }
         </div>
-        <div className='book__image'>
-        {
-            book.picture
-            ? <img src={book.picture} alt={book.title} />
-            : <img src={defaultBookPicture} alt={book.title} />
-        }
         </div>
         <div className='book__author'>
         {
@@ -53,7 +57,7 @@ const BookInfo = ({book}) => (
         {
             book.CurrentUserId
             ? <span> Current user: {book.currentUser.lastName} &nbsp; {book.currentUser.firstName}</span>
-            : <span> Current user is unknown </span>
+            : <span className="gray-text"> Current user is unknown </span>
         }
             
         </div>
@@ -61,21 +65,21 @@ const BookInfo = ({book}) => (
             {
                 book.createdOn
                 ? <span> Created time: {book.createdOn} </span>
-                : <span> Created time id is unknown </span>
+                : <span className="gray-text"> Created time id is unknown </span>
             }
         </div>
         <div className='book__time-printed'>
             {
                 book.printedOn
                 ? <span> Printed time: {book.printedOn} </span>
-                : <span>  Printed time is unknown </span>
+                : <span className="gray-text">  Printed time is unknown </span>
             }
         </div>
         <div className='book__isbn'>
             {
                 book.isbn
                 ? <span> ISBN: {book.isbn} </span>
-                : <span>  ISBN is unknown </span>
+                : <span className="gray-text">  ISBN is unknown </span>
                 //showDataOrMessageThatDataIsUnknown(book.ISBN)
             }
         </div>
@@ -83,15 +87,15 @@ const BookInfo = ({book}) => (
             {
                 book.price
                 ? <span> Price: {book.price} </span>
-                : <span>  No price </span>
+                : <span className="gray-text">  No price </span>
                 //showDataOrMessageThatDataIsUnknown(book.Price)
             }
         </div>
         <div className='book__is-usable'>
             Is usable {
                 book.IsUsable
-                ? "yes"
-                : "no"
+                ? <span className="text-green">"yes"</span>
+                : <span className="text-red">"no"</span>
             }
         </div>
     </div>

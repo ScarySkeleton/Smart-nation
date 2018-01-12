@@ -1,0 +1,42 @@
+    h1 {
+        text-align: center;
+        font-size: 3em;
+    }
+
+    .book-wrapper {
+        padding: 10px 15px;
+        border-radius: 10px;
+    }
+    .book__info {
+        .gray-text{
+        color: gray ;
+        }
+        .text-green {
+            color: green;
+        }
+
+        .text-red {
+            color: red;
+        }
+    }
+
+    .book__info__title{
+        text-align: center;
+        font-size: 3em;
+        padding: 10px;
+    }
+
+    .book__description {
+        font-family: Helvetica;
+    }
+
+    .book__controls {
+        margin: 5px;
+    }
+
+    .book-add-comment{
+        .button {
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+    }

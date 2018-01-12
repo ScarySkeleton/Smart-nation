@@ -19,7 +19,9 @@ namespace BookSender.Controllers
     [EnableCors("CorsPolicy")]
     public class HomeController : Controller
     {
-        private readonly ApplicationContext _context;
+		const int DEFAULT_USER_FOR_COMMENTS_ID = 1;
+
+		private readonly ApplicationContext _context;
         public HomeController(ApplicationContext context)
         {
             _context = context;
@@ -119,19 +121,20 @@ namespace BookSender.Controllers
         [HttpPost]
         public JsonResult AddComment([FromBody] AddingCommentModel addingComment)
         {
+
             if (addingComment != null)
             {
-                var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+				int UserId = DEFAULT_USER_FOR_COMMENTS_ID;
 
-                if (userId == null)
-                    return Json("Authorize");
-                else
-                {
+                var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier);
+
+				if (userId != null)
+					UserId = int.Parse(userId.Value);
                     try
                     {
                         Comment comment = new Comment
                         {
-                            UserId = Convert.ToInt32(userId),
+                            UserId = Convert.ToInt32(userId.Value),
                             BookId = addingComment.BookId,
                             CommentBody = addingComment.CommentText,
                             CreatedOn = DateTime.Now
@@ -147,7 +150,6 @@ namespace BookSender.Controllers
                         return Json("Failed");
                     }
                 }
-            }
             else
                 return Json("Failed");
         }

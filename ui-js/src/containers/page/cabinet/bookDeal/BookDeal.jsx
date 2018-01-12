@@ -4,6 +4,7 @@ import {ResolveButtons} from './resolveButtons/ResolveButtons';
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import './bookDeal.style.scss'
 
 class BookRequest extends PureComponent {
 
@@ -36,20 +37,23 @@ class BookRequest extends PureComponent {
             )
         }
         return (
-            <div className='deals'>
+            <div className='container deals'>
+                <div className='row'>
                 {
                     deals.map((deal, index) => {
                         return (
-                            <div className='deals__deal' key={index}>
-                                <div className='dials__deal_book'>
-                                    <Link to={`/book/${deal.bookId}`}>
-                                        Dealing book
-                                    </Link>
+                            <div className='card deals__deal col-md-6 col-lg-6 col-sm-12' key={index}>
+                                <div className = 'card-body'>
+                                    <div className='text-center container-fluid col-md-12 dials__deal_book'>
+                                        <Link to={`/book/${deal.bookId}`} className='card-title'>
+                                            Dealing book
+                                        </Link>
+                                    </div>
+                            
+                                <div className='card-text text-left deals__deal_status'>
+                                   <p> Deal status: {deal.dealStatusName} </p>
                                 </div>
-                                <div className='deals__deal_status'>
-                                    Deal status: {deal.dealStatusName}
-                                </div>
-                                <div className='deals__time'>
+                                <div className='text-left card-text deals__time'>
                                     <div className='deals__time_created'>
                                         Deal created: {deal.createdOn}
                                     </div>
@@ -78,9 +82,11 @@ class BookRequest extends PureComponent {
                                     dealStatus={deal.dealStatusId}
                                     dealId={deal.id} />
                             </div>
+                            </div>
                         )
                     })
                 }
+                </div>
             </div>
         )
     }
