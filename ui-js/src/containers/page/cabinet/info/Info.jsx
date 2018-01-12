@@ -119,7 +119,6 @@ class Info extends PureComponent {
 
         return (
             <div className='container info-cabinet'>
-            <img src={defaultBookPictire} alt={'Default user picture'} />
                 <div className='container info-cabinet__container'>
                     <label> My photo: </label>
 
