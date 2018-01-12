@@ -1,12 +1,9 @@
 import {
     fetchingBookShelfBooks
 } from './bookshelf.actions';
-<<<<<<< HEAD
-import defaulBookImage from '../../../../img/cabinet/book_1.svg';
-import './bookshelf.scss'
-=======
+
 import defaulBookPicture from '../../../../img/cabinet/default-book.png';
->>>>>>> 6fe3c1366e1da6a8c39af449b26b4d1032767007
+import './bookshelf.scss'
 
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
@@ -33,13 +30,8 @@ class Bookshelf extends PureComponent {
                                     <div className='text-center bookshelf-cabinet__book_image book__image'>
                                         {
                                             !!book.photoInBinary
-<<<<<<< HEAD
                                             ? <img className='card-img-left' src={book.photoInBinary} alt={book.title} scale="0" />
-                                            : <img className='card-img-left' src={defaulBookImage} />
-=======
-                                            ? <img src={book.photoInBinary} alt={book.title} scale="0" />
-                                            : <img src={defaulBookPicture} alt='Default book picture' />
->>>>>>> 6fe3c1366e1da6a8c39af449b26b4d1032767007
+                                            : <img className='card-img-left' src={defaulBookPicture} alt='Default book picture' />
                                         }
                                         <div className='card-body'>
                                             <h5 className='card-title bookshelf-cabinet__book_title book__title col align-self-center'>
