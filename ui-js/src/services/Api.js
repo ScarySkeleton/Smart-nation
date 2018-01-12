@@ -32,7 +32,7 @@ export function getBookPageData(bookId) {
 
 export function setBookAddComment(commentData) {
     return function() {
-        return apiNonAuthPostFetch('Home/SetBookComment', commentData);
+        return apiAuthPostFetch('Home/AddComment', commentData);
     }
 }
 
