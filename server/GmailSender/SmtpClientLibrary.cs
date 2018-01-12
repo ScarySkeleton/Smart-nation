@@ -8,7 +8,7 @@ namespace GmailSender
 
         static bool mailSent = false;
 
-        public static string SendKey(string messageTo, string messageFrom, string passwordFrom)
+        public static string Send(string messageTo, string messageFrom, string passwordFrom)
         {
             SmtpClient client = new SmtpClient();
 
@@ -50,7 +50,7 @@ namespace GmailSender
             return password;
         }
 
-        public static void SendOrderRequestMessages()
+        public static void SendOrderRequestMessages(string acceptor, string donor)
         {
 
         }
