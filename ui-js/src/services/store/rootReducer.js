@@ -11,6 +11,7 @@ import BookShelf from '../../containers/page/cabinet/bookshelf/bookshelf.reducer
 import OrderBook from '../../containers/page/book/orderBook/orderBook.reducer';
 import Book from '../../containers/page/book/book.reducer';
 import BookAddComment from '../../containers/page/book/bookAddComment/bookAddComment.reducer';
+import bookDeal from '../../containers/page/cabinet/bookDeal/bookDeal.reducer'; 
 //import UserInfo from '../../containers/page/cabinet/info/info.reducer';
 
 export default combineReducers({
@@ -25,5 +26,6 @@ export default combineReducers({
     OrderBook,
     Book,
     BookAddComment,
+    bookDeal,
     //UserInfo
 });

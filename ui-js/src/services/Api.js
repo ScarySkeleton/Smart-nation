@@ -125,3 +125,18 @@ export function getBookShelfBooks() {
     }
     
 }
+
+export function getDealData() {
+    return function() {
+        return apiAuthPostFetch("PersonalCabinet/GetAllMyDeals")
+            .then(response => response);
+    }
+}
+
+export function changeDealStatus(dealObj) {
+    return function() {
+        const dealId = dealObj.id;
+        return apiAuthPostFetch(`Order/${dealObj.method}`, dealId);
+    }
+}
+

@@ -10,6 +10,7 @@ import watchOrderBookFetchRequest from '../../containers/page/book/orderBook/ord
 import watchFetchingBook from '../../containers/page/book/book.saga';
 import watchFetchingBookAddComment from '../../containers/page/book/bookAddComment/bookAddComment.saga';
 import watchChangeUserInfo from '../../containers/page/cabinet/info/info.saga';
+import watchUserDeal from '../../containers/page/cabinet/bookDeal/bookDeal.saga';
 
 export default function* rootSaga() {
     yield all([
@@ -23,5 +24,6 @@ export default function* rootSaga() {
         watchFetchingBook(),
         watchFetchingBookAddComment(),
         watchChangeUserInfo(),
+        watchUserDeal(),
     ]);
 }

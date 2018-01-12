@@ -5,7 +5,8 @@ const link = [
     "Home",
     "Info",
     "My bookshelf",
-    "Add Book"
+    "Add Book",
+    "Deals"
 ]
 
 const Nav = () => (

@@ -8,7 +8,7 @@ namespace GmailSender
 
         static bool mailSent = false;
 
-        public static string Send(string messageTo, string messageFrom, string passwordFrom)
+        public static string SendKey(string messageTo, string messageFrom, string passwordFrom)
         {
             SmtpClient client = new SmtpClient();
 
@@ -20,7 +20,7 @@ namespace GmailSender
             client.UseDefaultCredentials = false;
             client.Credentials = new System.Net.NetworkCredential(messageFrom, passwordFrom);
 
-            MailAddress mailFrom = new MailAddress(messageFrom, "Your password for authorization", System.Text.Encoding.UTF8);
+            MailAddress mailFrom = new MailAddress(messageFrom, passwordFrom, System.Text.Encoding.UTF8);
             MailAddress mailTo = new MailAddress(messageTo);
             MailMessage mailMessage = new MailMessage(mailFrom, mailTo);
 
@@ -50,9 +50,29 @@ namespace GmailSender
             return password;
         }
 
-        public static void SendOrderRequestMessages(string acceptor, string donor)
+        public static void SendOrderRequestMessages(string messageTo, string messageBody, string messageSubject, string messageFrom, string passwordFrom)
         {
+            SmtpClient client = new SmtpClient();
 
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential(messageFrom, passwordFrom);
+
+            MailAddress mailFrom = new MailAddress(messageFrom, "Dear user", System.Text.Encoding.UTF8);
+            MailAddress mailTo = new MailAddress(messageTo);
+            MailMessage mailMessage = new MailMessage(mailFrom, mailTo);
+        
+            mailMessage.Body = messageBody;
+            mailMessage.Subject = messageSubject;
+            mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            mailMessage.IsBodyHtml = true;
+            client.Send(mailMessage);
+            mailMessage.Dispose();
         }
 
     }
