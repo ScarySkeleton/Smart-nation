@@ -46,7 +46,7 @@ namespace BookSender.Controllers
 				{
 					Deal deal = new Deal
 					{
-						//DonorId = book.CurrentUserId,
+						DonorId = book.CurrentUserId,
 						AcceptorId = user.Id,
 						BookId = book.Id,
 						DealStatusId = 1,
@@ -59,25 +59,26 @@ namespace BookSender.Controllers
 					_context.Deals.Add(deal);
 					_context.SaveChanges();
 
-					BookForOrder bookModel = new BookForOrder
-					{
-						Title = book.Title,
-						Author = book.Author,
-						Description = book.Description,
-						BookTypeId = book.BookTypeId,
-						GenreId = book.GenreId,
-						CreatedOn = book.CreatedOn,
-						PrintedOn = book.PrintedOn,
-						photoInBinnary = PictureHelper.ConvertToString(book.Picture.ImageData),
-						Price = book.Price,
-						OwnerEmail = book.CurrentUser.Email,
-						OwnerId = book.CurrentUserId,
-						OwnerFirstName = book.CurrentUser.FirstName,
-						OwnerLastName = book.CurrentUser.LastName,
-						OwnerPhoneNumber = book.CurrentUser.PhoneNumber,
-					};
+                    BookForOrder bookForOrder = new BookForOrder
+                    {
+                        Id = book.Id,
+                        Title = book.Title,
+                        Author = book.Author,
+                        Description = book.Description,
+                        BookTypeId = book.BookTypeId,
+                        GenreId = book.GenreId,
+                        CreatedOn = book.CreatedOn,
+                        PrintedOn = book.PrintedOn,
+                        photoInBinnary = book.Picture != null ? PictureHelper.ConvertToString(book.Picture.ImageData) : null,
+                        Price = book.Price,                      
+                        OwnerId = book.CurrentUserId,
+                        OwnerFirstName = book.CurrentUser.FirstName,
+                        OwnerLastName = book.CurrentUser.LastName,
+                        OwnerPhoneNumber = book.CurrentUser.PhoneNumber,
+                        OwnerEmail = book.CurrentUser.Email
+                    };
 
-					return Json(bookModel);
+                    return Json(bookForOrder);
 				}
 				else
 				{
