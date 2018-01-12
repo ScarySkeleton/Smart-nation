@@ -8,6 +8,7 @@ import CabinetHome from './home/Home';
 import CabinetInfo from './info/Info';
 import CabinetBookshelf from './bookshelf/Bookshelf';
 import CabinetAddBook from './addBook/AddBook';
+import BookDeal from './bookDeal/BookDeal';
 
 let Cabinet = () =>
     <div className='container cabinet'>
@@ -17,6 +18,7 @@ let Cabinet = () =>
             <Route exact path='/cabinet/info' component={CabinetInfo} />
             <Route exact path='/cabinet/my-bookshelf' component={CabinetBookshelf} />
             <Route exact path='/cabinet/add-book' component={CabinetAddBook} />
+            <Route exact path='/cabinet/deals' component={BookDeal} />            
             <Route path='/cabinet/' component={CabinetHome} />
         </Switch>
     </div>
