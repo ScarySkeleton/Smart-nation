@@ -2,8 +2,8 @@ import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {Link} from 'react-router-dom';
 import './table.scss';
+
 const Table = ({className, data, columns}) => {
-    console.log(data);
     data.map(book => addOrderButtonToEachBook(book));
     return (
         <div className={className}>
@@ -24,7 +24,7 @@ const Table = ({className, data, columns}) => {
                     dataField="orderBook"
                     dataSort={false}
                     dataFormat={showOrderButton}>
-                    Order the book
+                    Book page
                 </TableHeaderColumn>
             </BootstrapTable>
         </div>
@@ -33,7 +33,7 @@ const Table = ({className, data, columns}) => {
 
 const addOrderButtonToEachBook = book => 
     book.orderBook = {
-        order: <Link to={`orderBook/${book.id}`} className="orderBook">Order</Link>
+        order: <Link to={`book/${book.id}`} className="orderBook">Book</Link>
     }
 
 const showOrderButton = book => {

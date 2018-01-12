@@ -89,17 +89,17 @@ namespace BookSender.Controllers
         [HttpPost]
         public JsonResult GetBookPageData([FromBody] int? bookId)
         {
-            if (bookId != null)
+           if (bookId != null)
             {
                 Book book = _context.Books.Where(b => b.Id == bookId).FirstOrDefault();
 
-                List<Comment> bookComments = _context.Comments.Where(c => c.BookId == book.Id).Include("User").ToList();
+                List<Comment> bookComments = _context.Comments.Where(c => c.BookId == book.Id).ToList();
 
-                //foreach (var com in bookComments)
-                //{
-                //    User user = _context.Users.Where(u => u.Id == com.UserId).FirstOrDefault();
-                //    com.User = user;
-                //}
+                foreach (var com in bookComments)
+                {
+                    User user = _context.Users.Where(u => u.Id == com.UserId).FirstOrDefault();
+                    com.User = user;
+                }
 
                 List<FullBookInfoHistory> bookHistory = GetAllBookHistory(book.Id);
 

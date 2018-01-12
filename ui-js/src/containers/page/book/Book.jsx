@@ -1,5 +1,8 @@
 import {fetchBook} from './book.action';
 import BookAddComment from './bookAddComment/BookAddComment';
+import './book.style.scss';
+import defaultBookPicture from '../../../img/cabinet/default-book.png';
+import {BookCommentsList} from './bookCommentsList/BookCommentsList';
 
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
@@ -7,35 +10,45 @@ import {Link} from 'react-router-dom';
 
 class Book extends PureComponent {
 
-    bookId = this.props.match.params.id;
+    bookId = match.params.id;
 
     componentDidMount() {
-        this.props.fetchBookData(this.bookId);
+        fetchbook(this.bookId);
     }
     
     render() {
         console.log(this.props);
+
+        const book = bookPageData.book;
+        const commentsList = bookPageData.commentsList;
+        const historyList = bookPageData.historyList;
+
+        console.log(book, commentsList, historyList);
         return (
             <div className='container book-wrapper'>
                 <div className='book__title'>
-                    {this.props.bookData.title}
+                    {book.title}
                 </div>
                 <div className='book__description'>
-                    {this.props.bookData.title}
+                    {book.title}
                 </div>
                 <div className='book__image'>
-                    <img src={this.props.bookData.PhotoInBinary} alt={this.props.bookData.Title} />
+                    {
+                        book
+                        ? <img src={book.PhotoInBinary} alt={book.title} />
+                        : <img src={defaultBookPicture} alt={book.title} />
+                    }
                 </div>
                 <div className='book__author'>
-                    {this.props.bookData.Author}
+                    {book.author}
                 </div>
                 <div className='book__raiting'>
                     Raiting: 
                 </div>
                 <div className='book__user-contributor'>
                     {
-                        !!this.props.bookData.ContributorId
-                        ? <Link to={this.props.bookData.ContributorId} />
+                        !!book.ContributorId
+                        ? <Link to={book.ContributorId} />
                         : <div className='book__user-contributor-empty'>
                             This book was added by community or wished stay hidden.
                          </div>
@@ -43,45 +56,26 @@ class Book extends PureComponent {
                     
                 </div>
                 <div className='book__user-current'>
-                    {this.props.bookData.CurrentUserId}
+                    {book.CurrentUserId}
                 </div>
                 <div className='book__time-created'>
-                    {this.props.bookData.CreatedOn}
+                    {book.CreatedOn}
                 </div>
                 <div className='book__time-printed'>
-                    {this.props.bookData.PrintedOn}
+                    {book.PrintedOn}
                 </div>
                 <div className='book__isbn'>
-                    {this.props.bookData.ISBN}
+                    {book.ISBN}
                 </div>
                 <div className='book__price'>
-                    {this.props.bookData.Price}
+                    {book.Price}
                 </div>
                 <div className='book__is-usable'>
-                    {this.props.bookData.IsUsable}
+                    {book.IsUsable}
                 </div>
 
                 <div className='book__comment-wrapper'>
-                    {
-                        !!this.props.bookData.comments
-                        ? this.props.bookData.comments.map((comment, index) => {
-                            return (
-                                <div className='book__comment' key={index}>
-                                    <div className='book__comment_author'>
-                                        {comment.author}
-                                    </div>
-                                    <div className='book__comment_text'>
-                                    {comment.text} 
-                                    </div>
-                                </div>
-                            )
-                            })
-                        : <div className='book__comment-empty'> 
-                            Book doesn't have any comment! 
-                            Be the first who will comment it :) 
-                            </div>
-                       
-                    }
+                    <BookCommentsList comments={commentsList} />
                 </div>
 
                 <div className='book__comment-wrapper-add'>
@@ -94,13 +88,13 @@ class Book extends PureComponent {
 
 const mapStateToProps = state => {
     return {
-        bookData: state.Book
+        bookPageData: state.Book
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchBookData: (id) => dispatch(fetchBook(id))
+        fetchbook: (id) => dispatch(fetchBook(id))
     }
 }
 
