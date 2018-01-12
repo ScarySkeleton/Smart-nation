@@ -133,37 +133,6 @@ namespace BookSender.Controllers
 
 		}
 
-		//[HttpPut]
-		//public async Task<JsonResult> NewPassword(string request)
-		//{
-		//	try
-		//	{
-		//		dynamic requestDyn = JsonConvert.DeserializeObject(request);
-
-		//		//LoginData model =
-		//		//		 new LoginData
-		//		//		 { userLogInfo = requestDyn.Email, Password = requestDyn.Password, userLogInfo = requestDyn.Phone };
-
-		//		//Data.Models.User user = await _context.Users
-		//		//		 .Include(u => u.Role)
-		//		//		 .FirstOrDefaultAsync(u => u.Email == model.Email || u.PhoneNumber == model.Phone);
-
-		//		if (String.IsNullOrEmpty(model.Password) == false)
-		//		{
-		//			user.Password = model.Password;
-		//			await _context.SaveChangesAsync();
-
-		//			return Json(" 'Answer' : 'Password was successfully updated' ");
-		//		}
-		//		else
-		//			throw new Exception("Empty password string");
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		return Json($" 'Answer' ; 'Something goes wrong', 'Error' : '{ex.Message}' ");
-		//	}
-		//}
-
 		private async Task Authenticate(Data.Models.User user, bool isEmailAuth = true)
 		{
 			var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);

@@ -662,6 +662,53 @@ namespace BookSender.Controllers
 			}
 		}
 
+		public async Task<JsonResult> GetAllMyDeals()
+		{
+
+			try
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+
+				if (user != null)
+				{
+					List<Deal> userDeals = await _context.Deals.Where(
+												b => b.DonorId == user.Id || b.AcceptorId == user.Id)
+												.ToListAsync();
+
+					List<DealModel> dealsList = new List<DealModel>();
+
+					foreach (var deal in userDeals)
+					{
+						dealsList.Add(new DealModel()
+						{
+							Id = deal.Id,
+							BookId = deal.BookId,
+							AcceptorId = deal.AcceptorId,
+							DonorId = deal.DonorId,
+							DealStatusId = deal.DealStatusId,
+							CreatedOn = deal.CreatedOn,
+							EndedOn = deal.EndedOn,
+							ExpiredOn = deal.ExpiredOn,
+							ModifiedOn = deal.ModifiedOn,
+							IsDonor = user.Id == deal.DonorId
+						});
+					}
+
+					return Json(dealsList);
+				}
+				else
+				{
+					throw new Exception("User was not found");
+				}
+			}
+			catch (Exception e)
+			{
+				return Json("Error: " + e.Message);
+			}
+		}
+
 		#endregion
 	}
 }

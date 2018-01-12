@@ -21,5 +21,7 @@ namespace BookSender.Models.AccessoryModels
 		public DateTime ModifiedOn { get; set; }
 
 		public DateTime ExpiredOn { get; set; }
+
+		public bool IsDonor { get; set; }
 	}
 }
