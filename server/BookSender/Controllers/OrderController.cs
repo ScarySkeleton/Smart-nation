@@ -111,7 +111,7 @@ namespace BookSender.Controllers
             }
         }
 
-        public async Task<HttpResponseMessage> DeclineDeal(int? dealId)
+        public async Task<HttpResponseMessage> DeclineDeal([FromBody] int? dealId)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace BookSender.Controllers
 
         }
 
-        public async Task<HttpResponseMessage> ApproveDeal(int? dealId)
+        public async Task<HttpResponseMessage> ApproveDeal([FromBody] int? dealId)
         {
             try
             {
@@ -175,7 +175,7 @@ namespace BookSender.Controllers
 
         }
 
-        public async Task<HttpResponseMessage> BookRecieved(int? dealId)
+        public async Task<HttpResponseMessage> BookRecieved([FromBody] int? dealId)
         {
             try
             {
@@ -196,7 +196,7 @@ namespace BookSender.Controllers
 
         }
 
-        public async Task<HttpResponseMessage> CloseDeal(int? dealId)
+        public async Task<HttpResponseMessage> CloseDeal([FromBody] int? dealId)
         {
             try
             {
