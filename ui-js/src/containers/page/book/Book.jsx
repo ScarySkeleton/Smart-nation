@@ -10,18 +10,18 @@ import {Link} from 'react-router-dom';
 
 class Book extends PureComponent {
 
-    bookId = match.params.id;
+    bookId = this.props.match.params.id;
 
     componentDidMount() {
-        fetchbook(this.bookId);
+        this.props.fetchbook(this.bookId);
     }
     
     render() {
         console.log(this.props);
 
-        const book = bookPageData.book;
-        const commentsList = bookPageData.commentsList;
-        const historyList = bookPageData.historyList;
+        const book = this.props.bookPageData.book;
+        const commentsList = this.props.bookPageData.commentsList;
+        const historyList = this.props.bookPageData.historyList;
 
         console.log(book, commentsList, historyList);
         return (
