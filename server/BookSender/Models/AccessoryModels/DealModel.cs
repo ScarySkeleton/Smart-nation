@@ -14,6 +14,8 @@ namespace BookSender.Models.AccessoryModels
 
 		public int? DealStatusId { get; set; }
 
+		public string DealStatusName { get; set; }
+
 		public DateTime CreatedOn { get; set; }
 
 		public DateTime? EndedOn { get; set; }
