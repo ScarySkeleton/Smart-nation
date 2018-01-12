@@ -32,7 +32,7 @@ namespace BookSender.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult Order(int bookId)
+		public JsonResult Order([FromBody] int bookId)
 		{
 			try
 			{

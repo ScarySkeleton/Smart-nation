@@ -43,7 +43,7 @@ export function setBookAddComment(commentData) {
 */
 export function orderBook(bookId) {
     return function() {
-        return apiNonAuthPostFetch('Order/Order', bookId)
+        return apiAuthPostFetch('Order/Order', bookId)
             .then(json => {
                 return json;
             });

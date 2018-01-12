@@ -25,7 +25,7 @@ class Book extends PureComponent {
     }
 
     orderThisBook() {
-        console.log(this.props);
+        console.log(this.props, this.bookId);
         if(this.props.isLogined)
             this.props.orderBook(this.bookId);
     }
