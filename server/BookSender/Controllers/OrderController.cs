@@ -112,11 +112,11 @@ namespace BookSender.Controllers
             }
         }
 
-        public async Task<HttpResponseMessage> DeclineDeal([FromBody] int? dealId)
+        public async Task<HttpResponseMessage> DeclineDeal([FromBody] DealModel theDeal)
         {
             try
             {
-                Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+                Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == theDeal.Dealid);
 
 				if(deal.DealStatusId == 4)
 				{
@@ -161,11 +161,11 @@ namespace BookSender.Controllers
 
         }
 
-        public async Task<HttpResponseMessage> ApproveDeal([FromBody] int? dealId)
+        public async Task<HttpResponseMessage> ApproveDeal([FromBody] DealModel theDeal)
         {
             try
             {
-                Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+                Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == theDeal.Dealid);
 
                 deal.DealStatusId = 2;
                 deal.ModifiedOn = DateTime.UtcNow;
@@ -239,11 +239,11 @@ namespace BookSender.Controllers
 
         }
 
-        public async Task<HttpResponseMessage> CloseDeal([FromBody] int? dealId)
+        public async Task<HttpResponseMessage> CloseDeal([FromBody] DealModel theDeal)
         {
             try
             {
-                Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+                Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == theDeal.Dealid);
 
 
                 deal.DealStatusId = 6;
