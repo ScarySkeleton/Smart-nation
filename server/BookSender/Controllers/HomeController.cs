@@ -40,8 +40,8 @@ namespace BookSender.Controllers
             string sqlExpression = "FindSearchedBook";
             var SearchedTitle = new SqlParameter("@searchedTitle", filteringModel.Title);
             var SearchedAuthor = new SqlParameter("@searchedAuthor", filteringModel.Author);
-            var BookGener = new SqlParameter("@bookGener", filteringModel.Gener);
-            var BookType = new SqlParameter("@bookType", filteringModel.Type);
+            var BookGener = new SqlParameter("@bookGener", Convert.ToInt32(filteringModel.Gener));
+            var BookType = new SqlParameter("@bookType", Convert.ToInt32(filteringModel.Type));
             try
             {
                 using (SqlConnection connection = new SqlConnection(_context.Database.GetDbConnection().ConnectionString))
