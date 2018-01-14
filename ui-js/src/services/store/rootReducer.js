@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import globalState from './globalState/global.reducer.js';
 import searchBooks from '../../containers/page/home/search/search.reduce';
+import popup from '../../components/popup/popup.reducer';
 import Login from '../../containers/page/login/login.reducer.js';
 import Register from '../../containers/page/register/register.reducer';
 import Logout from '../../components/logout/logout.reducer';
@@ -17,6 +18,7 @@ import CommonBookInfo from './commonInfo/Book/commonBookInfo.reducer';
 export default combineReducers({
     globalState,
     searchBooks,
+    popup,
     Login,
     Register,
     Logout,

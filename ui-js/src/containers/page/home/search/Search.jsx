@@ -13,11 +13,12 @@ class SearchContainer extends PureComponent {
         this.search = this.search.bind(this);
     }
 
-    search({titleValue, authorValue, issueValue, categoryValue}) {
+    search({titleValue, authorValue, categoryValue}) {
 
         this.props.searchBooks({
             Title: titleValue,
             Author: authorValue,
+            Type: "",
             Gener: categoryValue 
         })
 
