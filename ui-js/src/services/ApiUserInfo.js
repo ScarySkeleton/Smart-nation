@@ -26,6 +26,4 @@ let fetchingError = (error) => {
 }
 
 
-export {
-    fetchingError
-};
+export {fetchingError};

@@ -18,7 +18,7 @@ const popupReducer = (state = initState, action) => {
             ];
 
             const popupIndex = updPopup.indexOf(action.payload);
-            if(popupIndex != -1)
+            if(popupIndex !== -1)
                 updPopup.splice(popupIndex, 1);
 
             return [

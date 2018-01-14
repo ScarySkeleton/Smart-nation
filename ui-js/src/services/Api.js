@@ -15,7 +15,7 @@ export function searchBooks(searchData) {
                     searchedBooks: json
                 };
             })
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -25,7 +25,7 @@ export function getBookPageData(bookId) {
     return function() {
         return apiAuthPostFetch('Home/GetBookPageData', bookId)
             .then(response => response)
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -34,7 +34,7 @@ export function getBookPageData(bookId) {
 export function setBookAddComment(commentData) {
     return function() {
         return apiAuthPostFetch('Home/AddComment', commentData)
-        .catch((error) => {
+        .catch(error => {
             fetchingError(error);
         })
     }
@@ -51,7 +51,7 @@ export function orderBook(bookId) {
             .then(json => {
                 return json;
             })
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -61,7 +61,7 @@ export function getBookGenres() {
     return function() {
         return apiNonAuthPostFetch('Home/GetAllGenres')
             .then(response => response)
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -83,7 +83,7 @@ export function loginRequest(userData) {
                     , role: json.role
                 }
             })
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -92,7 +92,7 @@ export function loginRequest(userData) {
 export function registrationRequest(userData) {
     return function() {
         return apiAuthPostFetch('Account/Register', userData)
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -101,7 +101,7 @@ export function registrationRequest(userData) {
 export function logoutRequest() {
     return function() {
         return apiAuthPostFetch("Account/Logout")
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -111,7 +111,7 @@ export function loginWithFacebookRequest(userData) {
     console.log(userData);
     return function() {
         return apiNonAuthPostFetch("Account/LoginWithFacebook", userData)
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -128,7 +128,7 @@ export function getCabinetData() {
             .then(data => {
                 return data;
             })
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -137,7 +137,7 @@ export function getCabinetData() {
 export function changeUserInfoData(userInfoData) {
     return function() {
         return apiAuthPostFetch("PersonalCabinet/EditUserInfo", userInfoData)
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -146,7 +146,7 @@ export function changeUserInfoData(userInfoData) {
 export function changeUserInfoPicture(imageData) {
     return function() {
         return apiAuthPostFetch("PersonalCabinet/EditUserPicture", imageData)
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -155,7 +155,7 @@ export function changeUserInfoPicture(imageData) {
 export function addBook(bookData) {
     return function() {
         return apiAuthPostFetch("PersonalCabinet/AddBook", bookData)
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -165,7 +165,7 @@ export function getBookShelfBooks() {
     return function() {
         return apiAuthPostFetch("PersonalCabinet/GetAllUserBooks")
             .then(data =>data)
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -176,7 +176,7 @@ export function getDealData() {
     return function() {
         return apiAuthPostFetch("PersonalCabinet/GetAllMyDeals")
             .then(response => response)
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
@@ -186,7 +186,7 @@ export function changeDealStatus(dealObj) {
     return function() {
         const {method, dealData} = dealObj;
         return apiAuthPostFetch(`Order/${method}`, dealData)
-            .catch((error) => {
+            .catch(error => {
                 fetchingError(error);
             })
     }
