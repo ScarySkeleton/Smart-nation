@@ -20,6 +20,7 @@ class Content extends PureComponent {
 
     componentDidMount() {
         console.log(this.props);
+        this.props.fetchBookCategory();
     }
 
     render() {
