@@ -32,13 +32,14 @@ class Book extends PureComponent {
     
     render() {
         const book = this.props.bookPageData.book;
+        const picture = this.props.bookPageData.photoInBinary;
         const historyList = this.props.bookPageData.historyList;
         const commentsList = this.props.bookPageData.commentsList;
         return (
             <div className='container book-wrapper'>
 
                 <div className='book__info-wrapper'>
-                    <BookInfo book={book} />
+                    <BookInfo book={book} picture={picture} />
                 </div>
 
                 <div className='book__history-wrapper'>
