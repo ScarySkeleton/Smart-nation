@@ -231,6 +231,39 @@ namespace BookSender.Controllers
 			}
 		}
 
+		[HttpPost]
+		public HttpResponseMessage BookUnusable([FromBody] int? bookId)
+		{
+			try
+			{
+				var book = _context.Books.FirstOrDefault(b => b.Id == bookId);
+
+				if (book == null)
+					return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user == null)
+					return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+
+				if (book.CurrentUserId != user.Id)
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+
+				book.IsUsable = false;
+
+				_context.SaveChanges();
+
+				return new HttpResponseMessage(HttpStatusCode.OK);
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
 		#region Edit UserData
 		public JsonResult GetUserInfo()
 		{
