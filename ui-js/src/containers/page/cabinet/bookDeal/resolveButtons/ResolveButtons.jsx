@@ -16,7 +16,7 @@ const ResolveButtons = ({onClickControlButton, isDonor, dealStatus, dealId}) => 
                 callingMethod2 = BackEndCallingMethods.DeclineDealMethod;
                 break;
 
-            case 3: 
+            case 4: 
                 button1Text = 'Close';
                 callingMethod1 = BackEndCallingMethods.CloseDealMethod;
                 button2Text = 'Decline';
