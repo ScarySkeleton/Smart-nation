@@ -174,7 +174,7 @@ class AddBookForm extends PureComponent {
                 }
 
                 <div className='form-group add-book-form__container'>
-                    <label className='container add-book-form__container_description'> Name<span className='requred_star'>*</span>: </label>
+                    <label className='container add-book-form__container_description'> Title<span className='requred_star'>*</span>: </label>
                     <input className='form-control add-book-form__container_data-field' 
                         type='text'
                         value={this.state.name}
