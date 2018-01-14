@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import './searchResult.scss';
 import Table from './table/Table';
@@ -63,8 +62,8 @@ const columns = [
     }
 ];
 
-let SearchResult = props => {
-    return <div className='search-result'>
+let SearchResult = props => (
+    <div className='search-result'>
         {
             props.searchedBooks.length
             ? <Table 
@@ -77,12 +76,6 @@ let SearchResult = props => {
             </div>            
         }
     </div>
-}
+)
 
-const mapStateToProps = state => {
-    return {
-        searchedBooks: state.searchBooks.searchedBooks
-    }
-}
-
-export default SearchResult = connect(mapStateToProps, null)(SearchResult);
+export default SearchResult;

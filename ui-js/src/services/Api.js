@@ -38,7 +38,7 @@ export function setBookAddComment(commentData) {
 
 /*
     =================================================================
-                            BOOK REQUEST
+                                BOOK
     =================================================================
 */
 export function orderBook(bookId) {
@@ -47,6 +47,13 @@ export function orderBook(bookId) {
             .then(json => {
                 return json;
             });
+    }
+}
+
+export function getBookGenres() {
+    console.log("API get all genres");
+    return function() {
+        return apiNonAuthPostFetch('Helper/GetAllGenres');
     }
 }
 
