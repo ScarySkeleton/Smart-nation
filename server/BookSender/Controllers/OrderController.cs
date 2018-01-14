@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using BookSender.Data.Models;
 using System.Net.Http;
 using System.Net;
+using BookSender.Models.AccessoryModels.DealModels;
 
 namespace BookSender.Controllers
 {
@@ -117,10 +118,27 @@ namespace BookSender.Controllers
             {
                 Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
 
+				if(deal.DealStatusId == 4)
+				{
+					var bookHistoryRecords = _context.BookHistoryRecords
+													   .Where(bh => bh.BookId == deal.BookId)
+													   .OrderByDescending(bh => bh.GetBookOn)
+													   .Take(2).ToList();
+
+					_context.BookHistoryRecords.Remove(bookHistoryRecords[0]);
+
+					bookHistoryRecords[1].GiveBookOn = null;
+
+
+				}
+
+
                 deal.DealStatusId = 3;
                 deal.ModifiedOn = DateTime.UtcNow;
                 deal.ExpiredOn = DateTime.UtcNow;
                 deal.EndedOn = DateTime.UtcNow;
+
+
 
                 _context.SaveChanges();
 
@@ -175,17 +193,42 @@ namespace BookSender.Controllers
 
         }
 
-        public async Task<HttpResponseMessage> BookRecieved([FromBody] int? dealId)
+        public async Task<HttpResponseMessage> BookRecieved([FromBody]BookReceivedModel bookRecieved)
         {
-            try
-            {
-                Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+			if(bookRecieved == null)
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+
+			try
+			{
+                Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == bookRecieved.DealId);
 
                 deal.DealStatusId = 4;
                 deal.ModifiedOn = DateTime.UtcNow;
                 deal.ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(s => s.Id == 4).ExpirationTime);
 
-                _context.SaveChanges();
+
+				var bookHistoryPrevous = await _context.BookHistoryRecords
+													   .Where(bh => bh.BookId == deal.BookId)
+													   .OrderByDescending(bh => bh.GetBookOn)
+													   .FirstOrDefaultAsync();
+
+				if (bookHistoryPrevous == null)
+					return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+				bookHistoryPrevous.GiveBookOn = DateTime.UtcNow;
+
+				BookHistory bookHistoryNew = new BookHistory
+				{
+					BookId = deal.BookId,
+					UserId = deal.AcceptorId,
+					GetBookOn = DateTime.UtcNow,
+					LongtiudeCoordinate = bookRecieved.LongtiudeCoordinate,
+					AltitudeCoordinate = bookRecieved.AltitudeCoordinate
+				};
+
+				_context.BookHistoryRecords.Add(bookHistoryNew);
+
+				_context.SaveChanges();
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
@@ -202,34 +245,12 @@ namespace BookSender.Controllers
             {
                 Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
 
-                DateTime bookRecievedOn = deal.ModifiedOn;
 
                 deal.DealStatusId = 6;
                 deal.ModifiedOn = DateTime.UtcNow;
                 deal.ExpiredOn = DateTime.UtcNow;
                 deal.EndedOn = DateTime.UtcNow;
 
-
-                var bookHistoryPrevous = await _context.BookHistoryRecords
-                                                        .Where(bh => bh.BookId == deal.BookId)
-                                                        .OrderByDescending(bh => bh.GetBookOn)
-                                                        .FirstOrDefaultAsync();
-
-                if (bookHistoryPrevous == null)
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
-
-                bookHistoryPrevous.GiveBookOn = DateTime.UtcNow;
-
-                //TODO: Add new Cords for Book
-                BookHistory bookHistoryNew = new BookHistory
-                {
-                    //BookId = deal.BookId == null ? deal.BookId : null,
-                    //UserId = deal.AcceptorId,
-                    //GetBookOn = bookRecievedOn
-                };
-
-
-                await _context.BookHistoryRecords.AddAsync(bookHistoryNew);
 
                 _context.SaveChanges();
 
