@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom';
 
 import './bookInfo.scss'
 
-const BookInfo = ({book}) => (
-    <div className='book__info'>
+const BookInfo = ({book, picture}) => (
+    <div className='book__info'> 
         <div className='book__info__title'>
         {
             book.title
@@ -18,7 +18,7 @@ const BookInfo = ({book}) => (
         <div className='book__image col-md-3'>
         {
             book.picture
-            ? <img className="rounded img-fluid" src={book.picture} alt={book.title} />
+            ? <img className="rounded img-fluid" src={picture} alt={book.title} />
             : <img className="rounded img-fluid" src={defaultBookPicture} alt={book.title} />
         }
         </div>

@@ -56,4 +56,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default Content = withRouter(connect(mapStateToProps, fetchBookCategory)(Content));   
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchBookCategory
+    }
+}
+
+export default Content = withRouter(connect(mapStateToProps, mapDispatchToProps)(Content));   

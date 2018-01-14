@@ -4,15 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookSender.Data;
 using BookSender.Data.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 
 namespace BookSender.Controllers
 {
-    [EnableCors("CorsPolicy")]
-    [Produces("application/json")]
-	[Route("api/Helper")]
+	[EnableCors("CorsPolicy")]
 	public class HelperController : Controller
 	{
 		private readonly ApplicationContext _context;

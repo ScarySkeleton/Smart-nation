@@ -13,6 +13,7 @@ using BookSender.Models.AccessoryModels;
 using System.Data.SqlClient;
 using System.Data;
 using System.Security.Claims;
+using BookSender.Helpers;
 
 namespace BookSender.Controllers
 {
@@ -94,9 +95,10 @@ namespace BookSender.Controllers
         {
             if (bookId != null)
             {
-                try
-                {
-                    Book book = _context.Books.Where(b => b.Id == bookId).FirstOrDefault();
+				try
+				{
+					Book book = _context.Books.Where(b => b.Id == bookId).Include(b => b.Picture).FirstOrDefault();
+
 
                     List<Comment> bookComments = _context.Comments.Where(c => c.BookId == book.Id).Include("User").ToList();
 
@@ -108,7 +110,11 @@ namespace BookSender.Controllers
                         CommentsList = bookComments,
                         HistoryList = bookHistory
                     };
-                    return Json(dd);
+
+					dd.photoInBinary = book.Picture != null ? PictureHelper.ConvertToString(book.Picture.ImageData) : null;
+
+
+					return Json(dd);
                 }
                 catch (Exception ex)
                 {
