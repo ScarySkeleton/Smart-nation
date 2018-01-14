@@ -251,5 +251,54 @@ namespace BookSender.Controllers
                 return null;
             }
         }
-    }
+
+		#region Hellpers
+		[HttpPost]
+		public JsonResult GetAllGenres()
+		{
+			try
+			{
+				List<Genre> genres = _context.Genres.ToList();
+
+				return Json(genres);
+			}
+			catch (Exception ex)
+			{
+				return Json("Error: " + ex.Message);
+			}
+
+		}
+		[HttpPost]
+		public JsonResult GetAllBookTypes()
+		{
+			try
+			{
+				List<BookType> types = _context.BookTypes.ToList();
+
+				return Json(types);
+			}
+			catch (Exception ex)
+			{
+				return Json("Error: " + ex.Message);
+			}
+
+		}
+
+		[HttpPost]
+		public JsonResult GetAllDealStatuses()
+		{
+			try
+			{
+				List<DealStatus> statuses = _context.DealStatuses.ToList();
+
+				return Json(statuses);
+			}
+			catch (Exception ex)
+			{
+				return Json("Error: " + ex.Message);
+			}
+
+		}
+		#endregion
+	}
 }

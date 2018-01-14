@@ -53,7 +53,7 @@ export function orderBook(bookId) {
 export function getBookGenres() {
     console.log("API get all genres");
     return function() {
-        return apiNonAuthPostFetch('Helper/GetAllGenres');
+        return apiNonAuthPostFetch('Home/GetAllGenres');
     }
 }
 
