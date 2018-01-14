@@ -65,7 +65,8 @@ namespace BookSender.Controllers
 							Name = incomingBook.photo
 						} : null,
 						BookTypeId = 1, //incomingBook.type,
-						GenreId = 1//incomingBook.genre
+						GenreId = 1,//incomingBook.genre
+						IsUsable = true
 					};
 
 					_context.Books.Add(book);
