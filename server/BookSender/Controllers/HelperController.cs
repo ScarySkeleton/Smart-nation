@@ -6,10 +6,12 @@ using BookSender.Data;
 using BookSender.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace BookSender.Controllers
 {
-	[Produces("application/json")]
+    [EnableCors("CorsPolicy")]
+    [Produces("application/json")]
 	[Route("api/Helper")]
 	public class HelperController : Controller
 	{
