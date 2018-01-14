@@ -12,6 +12,8 @@ namespace BookSender.Models.AccessoryModels
 
         public List<Comment> CommentsList { get; set; }
 
-        public List<FullBookInfoHistory> HistoryList { get; set; }
+		public string photoInBinary { get; set; }
+
+		public List<FullBookInfoHistory> HistoryList { get; set; }
     }
 }
