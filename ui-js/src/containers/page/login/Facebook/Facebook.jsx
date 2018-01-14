@@ -1,8 +1,10 @@
+import {facebookLoginSuccess} from './facebook.action';
+
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 
-const responseFacebook = (response) => {
-    console.log(response);
+const responseFacebook = response => {
+    facebookLoginSuccess(response);
   }
 
 const Facebook = () => {
