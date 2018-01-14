@@ -56,6 +56,11 @@
         margin-top: 40px;
         justify-content: flex-end;
     }
+
+    &-hidding {
+        transition: height 500ms 500ms, opacity 500ms 0ms;
+        opacity: 0;
+    }
   }
 
 .popup-empty {

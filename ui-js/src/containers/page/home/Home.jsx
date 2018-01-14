@@ -14,21 +14,6 @@ import {popupOpen, popupClose} from '../../../components/popup/popup.action';
 
 class HomeContainer extends PureComponent {
 
-    componentDidMount() {
-        const popupTest = {
-            title: 'test popup',
-            body: <Error message={'test message'} /> 
-        }
-        this.props.popupOpen(popupTest);
-
-        const popupTes2 = {
-            title: 'test popup 2',
-            body: <Error message={'test message'} /> 
-        }
-
-        this.props.popupOpen(popupTes2);
-    }
-
     render() {
         return (
             <div className='home'>
@@ -55,11 +40,4 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        popupOpen: (popup) => dispatch(popupOpen(popup)),
-        popupClose: (popup) => dispatch(popupClose(popup)) 
-    }
-}
-
-export default HomeContainer = connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+export default HomeContainer = connect(mapStateToProps, null)(HomeContainer);

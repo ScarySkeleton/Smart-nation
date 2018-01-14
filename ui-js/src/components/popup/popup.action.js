@@ -4,6 +4,8 @@ export const POPUP_CANNOT_BE_CREATED = 'POPUP_CANNOT_BE_CREATED';
 
 let index = 0;
 export const popupOpen = (payload) => {
+
+    console.log(payload);
     
     if(typeof payload !== 'object')
         return popupCannotBeCreated();

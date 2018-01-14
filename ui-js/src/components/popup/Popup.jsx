@@ -7,7 +7,8 @@ import IconButton from 'material-ui/IconButton';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import {connect} from 'react-redux';
 
-const timeToPopupDestroy = 10000;
+const timeToBeginHidding = 10000;
+const timeToPopupDestroy = 12500;
 
 class Popup extends PureComponent {
 
