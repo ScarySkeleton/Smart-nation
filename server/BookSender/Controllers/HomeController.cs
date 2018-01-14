@@ -74,7 +74,9 @@ namespace BookSender.Controllers
                                     LastName = (reader.IsDBNull(9)) ? null : reader.GetString(9),
                                     PhoneNumber = (reader.IsDBNull(10)) ? null : reader.GetString(10),
                                     Genre = (reader.IsDBNull(11)) ? null : reader.GetString(11),
-                                    BookType = (reader.IsDBNull(12)) ? null : reader.GetString(12)
+                                    BookType = (reader.IsDBNull(12)) ? null : reader.GetString(12),
+									LongtiudeCoordinate = reader.IsDBNull(13) ? null : reader.GetString(13),
+									AltitudeCoordinate = (reader.IsDBNull(14) ? null : reader.GetString(14))
                                 });
                         }
                     }
