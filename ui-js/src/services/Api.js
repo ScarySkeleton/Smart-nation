@@ -134,10 +134,9 @@ export function getDealData() {
 }
 
 export function changeDealStatus(dealObj) {
-    console.log(dealObj);
     return function() {
-        const {method, ...dealData} = dealObj;
-        return apiAuthPostFetch(`Order/${dealObj.method}`, dealData);
+        const {method, dealData} = dealObj;
+        return apiAuthPostFetch(`Order/${method}`, dealData);
     }
 }
 

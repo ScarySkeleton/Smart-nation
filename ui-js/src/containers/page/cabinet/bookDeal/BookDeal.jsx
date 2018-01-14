@@ -35,11 +35,15 @@ class BookRequest extends PureComponent {
         let id = target.dataset.id;
         let method = target.dataset.method;
 
-        const dealData = {
-            id
+        let dealData = {
+            dealId: id
         }
         if(method === BookRecievedMethod) {
-            dealData.dealData;
+            dealData = {
+                ...dealData,
+                LongtiudeCoordinate: this.props.coords.longitude,
+                AltitudeCoordinate: this.props.coords.latitude
+            }
         }
 
         this.props.changeDeal({
