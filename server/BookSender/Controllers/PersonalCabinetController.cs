@@ -66,7 +66,8 @@ namespace BookSender.Controllers
 						} : null,
 						BookTypeId = 1, //incomingBook.type,
 						GenreId = 1,//incomingBook.genre
-						IsUsable = true
+						IsUsable = true,
+						CreatedOn = DateTime.UtcNow
 					};
 
 					_context.Books.Add(book);
