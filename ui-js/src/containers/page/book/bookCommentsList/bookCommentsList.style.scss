@@ -27,9 +27,14 @@
 	border-width:8px;
 }
 
+.book__comment{
+	margin-top: 0.33em;
+}
+
 .book__comment_created-time{
     padding-left: 15px;
-    display: inline-block;
+	display: inline-block;
+	float: right;
 }
 
 .book__comment_auth {
