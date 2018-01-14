@@ -197,6 +197,20 @@ namespace BookSender.Controllers
 			}
 		}
 
+        [HttpPost]
+        public JsonResult SendComplaintAboutDisfiguredBook([FromBody] BookComplainModel complainModel)
+        {
+            try
+            {
+                GmailSender.SmtpClientLibrary.SendRequestAboutDisfiguredBook(complainModel.Email, complainModel.BookId);
+                return Json("Thanks, operation successed");
+            }
+            catch (Exception ex)
+            {
+                return Json("Enter right email");
+            }
+        }
+
 		[HttpPost]
 		public async Task<IActionResult> GetDetailedBookInfo([FromBody] Book incomingBook)
 		{

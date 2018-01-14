@@ -11,7 +11,7 @@ import Footer from '../containers/footer/Footer.jsx';
 class AppComponent extends PureComponent {
   render() {
     return (
-      <div className="App">
+      <div className="container-fluid data-reactroot">
           <Header />            
           <Content />
           <Footer />
