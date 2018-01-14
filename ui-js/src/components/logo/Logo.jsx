@@ -6,7 +6,7 @@ import logo from './logo.png';
 
 const Logo = () => {
     return (
-        <a className="logo" href="/">
+        <a className="logo col-md-2" href="/">
         	<img className="app-logo-img" src={logo} alt="Whitesquare logo"/>
         </a>
     );
