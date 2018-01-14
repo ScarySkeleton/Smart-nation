@@ -1,7 +1,9 @@
-import React from 'react';
-
 import './searchResult.scss';
 import Table from './table/Table';
+import {NoResult} from './table/NoResult/NoResult';
+
+import React from 'react';
+
 
 const columns = [
     {
@@ -65,15 +67,13 @@ const columns = [
 let SearchResult = props => (
     <div className='search-result'>
         {
-            props.searchedBooks.length
+            props.searchedBooks.length && Array.isArray(props.searchedBooks)
             ? <Table 
                     className={'container search-result__books_table'} 
                     data={props.searchedBooks}
                     columns={columns}
                     />
-            : <div className='container search-result__books_empty'>
-                Feel free to search any book you want!
-            </div>            
+            : <NoResult />         
         }
     </div>
 )
