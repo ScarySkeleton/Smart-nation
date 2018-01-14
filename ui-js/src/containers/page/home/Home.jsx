@@ -12,7 +12,6 @@ import GoogleMapLoading from './googleMap/googleMapLoading';
 
 class HomeContainer extends PureComponent {
     render() {
-        console.log(this.props.searchResult);
         return (
             <div className='home'>
               <Search />
@@ -34,8 +33,9 @@ class HomeContainer extends PureComponent {
 
 const mapStateToProps = state => {
     return {
-        searchResult: state.searchBooks.searchedBooks
+        searchResult: state.searchBooks.searchedBooks,
     }
 }
+
 
 export default HomeContainer = connect(mapStateToProps, null)(HomeContainer);

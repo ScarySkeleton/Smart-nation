@@ -13,14 +13,13 @@ import Logout from '../../components/logout/Logout';
 import RegistrationPage from '../../containers/page/register/Register';
 import CabinetPage from '../../containers/page/cabinet/Cabinet';
 import Book from '../../containers/page/book/Book';
-import {fetchBookCategory} from '../../services/store/commonInfo/Book/commonBookInfo.action';
+import {fetchBookGenre} from '../../services/store/commonInfo/Book/commonBookInfo.action';
 
 
 class Content extends PureComponent {
 
     componentDidMount() {
-        console.log(this.props);
-        this.props.fetchBookCategory();
+        this.props.fetchBookGenre();
     }
 
     render() {
@@ -59,7 +58,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchBookCategory
+        fetchBookGenre: () => fetchBookGenre(dispatch)
     }
 }
 

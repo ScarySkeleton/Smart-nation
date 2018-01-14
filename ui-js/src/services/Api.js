@@ -1,12 +1,6 @@
 
 import {apiAuthPostFetch, apiNonAuthPostFetch} from './ApiFetch';
 
-function statusChecker(response) {
-    if(response.status >= 200 && response.status < 300)
-        return Promise.resolve(response);
-    return Promise.reject(response);
-}
-
 /*
     ================================================
                     MAIN BOOK SEARCH
@@ -51,7 +45,6 @@ export function orderBook(bookId) {
 }
 
 export function getBookGenres() {
-    console.log("API get all genres");
     return function() {
         return apiNonAuthPostFetch('Home/GetAllGenres');
     }

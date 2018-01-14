@@ -1,5 +1,6 @@
 import React from 'react';
 import './search.scss';
+import genre from '../../containers/page/cabinet/addBook/addBookForm/Mocks/genre';
 
 const Search = props => {
 
@@ -33,10 +34,17 @@ const Search = props => {
 						ref={author => authorInput = author}
 						placeholder="AUTHOR"/>
 
-					<input 
-						type="text"
-						ref={category => categoryInput = category}
-						placeholder="CATEGORY" />
+					<select
+						ref={categoryValue => categoryInput = categoryValue}
+						>
+						{
+							!!props.genres
+							? props.genres.map((genre, index) => {
+								return <option value={genre.id} key={genre.id}> {genre.name} </option> 
+							})
+							: <option value='other'> other </option> 
+						}
+						</select>
 
 					<button 
 						type="button"

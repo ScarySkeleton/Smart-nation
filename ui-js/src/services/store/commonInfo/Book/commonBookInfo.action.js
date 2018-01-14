@@ -1,13 +1,24 @@
 import {getBookGenres} from '../../../Api';
 
-export const FETCH_BOOK_CATEGORY = 'FETCH_BOOK_CATEGORY';
-export const FETCH_BOOK_CATEGORY_SUCCESS = 'FETCH_BOOK_CATEGORY_SUCCESS';
-export const FETCH_BOOK_CATEGORY_FAILURE = 'FETCH_BOOK_CATEGORY_FAILURE';
+export const FETCH_BOOK_GENRE = 'FETCH_BOOK_GENRE';
+export const FETCH_BOOK_GENRE_SUCCESS = 'FETCH_BOOK_GENRE_SUCCESS';
+export const FETCH_BOOK_GENRE_FAILURE = 'FETCH_BOOK_GENRE_FAILURE';
 
-export const fetchBookCategory = () => {
-    const { response } = getBookGenres()()
-        .then(response => {
-            console.log(response);
-            response;
-        })
+export const fetchBookGenre = dispatch => {
+    getBookGenres()()
+        .then(response => dispatch(fetchBookGenreSuccess(response)))
+        //.catch(error => dispatch(fetchBookCategoryFailure()))
+}
+
+export const fetchBookGenreSuccess = payload => {
+    return {
+        type: FETCH_BOOK_GENRE_SUCCESS,
+        payload
+    }
+}
+
+export const fetchBookGenreFailure = () => {
+    return {
+        type: FETCH_BOOK_GENRE_FAILURE
+    }
 }

@@ -12,7 +12,7 @@ import OrderBook from '../../containers/page/book/orderBook/orderBook.reducer';
 import Book from '../../containers/page/book/book.reducer';
 import BookAddComment from '../../containers/page/book/bookAddComment/bookAddComment.reducer';
 import bookDeal from '../../containers/page/cabinet/bookDeal/bookDeal.reducer'; 
-//import UserInfo from '../../containers/page/cabinet/info/info.reducer';
+import CommonBookInfo from './commonInfo/Book/commonBookInfo.reducer';
 
 export default combineReducers({
     globalState,
@@ -27,5 +27,5 @@ export default combineReducers({
     Book,
     BookAddComment,
     bookDeal,
-    //UserInfo
+    CommonBookInfo,
 });
