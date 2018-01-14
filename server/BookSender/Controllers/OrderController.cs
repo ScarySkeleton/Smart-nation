@@ -63,9 +63,9 @@ namespace BookSender.Controllers
                         DonorId = book.CurrentUserId,
                         AcceptorId = user.Id,
                         BookId = book.Id,
-                        DealStatusId = 1,
+                        DealStatusId = (int?)DealHelper.Status.OPENED,
                         CreatedOn = DateTime.UtcNow,
-                        ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(d => d.Id == 1).ExpirationTime),
+                        ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(d => d.Id == (int?)DealHelper.Status.OPENED).ExpirationTime),
                         ModifiedOn = DateTime.UtcNow,
                         EndedOn = null
                     };
@@ -118,7 +118,7 @@ namespace BookSender.Controllers
             {
                 Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == theDeal.Dealid);
 
-				if(deal.DealStatusId == 4)
+				if(deal.DealStatusId == (int?)DealHelper.Status.RECIEVED)
 				{
 					var bookHistoryRecords = _context.BookHistoryRecords
 													   .Where(bh => bh.BookId == deal.BookId)
@@ -133,7 +133,7 @@ namespace BookSender.Controllers
 				}
 
 
-                deal.DealStatusId = 3;
+                deal.DealStatusId = (int?)DealHelper.Status.DECLINED;
                 deal.ModifiedOn = DateTime.UtcNow;
                 deal.ExpiredOn = DateTime.UtcNow;
                 deal.EndedOn = DateTime.UtcNow;
@@ -167,12 +167,12 @@ namespace BookSender.Controllers
             {
                 Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == theDeal.Dealid);
 
-                deal.DealStatusId = 2;
+                deal.DealStatusId = (int?)DealHelper.Status.SUBMITED;
                 deal.ModifiedOn = DateTime.UtcNow;
-                deal.ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(s => s.Id == 2).ExpirationTime);
+                deal.ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(s => s.Id == (int?)DealHelper.Status.SUBMITED).ExpirationTime);
 
                 _context.SaveChanges();
-
+				
 
                 var bookRecipient = _context.Users.FirstOrDefault(u => u.Id == deal.AcceptorId);
                 var bookOwner = _context.Users.FirstOrDefault(u => u.Id == deal.DonorId);
@@ -202,9 +202,9 @@ namespace BookSender.Controllers
 			{
                 Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == bookRecieved.DealId);
 
-                deal.DealStatusId = 4;
+                deal.DealStatusId = (int?)DealHelper.Status.RECIEVED;
                 deal.ModifiedOn = DateTime.UtcNow;
-                deal.ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(s => s.Id == 4).ExpirationTime);
+                deal.ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(s => s.Id == (int?)DealHelper.Status.RECIEVED).ExpirationTime);
 
 
 				var bookHistoryPrevous = await _context.BookHistoryRecords
@@ -246,7 +246,7 @@ namespace BookSender.Controllers
                 Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == theDeal.Dealid);
 
 
-                deal.DealStatusId = 6;
+                deal.DealStatusId = (int?)DealHelper.Status.CLOSED;
                 deal.ModifiedOn = DateTime.UtcNow;
                 deal.ExpiredOn = DateTime.UtcNow;
                 deal.EndedOn = DateTime.UtcNow;

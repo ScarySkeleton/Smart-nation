@@ -675,8 +675,13 @@ namespace BookSender.Controllers
 
 				if (user != null)
 				{
+
 					List<Deal> userDeals = await _context.Deals.Where(
-												b => b.DonorId == user.Id || b.AcceptorId == user.Id)
+												b => (b.DonorId == user.Id || b.AcceptorId == user.Id)
+												&& b.DealStatusId != (int?)DealHelper.Status.DECLINED
+												&& b.DealStatusId != (int?)DealHelper.Status.CLOSED
+												&& b.DealStatusId != (int?)DealHelper.Status.BANNED
+												)
 												.Include(b => b.DealStatus)
 												.ToListAsync();
 
