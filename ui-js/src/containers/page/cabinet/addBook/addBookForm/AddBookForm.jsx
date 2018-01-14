@@ -13,9 +13,9 @@ import {
 import Types from './Mocks/type.js';
 import Genres from './Mocks/genre.js';
 
-import { geolocated } from 'react-geolocated';
+import {geolocated} from 'react-geolocated';
 
-import { valid } from '../../../../../services/Utils';
+import {valid} from '../../../../../services/Utils';
 
 class AddBookForm extends PureComponent {
     constructor(props) {

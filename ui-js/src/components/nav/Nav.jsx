@@ -7,7 +7,6 @@ import Tab from '../tab/Tab.jsx';
 
 const loginedNav = [
     "Cabinet",
-    "Bookshelf",
     "Logout"
 ];
 

@@ -1,9 +1,6 @@
 import React from 'react';
 import './search.scss';
-
-const LAST_YEAR=1800;
-
-let CUR_YEAR=new Date().getFullYear();
+import genre from '../../containers/page/cabinet/addBook/addBookForm/Mocks/genre';
 
 const Search = props => {
 
@@ -16,7 +13,6 @@ const Search = props => {
 		props.clickToSearch({
 			titleValue: titleInput.value,
 			authorValue: authorInput.value,
-			issueValue: issueInput.value,
 			categoryValue: categoryInput.value,
 		});
 	}
@@ -37,33 +33,19 @@ const Search = props => {
 						type="text"
 						ref={author => authorInput = author}
 						placeholder="AUTHOR"/>
-					<input 
-							type="number"
-							min={LAST_YEAR}
-							max={CUR_YEAR}
-							ref={year => issueInput = year}
-							placeholder="The year of issue" />
-					<input 
-						type="text"
-						ref={category => categoryInput = category}
-						placeholder="CATEGORY" />
 
-					{/* // TODO: REFACTOR !!!
-					<ul className='additional-list'>
-						<li className='additional-list__element'>
-							
-						</li>
-						<li className='additional-list__element'>
-							
-						</li>
-						<li className='additional-list__element'>
-							Popularity
-						</li>
-						<li className='additional-list__element'>
-							The place
-						</li>
-					</ul>
-*/}
+					<select
+						ref={categoryValue => categoryInput = categoryValue}
+						>
+						{
+							!!props.genres
+							? props.genres.map((genre, index) => {
+								return <option value={genre.id} key={genre.id}> {genre.name} </option> 
+							})
+							: <option value='other'> other </option> 
+						}
+						</select>
+
 					<button 
 						type="button"
 						onClick={search}>SEARCH</button>

@@ -30,20 +30,20 @@ const BookInfo = ({book, picture}) => (
         }
         </div>
         </div>
-        <div className='book__author'>
+        <div className='book__characteristic book__author'>
         {
             book.author
-            ? <span> Author: {book.author} </span>
+            ? <span className="book__characteristic__title"> Author: {book.author} </span>
             : <span> Author is unknown </span>
         }
             
         </div>
-        <div className='book__raiting'>
+        <div className='book__characteristic book__raiting'>
             {/* book.author
             ? <span> Author: {book.author} </span>
             : <span> Author is unknown </span> */}
         </div>
-        <div className='book__user-contributor'>
+        <div className='book__characteristic book__user-contributor'>
             {
                 !!book.ContributorId
                 ? <Link to={book.ContributorId} />
@@ -53,46 +53,46 @@ const BookInfo = ({book, picture}) => (
             }
             
         </div>
-        <div className='book__user-current'>
+        <div className='book__characteristic book__user-current'>
         {
             book.CurrentUserId
-            ? <span> Current user: {book.currentUser.lastName} &nbsp; {book.currentUser.firstName}</span>
+            ? <span> <span className="book__characteristic__title">Current user:</span> {book.currentUser.lastName} &nbsp; {book.currentUser.firstName}</span>
             : <span className="gray-text"> Current user is unknown </span>
         }
             
         </div>
-        <div className='book__time-created'>
+        <div className='book__characteristic book__time-created'>
             {
                 book.createdOn
-                ? <span> Created time: {book.createdOn} </span>
-                : <span className="gray-text"> Created time id is unknown </span>
+                ? <span> <span className="book__characteristic__title">Created time:</span> {book.createdOn} </span>
+                : <span className="gray-text book__characteristic__title"> Created time id is unknown </span>
             }
         </div>
-        <div className='book__time-printed'>
+        <div className='book__characteristic book__time-printed'>
             {
                 book.printedOn
-                ? <span> Printed time: {book.printedOn} </span>
+                ? <span> <span className="book__characteristic__title">Printed time:</span> {book.printedOn} </span>
                 : <span className="gray-text">  Printed time is unknown </span>
             }
         </div>
-        <div className='book__isbn'>
+        <div className='book__characteristic book__isbn'>
             {
                 book.isbn
-                ? <span> ISBN: {book.isbn} </span>
+                ? <span> <span className="book__characteristic__title">ISBN:</span> {book.isbn} </span>
                 : <span className="gray-text">  ISBN is unknown </span>
                 //showDataOrMessageThatDataIsUnknown(book.ISBN)
             }
         </div>
-        <div className='book__price'>
+        <div className='book__characteristic book__price'>
             {
                 book.price
-                ? <span> Price: {book.price} </span>
+                ? <span> <span className="book__characteristic__title">Price:</span> {book.price} </span>
                 : <span className="gray-text">  No price </span>
                 //showDataOrMessageThatDataIsUnknown(book.Price)
             }
         </div>
-        <div className='book__is-usable'>
-            Is usable {
+        <div className='book__characteristic book__is-usable'>
+            <span className="book__characteristic__title">Is usable</span> {
                 book.IsUsable
                 ? <span className="text-green">"yes"</span>
                 : <span className="text-red">"no"</span>

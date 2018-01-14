@@ -65,7 +65,9 @@ namespace BookSender.Controllers
 							Name = incomingBook.photo
 						} : null,
 						BookTypeId = 1, //incomingBook.type,
-						GenreId = 1//incomingBook.genre
+						GenreId = 1,//incomingBook.genre
+						IsUsable = true,
+						CreatedOn = DateTime.UtcNow
 					};
 
 					_context.Books.Add(book);
@@ -241,6 +243,39 @@ namespace BookSender.Controllers
 			{
 				return Json("Error: " + e.Message);
 			}
+		}
+
+		[HttpPost]
+		public HttpResponseMessage BookUnusable([FromBody] int? bookId)
+		{
+			try
+			{
+				var book = _context.Books.FirstOrDefault(b => b.Id == bookId);
+
+				if (book == null)
+					return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user == null)
+					return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+
+				if (book.CurrentUserId != user.Id)
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+
+				book.IsUsable = false;
+
+				_context.SaveChanges();
+
+				return new HttpResponseMessage(HttpStatusCode.OK);
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
 		}
 
 		#region Edit UserData
@@ -687,8 +722,13 @@ namespace BookSender.Controllers
 
 				if (user != null)
 				{
+
 					List<Deal> userDeals = await _context.Deals.Where(
-												b => b.DonorId == user.Id || b.AcceptorId == user.Id)
+												b => (b.DonorId == user.Id || b.AcceptorId == user.Id)
+												&& b.DealStatusId != (int?)DealHelper.Status.DECLINED
+												&& b.DealStatusId != (int?)DealHelper.Status.CLOSED
+												&& b.DealStatusId != (int?)DealHelper.Status.BANNED
+												)
 												.Include(b => b.DealStatus)
 												.ToListAsync();
 

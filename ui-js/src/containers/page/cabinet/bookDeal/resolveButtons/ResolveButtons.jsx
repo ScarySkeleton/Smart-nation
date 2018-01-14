@@ -1,4 +1,5 @@
 import React from 'react';
+import * as BackEndCallingMethods from '../BookDeal';
 
 const ResolveButtons = ({onClickControlButton, isDonor, dealStatus, dealId}) => {
     let button1Text;
@@ -10,25 +11,25 @@ const ResolveButtons = ({onClickControlButton, isDonor, dealStatus, dealId}) => 
         switch(dealStatus) {
             case 1:
                 button1Text = 'Aprove';
-                callingMethod1 = 'ApproveDeal';
+                callingMethod1 = BackEndCallingMethods.ApproveDealMethod;
                 button2Text = 'Decline';
-                callingMethod2 = 'DeclineDeal';
+                callingMethod2 = BackEndCallingMethods.DeclineDealMethod;
                 break;
 
-            case 3: 
+            case 4: 
                 button1Text = 'Close';
-                callingMethod1 = 'CloseDeal';
+                callingMethod1 = BackEndCallingMethods.CloseDealMethod;
                 button2Text = 'Decline';
-                callingMethod2 = 'DeclineDeal';
+                callingMethod2 = BackEndCallingMethods.DeclineDealMethod;
                 break;
 
         }
     } else {
         if(dealStatus === 2) {
             button1Text = 'Book recieved';
-            callingMethod1 = 'BookRecieved';
+            callingMethod1 = BackEndCallingMethods.BookRecievedMethod;
             button2Text = 'Decline';
-            callingMethod2 = 'DeclineDeal';
+            callingMethod2 = BackEndCallingMethods.DeclineDealMethod;
         }
     }
 

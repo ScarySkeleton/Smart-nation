@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
 
-import {searchCoordinateResult} from './Mocks/searchResult';
 import Search from './search/Search.jsx';
 import SearchResult from './searchResult/SearchResult';
 
@@ -17,18 +16,26 @@ class HomeContainer extends PureComponent {
             <div className='home'>
               <Search />
               
-              <SearchResult />
+              <SearchResult
+                searchedBooks={this.props.searchResult} />
               
               <GoogleMaps
                 googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
                 loadingElement={<GoogleMapLoading />}
                 containerElement={<div className='google-map__container' />}
                 mapElement={<div className='google-map__container_element' />}
-                searchResult={searchCoordinateResult}
+                searchResult={this.props.searchResult}
                 /> 
             </div>
         )
     }
 }
 
-export default HomeContainer = connect(null, null)(HomeContainer);
+const mapStateToProps = state => {
+    return {
+        searchResult: state.searchBooks.searchedBooks,
+    }
+}
+
+
+export default HomeContainer = connect(mapStateToProps, null)(HomeContainer);

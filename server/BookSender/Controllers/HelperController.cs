@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using BookSender.Data;
 using BookSender.Data.Models;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookSender.Controllers
@@ -18,7 +16,7 @@ namespace BookSender.Controllers
 		{
 			_context = context;
 		}
-
+		[HttpPost]
 		public JsonResult GetAllGenres()
 		{
 			try
@@ -33,7 +31,7 @@ namespace BookSender.Controllers
 			}
 
 		}
-
+		[HttpPost]
 		public JsonResult GetAllBookTypes()
 		{
 			try
@@ -49,6 +47,7 @@ namespace BookSender.Controllers
 
 		}
 
+		[HttpPost]
 		public JsonResult GetAllDealStatuses()
 		{
 			try
