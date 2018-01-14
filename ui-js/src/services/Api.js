@@ -1,5 +1,6 @@
 
 import {apiAuthPostFetch, apiNonAuthPostFetch} from './ApiFetch';
+import {fetchingError} from './ApiUserInfo';
 
 /*
     ================================================
@@ -13,20 +14,29 @@ export function searchBooks(searchData) {
                 return {
                     searchedBooks: json
                 };
-            });
+            })
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 
 export function getBookPageData(bookId) {
     return function() {
         return apiAuthPostFetch('Home/GetBookPageData', bookId)
-            .then(response => response);
+            .then(response => response)
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 
 export function setBookAddComment(commentData) {
     return function() {
-        return apiAuthPostFetch('Home/AddComment', commentData);
+        return apiAuthPostFetch('Home/AddComment', commentData)
+        .catch(error => {
+            fetchingError(error);
+        })
     }
 }
 
@@ -40,13 +50,20 @@ export function orderBook(bookId) {
         return apiAuthPostFetch('Order/Order', bookId)
             .then(json => {
                 return json;
-            });
+            })
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 
 export function getBookGenres() {
     return function() {
-        return apiNonAuthPostFetch('Home/GetAllGenres');
+        return apiNonAuthPostFetch('Home/GetAllGenres')
+            .then(response => response)
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 
@@ -65,19 +82,38 @@ export function loginRequest(userData) {
                     , surname: json.surname
                     , role: json.role
                 }
-            });
+            })
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 };
 
 export function registrationRequest(userData) {
     return function() {
-        return apiAuthPostFetch('Account/Register', userData);
+        return apiAuthPostFetch('Account/Register', userData)
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 
 export function logoutRequest() {
     return function() {
         return apiAuthPostFetch("Account/Logout")
+            .catch(error => {
+                fetchingError(error);
+            })
+    }
+}
+
+export function loginWithFacebookRequest(userData) {
+    console.log(userData);
+    return function() {
+        return apiNonAuthPostFetch("Account/LoginWithFacebook", userData)
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 
@@ -91,27 +127,36 @@ export function getCabinetData() {
         return apiAuthPostFetch("PersonalCabinet/GetUserInfo")
             .then(data => {
                 return data;
-            });
+            })
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 
 export function changeUserInfoData(userInfoData) {
     return function() {
-        return apiAuthPostFetch("PersonalCabinet/EditUserInfo", userInfoData);
+        return apiAuthPostFetch("PersonalCabinet/EditUserInfo", userInfoData)
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 
 export function changeUserInfoPicture(imageData) {
     return function() {
-        return apiAuthPostFetch("PersonalCabinet/EditUserPicture", imageData);
+        return apiAuthPostFetch("PersonalCabinet/EditUserPicture", imageData)
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 
 export function addBook(bookData) {
     return function() {
         return apiAuthPostFetch("PersonalCabinet/AddBook", bookData)
-            .then(json => {
-                console.log(json);
+            .catch(error => {
+                fetchingError(error);
             })
     }
 }
@@ -119,9 +164,10 @@ export function addBook(bookData) {
 export function getBookShelfBooks() {
     return function() {
         return apiAuthPostFetch("PersonalCabinet/GetAllUserBooks")
-            .then(data => {
-                return data;
-            });
+            .then(data =>data)
+            .catch(error => {
+                fetchingError(error);
+            })
     }
     
 }
@@ -129,14 +175,20 @@ export function getBookShelfBooks() {
 export function getDealData() {
     return function() {
         return apiAuthPostFetch("PersonalCabinet/GetAllMyDeals")
-            .then(response => response);
+            .then(response => response)
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 
 export function changeDealStatus(dealObj) {
     return function() {
         const {method, dealData} = dealObj;
-        return apiAuthPostFetch(`Order/${method}`, dealData);
+        return apiAuthPostFetch(`Order/${method}`, dealData)
+            .catch(error => {
+                fetchingError(error);
+            })
     }
 }
 

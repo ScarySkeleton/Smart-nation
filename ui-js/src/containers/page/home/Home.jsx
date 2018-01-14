@@ -9,8 +9,11 @@ import './googleMap/googleMap.scss';
 // Google map
 import GoogleMaps from './googleMap/googleMap';
 import GoogleMapLoading from './googleMap/googleMapLoading';
+import {Error} from '../../../components/popup/Error/Error';
+import {popupOpen, popupClose} from '../../../components/popup/popup.action';
 
 class HomeContainer extends PureComponent {
+
     render() {
         return (
             <div className='home'>
@@ -36,6 +39,5 @@ const mapStateToProps = state => {
         searchResult: state.searchBooks.searchedBooks,
     }
 }
-
 
 export default HomeContainer = connect(mapStateToProps, null)(HomeContainer);

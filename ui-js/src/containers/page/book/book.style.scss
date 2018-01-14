@@ -3,4 +3,17 @@
 .book-wrapper {
     background: white;
     margin: 10px;
+
+    h3{
+        width: 100%;
+        font-size: 2.4em;
+        text-align: center; 
+        padding: .25em;
+    }
+
+    .book__controls_top{
+        float: right;
+        vertical-align: center;
+        padding-top: 1em;
+    }
 }

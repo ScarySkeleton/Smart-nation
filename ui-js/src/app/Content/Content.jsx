@@ -7,6 +7,7 @@ import './content.scss';
 import PrivateRoute from '../../services/router/PrivateRoute';
 
 import {Spinner} from '../../components/spinner/Spinner';
+import {Popup} from '../../components/popup/Popup';
 import HomePage from '../../containers/page/home/Home';
 import LoginPage from '../../containers/page/login/Login';
 import Logout from '../../components/logout/Logout';
@@ -27,6 +28,7 @@ class Content extends PureComponent {
         return (
             <div className='body-content container'>
                 <Spinner />
+                <Popup />
         
                 <Route exact path='/' component={HomePage} />
                 <Route path='/login' component={() => (

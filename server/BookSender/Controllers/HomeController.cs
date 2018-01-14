@@ -17,12 +17,13 @@ using BookSender.Helpers;
 
 namespace BookSender.Controllers
 {
-    [EnableCors("CorsPolicy")]
-    public class HomeController : Controller
-    {
+	[EnableCors("CorsPolicy")]
+	public class HomeController : Controller
+	{
 		const int DEFAULT_USER_FOR_COMMENTS_ID = 1;
 
 		private readonly ApplicationContext _context;
+
         public HomeController(ApplicationContext context)
         {
             _context = context;
@@ -78,179 +79,198 @@ namespace BookSender.Controllers
                                     BookType = (reader.IsDBNull(12)) ? null : reader.GetString(12),
 									LongtiudeCoordinate = reader.IsDBNull(13) ? null : reader.GetString(13),
 									AltitudeCoordinate = (reader.IsDBNull(14) ? null : reader.GetString(14))
-                                });
-                        }
-                    }
-                    reader.Close();
-                    connection.Close();
-                }
-                return Json(bookList);
-            }
-            catch (Exception ex)
-            {
-                return Json("zrada");
-            }
-        }
-        public JsonResult GetBookPageData([FromBody] int? bookId)
-        {
-            if (bookId != null)
-            {
+								});
+						}
+					}
+					reader.Close();
+					connection.Close();
+				}
+				return Json(bookList);
+			}
+			catch (Exception ex)
+			{
+				return Json("zrada");
+			}
+		}
+		public JsonResult GetBookPageData([FromBody] int? bookId)
+		{
+			if (bookId != null)
+			{
 				try
 				{
 					Book book = _context.Books.Where(b => b.Id == bookId).Include(b => b.Picture).FirstOrDefault();
 
 
-                    List<Comment> bookComments = _context.Comments.Where(c => c.BookId == book.Id).Include("User").ToList();
+					List<Comment> bookComments = _context.Comments.Where(c => c.BookId == book.Id).Include(c => c.User).OrderByDescending(c => c.CreatedOn).ToList();
 
-                    List<FullBookInfoHistory> bookHistory = GetAllBookHistory(book.Id);
+					List<CommentModel> bookComms = new List<CommentModel>();
 
-                    DetailedBookInfo dd = new DetailedBookInfo
-                    {
-                        Book = book,
-                        CommentsList = bookComments,
-                        HistoryList = bookHistory
-                    };
+					if (bookComments != null && bookComments.Count > 0)
+					{
+						bookComments.ForEach(c =>
+						{
+							bookComms.Add(new CommentModel
+							{
+								Id = c.Id,
+								BookId = c.BookId,
+								CommentBody = c.CommentBody,
+								UserId = c.UserId,
+								UserFirstName = c.User.FirstName,
+								UserLastName = c.User.LastName,
+								CreatedOn = String.Format("{0:f}", c.CreatedOn)
+							});
+						});
+					}
+
+					List<FullBookInfoHistory> bookHistory = GetAllBookHistory(book.Id);
+
+					DetailedBookInfo dd = new DetailedBookInfo
+					{
+						Book = book,
+						HistoryList = bookHistory,
+						CommentsList = bookComms
+					};
 
 					dd.photoInBinary = book.Picture != null ? PictureHelper.ConvertToString(book.Picture.ImageData) : null;
 
 
 					return Json(dd);
-                }
-                catch (Exception ex)
-                {
-                    return Json("Select book");
-                }
-            }
-            else
-            {
-                return Json("Select book");
-            }
-        }
-        [HttpPost]
-        public JsonResult AddComment([FromBody] AddingCommentModel addingComment)
-        {
+				}
+				catch (Exception ex)
+				{
+					return Json("Select book");
+				}
+			}
+			else
+			{
+				return Json("Select book");
+			}
+		}
+		[HttpPost]
+		public JsonResult AddComment([FromBody] AddingCommentModel addingComment)
+		{
 
-            if (addingComment != null)
-            {
+			if (addingComment != null)
+			{
 				int UserId = DEFAULT_USER_FOR_COMMENTS_ID;
 
-                var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier);
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier);
 
 				if (userId != null)
 					UserId = int.Parse(userId.Value);
-                    try
-                    {
-                        Comment comment = new Comment
-                        {
-                            UserId = Convert.ToInt32(userId.Value),
-                            BookId = addingComment.BookId,
-                            CommentBody = addingComment.CommentText,
-                            CreatedOn = DateTime.Now
-                        };
+				try
+				{
+					Comment comment = new Comment
+					{
+						UserId = Convert.ToInt32(userId.Value),
+						BookId = addingComment.BookId,
+						CommentBody = addingComment.CommentText,
+						CreatedOn = DateTime.Now
+					};
 
-                        _context.Comments.Add(comment);
-                        _context.SaveChanges();
+					_context.Comments.Add(comment);
+					_context.SaveChanges();
 
-                        return Json("Success");
-                    }
-                    catch (Exception ex)
-                    {
-                        return Json("Failed");
-                    }
-                }
-            else
-                return Json("Failed");
-        }
-        [HttpPost]
-        public JsonResult DeleteComment([FromBody] DeleteCommentModel deleteComment)
-        {
-            if (deleteComment != null)
-            {
-                var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+					return Json("Success");
+				}
+				catch (Exception ex)
+				{
+					return Json("Failed");
+				}
+			}
+			else
+				return Json("Failed");
+		}
+		[HttpPost]
+		public JsonResult DeleteComment([FromBody] DeleteCommentModel deleteComment)
+		{
+			if (deleteComment != null)
+			{
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
 
-                if (userId == null)
-                    return Json("Authorize");
-                else
-                {
-                    try
-                    {
-                        Comment comment = new Comment { Id = deleteComment.CommentId };
-                        _context.Comments.Attach(comment);
-                        _context.Comments.Remove(comment);
-                        _context.SaveChanges();
+				if (userId == null)
+					return Json("Authorize");
+				else
+				{
+					try
+					{
+						Comment comment = new Comment { Id = deleteComment.CommentId };
+						_context.Comments.Attach(comment);
+						_context.Comments.Remove(comment);
+						_context.SaveChanges();
 
-                        return Json("Success");
-                    }
-                    catch (Exception ex)
-                    {
-                        return Json("Failed");
-                    }
-                }
-            }
-            else
-                return Json("Failed");
-        }
+						return Json("Success");
+					}
+					catch (Exception ex)
+					{
+						return Json("Failed");
+					}
+				}
+			}
+			else
+				return Json("Failed");
+		}
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-            // some text for commit 
-            return View();
-        }
+		public IActionResult About()
+		{
+			ViewData["Message"] = "Your application description page.";
+			// some text for commit 
+			return View();
+		}
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+		public IActionResult Contact()
+		{
+			ViewData["Message"] = "Your contact page.";
 
-            return View();
-        }
+			return View();
+		}
 
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+		public IActionResult Error()
+		{
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
 
-        public List<FullBookInfoHistory> GetAllBookHistory(int bookId)
-        {
-            try
-            {
-                List<FullBookInfoHistory> fullBookIH = new List<FullBookInfoHistory>();
-                List<BookHistory> bookHistory = _context.BookHistoryRecords.Where(bh => bh.BookId == bookId).ToList();
+		public List<FullBookInfoHistory> GetAllBookHistory(int bookId)
+		{
+			try
+			{
+				List<FullBookInfoHistory> fullBookIH = new List<FullBookInfoHistory>();
+				List<BookHistory> bookHistory = _context.BookHistoryRecords.Where(bh => bh.BookId == bookId).ToList();
 
-                foreach (var bh in bookHistory)
-                {
-                    User user = _context.Users.Where(u => u.Id == bh.UserId).FirstOrDefault();
+				foreach (var bh in bookHistory)
+				{
+					User user = _context.Users.Where(u => u.Id == bh.UserId).FirstOrDefault();
 
-                    fullBookIH.Add(
-                        new FullBookInfoHistory
-                        {
-                            Id = bh.Id,
+					fullBookIH.Add(
+						new FullBookInfoHistory
+						{
+							Id = bh.Id,
 
-                            AltitudeCoordinate = bh.AltitudeCoordinate,
+							AltitudeCoordinate = bh.AltitudeCoordinate,
 
-                            LongtiudeCoordinate = bh.LongtiudeCoordinate,
+							LongtiudeCoordinate = bh.LongtiudeCoordinate,
 
-                            GetBookOn = bh.GetBookOn,
+							GetBookOn = bh.GetBookOn,
 
-                            GiveBookOn = bh.GiveBookOn,
+							GiveBookOn = bh.GiveBookOn,
 
-                            UserEmail = user.Email,
+							UserEmail = user.Email,
 
-                            UserPhone = user.PhoneNumber,
+							UserPhone = user.PhoneNumber,
 
-                            UserFullName = (user.FirstName + user.LastName) ?? "Hiden Assasin"
+							UserFullName = (user.FirstName + user.LastName) ?? "Hiden Assasin"
 
-                        });
-                }
+						});
+				}
 
-                return fullBookIH;
-            }
+				return fullBookIH;
+			}
 
-            catch
-            {
-                return null;
-            }
-        }
+			catch
+			{
+				return null;
+			}
+		}
 
 		#region Hellpers
 		[HttpPost]

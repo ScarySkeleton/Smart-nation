@@ -38,6 +38,13 @@ class Book extends PureComponent {
         return (
             <div className='container book-wrapper'>
 
+                <div className='book__controls_top'>
+                    <button className={`book__controls_order btn btn-success ${this.props.isLogined ? 'button-active' : 'button-unactive'}`}
+                        onClick={this.orderThisBook}>
+                        Order book now!
+                    </button>
+                </div>
+
                 <div className='book__info-wrapper'>
                     <BookInfo book={book} picture={picture} />
                 </div>
@@ -46,13 +53,15 @@ class Book extends PureComponent {
                     <BookHistory historyList={historyList} />
                 </div>
 
+                    <h3>Comments</h3>
+                <div className='book__comment-wrapper-add'>
+                    <BookAddComment bookId={this.bookId} />
+                </div>
+
                 <div className='book__comment-wrapper'>
                     <BookCommentsList commentsList={commentsList} />
                 </div>
 
-                <div className='book__comment-wrapper-add'>
-                    <BookAddComment bookId={this.bookId} />
-                </div>
 
                 <div className='book__controls'>
                     <button className={`book__controls_order btn btn-success ${this.props.isLogined ? 'button-active' : 'button-unactive'}`}

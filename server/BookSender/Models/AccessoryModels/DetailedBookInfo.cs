@@ -10,7 +10,7 @@ namespace BookSender.Models.AccessoryModels
     {
         public Book Book { get; set; }
 
-        public List<Comment> CommentsList { get; set; }
+        public List<CommentModel> CommentsList { get; set; }
 
 		public string photoInBinary { get; set; }
 
