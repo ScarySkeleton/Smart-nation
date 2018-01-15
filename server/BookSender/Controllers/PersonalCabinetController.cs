@@ -112,6 +112,7 @@ namespace BookSender.Controllers
 					List<Book> userBooks = await _context.Books.Where(
 												b => b.CurrentUserId == user.Id)
 												.Include(b => b.Picture)
+												.OrderByDescending(b => b.CreatedOn)
 												.ToListAsync();
 
 					List<BookOnShelf> booksOnShelf = new List<BookOnShelf>();
