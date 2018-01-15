@@ -42,7 +42,11 @@ namespace BookSender.Controllers
 
             return View();
         }
-
+		/// <summary>
+		/// Method sends a request for book Order for it's current owner and creates new Deal
+		/// </summary>
+		/// <param name="bookId"></param>
+		/// <returns>JsonResult BookForOrder Model/Error message</returns>
         [HttpPost]
         public JsonResult Order([FromBody] int bookId)
         {
@@ -111,8 +115,12 @@ namespace BookSender.Controllers
                 return Json("Error: " + e.Message);
             }
         }
-
-        public async Task<HttpResponseMessage> DeclineDeal([FromBody] DealModel theDeal)
+		/// <summary>
+		/// Declines the request on Book. Could be called by Current book owner or by reqester.
+		/// </summary>
+		/// <param name="theDeal"></param>
+		/// <returns>HttpResponseMessage OK/BadRequest</returns>
+		public async Task<HttpResponseMessage> DeclineDeal([FromBody] DealModel theDeal)
         {
             try
             {
@@ -160,8 +168,12 @@ namespace BookSender.Controllers
             }
 
         }
-
-        public async Task<HttpResponseMessage> ApproveDeal([FromBody] DealModel theDeal)
+		/// <summary>
+		/// Approves request for a Book. Could be called only by CurrentBook Owner.
+		/// </summary>
+		/// <param name="theDeal"></param>
+		/// <returns>HttpResponseMessage OK/BadRequest</returns>
+		public async Task<HttpResponseMessage> ApproveDeal([FromBody] DealModel theDeal)
         {
             try
             {
@@ -192,8 +204,12 @@ namespace BookSender.Controllers
             }
 
         }
-
-        public async Task<HttpResponseMessage> BookRecieved([FromBody]BookReceivedModel bookRecieved)
+		/// <summary>
+		/// Aproves Book recieved by requester who received the book from previous owner.Could be called by requster
+		/// </summary>
+		/// <param name="bookRecieved"></param>
+		/// <returns>HttpResponseMessage OK/BadRequest</returns>
+		public async Task<HttpResponseMessage> BookRecieved([FromBody]BookReceivedModel bookRecieved)
         {
 			if(bookRecieved == null)
 				return new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -238,8 +254,12 @@ namespace BookSender.Controllers
             }
 
         }
-
-        public async Task<HttpResponseMessage> CloseDeal([FromBody] DealModel theDeal)
+		/// <summary>
+		/// Closing Deal successfuly(Finall stage). Could be called By book Donor(previous owner)
+		/// </summary>
+		/// <param name="theDeal"></param>
+		/// <returns>HttpResponseMessage OK/BadRequest</returns>
+		public async Task<HttpResponseMessage> CloseDeal([FromBody] DealModel theDeal)
         {
             try
             {
