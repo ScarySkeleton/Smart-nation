@@ -16,7 +16,7 @@ const BookHistory = ({historyList}) => {
                     <div className='book__period card' key={index}>
                         <div className='book__user-info card-header' role="tab" id="headingOne" onClick={index}>
                             <div className='book__user-info_full-name'>
-                                <h5 class="mb-0">
+                                <h5 className="mb-0">
                                     <a data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne">
                                 <span> Full name: {period.userFullName} </span>
                                     </a>
@@ -25,7 +25,7 @@ const BookHistory = ({historyList}) => {
                         
                         </div>
                         <div className='book__using-info collapse show' id="collapseOne" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id="collapseOne" className="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                             <div className='book__user-info_full-name'>
                                     <span> Phone: {period.userEmail} </span>
                                 </div>
