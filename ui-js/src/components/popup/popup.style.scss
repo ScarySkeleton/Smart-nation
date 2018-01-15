@@ -19,7 +19,8 @@
         width: 20%;
         min-width: 150px;
         max-width: 400px;
-        background: $grayWhite;
+        background: #ffe59e;
+        opacity: 0.99;
         overflow-y: auto;
         overflow: auto;
         z-index: 9999;
@@ -42,7 +43,7 @@
         color: #333;
 
         &:hover {
-            color: #06D85F;
+            color: rgb(255, 248, 148);
         }
     }
 
@@ -62,6 +63,11 @@
         opacity: 0;
     }
   }
+.popup__control{
+    button {
+    background-color: #ffc938 !important;
+    }
+}
 
 .popup-empty {
     display: none;
