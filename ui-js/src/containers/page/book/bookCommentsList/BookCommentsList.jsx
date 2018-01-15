@@ -2,7 +2,6 @@ import React from 'react';
 import './bookCommentsList.style.scss'
 const BookCommentsList = ({commentsList}) => (
     <div>
-        {console.log(commentsList)}
     {
         !!commentsList.length
         ? commentsList.map((comment, index) => {

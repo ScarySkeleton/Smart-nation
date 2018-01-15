@@ -6,7 +6,6 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {Link} from 'react-router-dom';
 
 const Table = ({className, data, columns}) => {
-
     data.map(book => addOrderButtonToEachBook(book));
     return (
         <div className={className}>
