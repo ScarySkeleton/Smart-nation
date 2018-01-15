@@ -143,7 +143,7 @@ namespace BookSender.Controllers
 
 							_context.Users.Add(new User
 							{
-								Password = user.Password,
+								Password = "DEF",
 								Email = model.email,
 								FirstName = names[0],
 								LastName = names[1],
