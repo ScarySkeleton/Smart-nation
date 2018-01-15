@@ -26,7 +26,7 @@ namespace GmailSender
 
             string key = RandomKeyGenerator();
 
-            mailMessage.Body = "Your password for authorization is" + key;
+            mailMessage.Body = "Your password for authorization is: " + key;
             mailMessage.Subject = "Your password for authorization";
             mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
             mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
