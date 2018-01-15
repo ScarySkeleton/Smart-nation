@@ -23,59 +23,60 @@ namespace BookSender.Controllers
 		const int DEFAULT_USER_FOR_COMMENTS_ID = 1;
 
 		private readonly ApplicationContext _context;
-		public HomeController(ApplicationContext context)
-		{
-			_context = context;
-		}
-		[HttpGet]
-		public IActionResult Index()
-		{
-			return View();
-		}
-		[HttpPost]
-		public JsonResult GetAllSearchedBooks([FromBody] FilteringModel filteringModel)
-		{
-			List<BookShelf> bookList = new List<BookShelf>();
 
-			string sqlExpression = "FindSearchedBook";
-			var SearchedTitle = new SqlParameter("@searchedTitle", filteringModel.Title);
-			var SearchedAuthor = new SqlParameter("@searchedAuthor", filteringModel.Author);
-			var BookGener = new SqlParameter("@bookGener", filteringModel.Gener);
-			var BookType = new SqlParameter("@bookType", filteringModel.Type);
-			try
-			{
-				using (SqlConnection connection = new SqlConnection(_context.Database.GetDbConnection().ConnectionString))
-				{
+        public HomeController(ApplicationContext context)
+        {
+            _context = context;
+        }
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult GetAllSearchedBooks([FromBody] FilteringModel filteringModel)
+        {
+            List<BookShelf> bookList = new List<BookShelf>();
 
-					SqlCommand command = new SqlCommand(sqlExpression, connection);
-					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.Add(SearchedTitle);
-					command.Parameters.Add(SearchedAuthor);
-					command.Parameters.Add(BookGener);
-					command.Parameters.Add(BookType);
+            string sqlExpression = "FindSearchedBook";
+            var SearchedTitle = new SqlParameter("@searchedTitle", filteringModel.Title);
+            var SearchedAuthor = new SqlParameter("@searchedAuthor", filteringModel.Author);
+            var BookGener = new SqlParameter("@bookGener", filteringModel.Gener);
+            var BookType = new SqlParameter("@bookType", filteringModel.Type);
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_context.Database.GetDbConnection().ConnectionString))
+                {
 
-					connection.Open();
-					var reader = command.ExecuteReader();
-					if (reader.HasRows)
-					{
-						while (reader.Read())
-						{
-							bookList.Add(
-								new BookShelf
-								{
-									Id = (reader.IsDBNull(0)) ? 0 : reader.GetInt32(0),
-									Author = (reader.IsDBNull(1)) ? null : reader.GetString(1),
-									CreateOn = (reader.IsDBNull(2)) ? new DateTime(1900, 01, 01) : reader.GetDateTime(2),
-									Description = (reader.IsDBNull(3)) ? null : reader.GetString(3),
-									Price = (reader.IsDBNull(4)) ? new Decimal(0.00) : reader.GetDecimal(4),
-									Title = (reader.IsDBNull(5)) ? null : reader.GetString(5),
-									ContributorFirstName = (reader.IsDBNull(6)) ? null : reader.GetString(6),
-									ContributorLastName = (reader.IsDBNull(7)) ? null : reader.GetString(7),
-									FirstName = (reader.IsDBNull(8)) ? null : reader.GetString(8),
-									LastName = (reader.IsDBNull(9)) ? null : reader.GetString(9),
-									PhoneNumber = (reader.IsDBNull(10)) ? null : reader.GetString(10),
-									Genre = (reader.IsDBNull(11)) ? null : reader.GetString(11),
-									BookType = (reader.IsDBNull(12)) ? null : reader.GetString(12),
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(SearchedTitle);
+                    command.Parameters.Add(SearchedAuthor);
+                    command.Parameters.Add(BookGener);
+                    command.Parameters.Add(BookType);
+
+                    connection.Open();
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            bookList.Add(
+                                new BookShelf
+                                {
+                                    Id = (reader.IsDBNull(0)) ? 0 : reader.GetInt32(0),
+                                    Author = (reader.IsDBNull(1)) ? null : reader.GetString(1),
+                                    CreateOn = (reader.IsDBNull(2)) ? new DateTime(1900, 01, 01) : reader.GetDateTime(2),
+                                    Description = (reader.IsDBNull(3)) ? null : reader.GetString(3),
+                                    Price = (reader.IsDBNull(4)) ? new Decimal(0.00) : reader.GetDecimal(4),
+                                    Title = (reader.IsDBNull(5)) ? null : reader.GetString(5),
+                                    ContributorFirstName = (reader.IsDBNull(6)) ? null : reader.GetString(6),
+                                    ContributorLastName = (reader.IsDBNull(7)) ? null : reader.GetString(7),
+                                    FirstName = (reader.IsDBNull(8)) ? null : reader.GetString(8),
+                                    LastName = (reader.IsDBNull(9)) ? null : reader.GetString(9),
+                                    PhoneNumber = (reader.IsDBNull(10)) ? null : reader.GetString(10),
+                                    Genre = (reader.IsDBNull(11)) ? null : reader.GetString(11),
+                                    BookType = (reader.IsDBNull(12)) ? null : reader.GetString(12),
 									LongtiudeCoordinate = reader.IsDBNull(13) ? null : reader.GetString(13),
 									AltitudeCoordinate = (reader.IsDBNull(14) ? null : reader.GetString(14))
 								});
