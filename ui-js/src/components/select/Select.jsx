@@ -8,15 +8,20 @@ const Select = ({ data, selected: defSelected = 0, onSelect, selectClassName, op
             onChange={onSelect}
             value={defSelected}>
             {
-                data.map((el, index) => {
+                data.length !== 0
+                ? data.map((el, index) => {
                     return (
                         <option 
                             key={index}
                             className={optionClassName || 'def-option'}>
-                                {el} 
+                                {el.name} 
                          </option>
                     )
                 })
+                : <option 
+                    className={optionClassName || 'def-option'}>
+                        Other
+                    </option>
             }
         </select>
     );

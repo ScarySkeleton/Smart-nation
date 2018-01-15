@@ -14,10 +14,8 @@ export const facebookLoginFetch = () => {
 }
 
 export const facebookLoginSuccess = (payload) => {
-    console.log(payload);
     loginWithFacebookRequest(payload)()
         .then(response => {
-            console.log(response);
             if(!response)
                 throw Error("Error while fetch Facebook data to our server.");
             loginSuccess(response)

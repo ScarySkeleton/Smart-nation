@@ -1,5 +1,11 @@
 const Type = [
-    "Books", "Journal", "Newspaper"
+    {
+        name: "Books"
+    }, {
+        name: "Journal"
+    }, {
+        name: "Newspaper"
+    }
 ]
 
 export default Type;

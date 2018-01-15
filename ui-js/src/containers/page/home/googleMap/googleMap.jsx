@@ -8,8 +8,8 @@ const GoogleMaps = withScriptjs(withGoogleMap((props) =>
         {
             !!props.searchResult
             ? props.searchResult.map((result, index) => {
-                if(result.lat && result.lng)
-                    return <Marker key={index} position={{ lat: result.lat, lng: result.lng }} />
+                if(result.altitudeCoordinate && result.longtiudeCoordinate)
+                    return <Marker key={index} position={{ lat: +result.longtiudeCoordinate, lng: +result.altitudeCoordinate }} />
                 return null;
             })
             : null

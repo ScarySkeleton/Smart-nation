@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using BookSender.Services.Interfaces;
+using BookSender.Models.AccessoryModels.DealModels;
 
 namespace BookSender.Controllers
 {
@@ -39,7 +40,7 @@ namespace BookSender.Controllers
 		{
 			try
 			{
-				_context.Users.Add(new User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru" , RatingStatusId = 1, RoleId = 2});
+				_context.Users.Add(new User { PhoneNumber = user.Phone, Password = user.Password, Email = "test@mail.ru", RatingStatusId = 1, RoleId = 2 });
 
 				await _context.SaveChangesAsync();
 
@@ -110,6 +111,82 @@ namespace BookSender.Controllers
 				}
 				else
 					return Json(new LoginData());
+			}
+			catch (Exception ex)
+			{
+				return Json($" 'Answer' : 'Error = {ex.Message}' ");
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> LoginWithFacebook([FromBody] FaceBookLoginModel model)
+		{
+			try
+			{
+				if (model != null)
+				{
+					string DefaultPassWord = "1234";
+					string DefaultPhone = "9379992";
+					Regex regexEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+					Match matchEmail = (model.email != null) ? regexEmail.Match(model.email) : regexEmail.Match("");
+
+
+					if (matchEmail.Success)
+					{
+						AccountLoginResponce acc = new AccountLoginResponce();
+
+						User user = await _context.Users
+							.Include(u => u.Role)
+							.FirstOrDefaultAsync(u => u.Email == model.email);
+
+						if (user == null)
+						{
+							string[] names = model.name.Split(" ");
+
+							_context.Users.Add(new User
+							{
+								Password = DefaultPassWord,
+								PhoneNumber = DefaultPhone,
+								Email = model.email,
+								FirstName = names[0],
+								LastName = names[1],
+								RatingStatusId = 1,
+								RoleId = 2
+							});
+
+							var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == 2);
+
+							await _context.SaveChangesAsync();
+
+							acc.Login = user.Email;
+							acc.Name = names[0];
+							acc.Surname = names[1];
+							acc.Role = role.Name;
+
+
+						}
+						else
+						{
+							acc.Login = user.Email;
+							acc.Name = user.FirstName;
+							acc.Surname = user.LastName;
+							acc.Role = user.Role != null ? user.Role.Name : "Guest";
+						}
+
+						await Authenticate(user);
+
+						return Json(acc);
+					}
+					else
+					{
+						return Json($" 'Answer' : 'Error = BadEmail' ");
+					}
+
+				}
+				else
+				{
+					return Json(new AccountLoginResponce());
+				}
 			}
 			catch (Exception ex)
 			{

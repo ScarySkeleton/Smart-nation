@@ -35,7 +35,7 @@ namespace BookSender.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult AddBook([FromBody]BookModel incomingBook)
+		public HttpResponseMessage AddBook([FromBody]BookModel incomingBook)
 		{
 			try
 			{
@@ -85,16 +85,16 @@ namespace BookSender.Controllers
 					_context.BookHistoryRecords.Add(bookHistory);
 					_context.SaveChanges();
 
-					return null;// new HttpResponseMessage(HttpStatusCode.Created);
+					return new HttpResponseMessage(HttpStatusCode.Created);
 				}
 				else
 				{
-					return null;//  new HttpResponseMessage(HttpStatusCode.Unauthorized);
+					return new HttpResponseMessage(HttpStatusCode.Unauthorized);
 				}
 			}
 			catch (Exception e)
 			{
-				return null;// new HttpResponseMessage(HttpStatusCode.BadRequest);
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
 			}
 		}
 
@@ -112,6 +112,7 @@ namespace BookSender.Controllers
 					List<Book> userBooks = await _context.Books.Where(
 												b => b.CurrentUserId == user.Id)
 												.Include(b => b.Picture)
+												.OrderByDescending(b => b.CreatedOn)
 												.ToListAsync();
 
 					List<BookOnShelf> booksOnShelf = new List<BookOnShelf>();
