@@ -26,7 +26,6 @@ const loginReducer = (state = initState, action) => {
                 loginFetch: true,
             }
         case actions.LOGIN_SUCCESS:
-
             return {
                 ...state, 
                 userdata: {

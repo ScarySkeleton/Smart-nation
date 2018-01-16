@@ -18,7 +18,8 @@ export const facebookLoginSuccess = (payload) => {
         .then(response => {
             if(!response)
                 throw Error("Error while fetch Facebook data to our server.");
-            loginSuccess(response)
+
+            store.dispatch(loginSuccess(response));
         })
         .catch(error => {
             fetchingError(error);

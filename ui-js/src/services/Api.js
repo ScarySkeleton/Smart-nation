@@ -109,7 +109,6 @@ export function logoutRequest() {
 }
 
 export function loginWithFacebookRequest(userData) {
-    console.log(userData);
     return function() {
         return apiNonAuthPostFetch("Account/LoginWithFacebook", userData)
             .catch(error => {
