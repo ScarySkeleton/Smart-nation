@@ -1,0 +1,13 @@
+.my-facebook-button-class{
+    margin-top:0.1em;
+    &.btn{
+        background-color: #4267b2 !important;
+        width:200px !important;
+
+        &:hover{
+            background-color: #29487d !important;
+            letter-spacing: unset !important;
+            
+        }
+    }
+}

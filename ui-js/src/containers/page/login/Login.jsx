@@ -89,10 +89,10 @@ class LoginContainer extends PureComponent {
                             LOGIN
                         </button>
                         <Link to='/registration' className='login__button__link'> Don't have account </Link>
+                        <div className='login__facebook'>
+                            <Facebook />
+                        </div>
                     </div>
-                </div>
-                <div className='login__facebook'>
-                    <Facebook />
                 </div>
             </div>
         );
