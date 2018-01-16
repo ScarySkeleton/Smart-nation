@@ -6,11 +6,13 @@ const GoogleMaps = withScriptjs(withGoogleMap((props) =>
         defaultZoom={13}
         defaultCenter={{ lat: 49.433,lng: 32.067 }}>
         {
-            props.searchResult.map((result, index) => {
-                if(result.lat && result.lng)
-                    return <Marker key={index} position={{ lat: result.lat, lng: result.lng }} />
+            !!props.searchResult
+            ? props.searchResult.map((result, index) => {
+                if(result.altitudeCoordinate && result.longtiudeCoordinate)
+                    return <Marker key={index} position={{ lat: +result.longtiudeCoordinate, lng: +result.altitudeCoordinate }} />
                 return null;
             })
+            : null
         }
     </GoogleMap>
 ))

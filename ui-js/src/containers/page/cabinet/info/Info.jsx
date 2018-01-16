@@ -125,7 +125,7 @@ class Info extends PureComponent {
                         !!this.state.photoinBinary
                         ? <img src={this.state.photoinBinary}
                             alt={`${this.state.lastName} ${this.state.firstName}`}
-                            className="rounded img-fluid" />
+                            className="rounded img-fluid user-picture" />
                         : <img src={defaultUserPicture} alt={'Default user picture'} />
                     }
                 </div>

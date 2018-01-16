@@ -22,7 +22,7 @@ class BookAddComment extends PureComponent {
             this.props.fetchLeavingComment({
                 bookId: this.props.bookId,
                 // raiting: this.raiting.value,
-                comment: comment
+                commentText: comment
             })
 
             // TODO: 

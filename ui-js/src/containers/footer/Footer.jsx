@@ -5,7 +5,7 @@ import './footer.scss';
 class FooterContainers extends PureComponent {
     render() {
         return (
-            <div className='footer'>
+            <div className='footer col'>
                 Footer
             </div>
         );

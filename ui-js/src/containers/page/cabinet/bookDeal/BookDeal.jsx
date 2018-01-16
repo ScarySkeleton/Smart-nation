@@ -1,10 +1,23 @@
 import {fetchingBookDealData, fetchingBookDealChange} from './bookDeal.actions';
 import {ResolveButtons} from './resolveButtons/ResolveButtons';
+import './bookDeal.style.scss'
 
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import './bookDeal.style.scss'
+import {geolocated} from 'react-geolocated';
+
+const BookRecievedMethod = 'BookRecieved';
+const DeclineDealMethod = 'DeclineDeal';
+const ApproveDealMethod = 'ApproveDeal';
+const CloseDealMethod = 'CloseDeal';
+
+export {
+    BookRecievedMethod,
+    DeclineDealMethod,
+    ApproveDealMethod,
+    CloseDealMethod
+}
 
 class BookRequest extends PureComponent {
 
@@ -22,14 +35,24 @@ class BookRequest extends PureComponent {
         let id = target.dataset.id;
         let method = target.dataset.method;
 
+        let dealData = {
+            dealId: id
+        }
+        if(method === BookRecievedMethod) {
+            dealData = {
+                ...dealData,
+                LongtiudeCoordinate: this.props.coords.longitude,
+                AltitudeCoordinate: this.props.coords.latitude
+            }
+        }
+
         this.props.changeDeal({
-            id,
-            method
+            method,
+            dealData
         })
     }
 
     render() {
-        console.log(this.props);
         const deals = this.props.dealData;
         if(!deals.length) {
             return (
@@ -107,4 +130,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
+BookRequest = geolocated({
+    positionOptions: {
+      enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+  })(BookRequest);
 export default BookRequest = connect(mapStateToProps, mapDispatchToProps)(BookRequest);

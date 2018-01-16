@@ -20,5 +20,7 @@ namespace BookSender.Models.AccessoryModels
         public string PhoneNumber { get; set; }
         public string Genre { get; set; }
         public string BookType { get; set; }
-    }
+		public string AltitudeCoordinate { get; set; }
+		public string LongtiudeCoordinate { get; set; }
+	}
 }

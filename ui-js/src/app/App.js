@@ -1,17 +1,16 @@
-import React, { PureComponent } from 'react';
-import { withRouter } from 'react-router';
+import React, {PureComponent} from 'react';
+import {withRouter} from 'react-router';
 
-import Content from './Content/Content';
 import './App.scss';
-
 import Header from '../containers/header/Header.jsx';
+import Content from './Content/Content';
 import Footer from '../containers/footer/Footer.jsx';
 
-
 class AppComponent extends PureComponent {
+  
   render() {
     return (
-      <div className="App">
+      <div className="container-fluid data-reactroot">
           <Header />            
           <Content />
           <Footer />
@@ -20,5 +19,5 @@ class AppComponent extends PureComponent {
   }
 }
 
-export { AppComponent };
+export {AppComponent};
 export default AppComponent = withRouter(AppComponent);

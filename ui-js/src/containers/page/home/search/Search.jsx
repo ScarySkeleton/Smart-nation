@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 
 import Search from '../../../../components/search/Search.jsx';
 import {
@@ -13,15 +13,13 @@ class SearchContainer extends PureComponent {
         this.search = this.search.bind(this);
     }
 
-    search({titleValue, authorValue, issueValue, categoryValue}) {
+    search({titleValue, authorValue, categoryValue}) {
 
         this.props.searchBooks({
             Title: titleValue,
             Author: authorValue,
-            Gener: "", 
             Type: "",
-            //issueValue,
-            //categoryValue
+            Gener: categoryValue 
         })
 
     }
@@ -29,11 +27,17 @@ class SearchContainer extends PureComponent {
     render() {
         return ( 
             <Search
-                clickToSearch={this.search} />
+                clickToSearch={this.search}
+                genres={this.props.BookGenre} />
         );
     };
 };
 
+const mapStateToProps = state => {
+    return {
+        BookGenre: state.CommonBookInfo.bookGenre
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -41,4 +45,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default SearchContainer = connect(null, mapDispatchToProps)(SearchContainer);
+export default SearchContainer = connect(mapStateToProps, mapDispatchToProps)(SearchContainer);

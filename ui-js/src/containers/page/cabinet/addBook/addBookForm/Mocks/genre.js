@@ -1,5 +1,11 @@
 const genre = [
-    "Biographies & Memoirs", "Arts & Literature", "Historical"
+    {
+        name: "Biographies & Memoirs"
+    }, {
+        name: "Arts & Literature"
+    }, {
+        name: "Historical"
+    }
 ]
 
 export default genre; 

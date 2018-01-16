@@ -6,7 +6,6 @@ let headers = new Headers({
 });
 
 function statusChecker(response) {
-    //console.log(response);
     if(response.status >= 200 && response.status < 300)
         return Promise.resolve(response);
     return Promise.reject(response);
@@ -30,7 +29,6 @@ export function apiAuthPostFetch(path, data) {
         credentials: "include",
         body: JSON.stringify(data)
     })
-    //.catch(errorHandler(path, data))
     .then(statusChecker)
     .then(response => response.json())
     .then(json => {
@@ -49,11 +47,9 @@ export function apiNonAuthPostFetch(path, data) {
         mode: "cors",
         body: JSON.stringify(data)
     })
-    //.catch(errorHandler(path, data))
     .then(statusChecker)
     .then(response => response.json())
     .then(json => {
-        console.log(json);
         return json;
     })
 }

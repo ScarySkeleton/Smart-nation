@@ -1,7 +1,9 @@
+import './table.scss';
+import {NoResult} from './NoResult/NoResult';
+
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {Link} from 'react-router-dom';
-import './table.scss';
 
 const Table = ({className, data, columns}) => {
     data.map(book => addOrderButtonToEachBook(book));

@@ -35,7 +35,7 @@ namespace BookSender.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult AddBook([FromBody]BookModel incomingBook)
+		public HttpResponseMessage AddBook([FromBody]BookModel incomingBook)
 		{
 			try
 			{
@@ -65,7 +65,9 @@ namespace BookSender.Controllers
 							Name = incomingBook.photo
 						} : null,
 						BookTypeId = 1, //incomingBook.type,
-						GenreId = 1//incomingBook.genre
+						GenreId = 1,//incomingBook.genre
+						IsUsable = true,
+						CreatedOn = DateTime.UtcNow
 					};
 
 					_context.Books.Add(book);
@@ -83,16 +85,16 @@ namespace BookSender.Controllers
 					_context.BookHistoryRecords.Add(bookHistory);
 					_context.SaveChanges();
 
-					return null;// new HttpResponseMessage(HttpStatusCode.Created);
+					return new HttpResponseMessage(HttpStatusCode.Created);
 				}
 				else
 				{
-					return null;//  new HttpResponseMessage(HttpStatusCode.Unauthorized);
+					return new HttpResponseMessage(HttpStatusCode.Unauthorized);
 				}
 			}
 			catch (Exception e)
 			{
-				return null;// new HttpResponseMessage(HttpStatusCode.BadRequest);
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
 			}
 		}
 
@@ -110,6 +112,7 @@ namespace BookSender.Controllers
 					List<Book> userBooks = await _context.Books.Where(
 												b => b.CurrentUserId == user.Id)
 												.Include(b => b.Picture)
+												.OrderByDescending(b => b.CreatedOn)
 												.ToListAsync();
 
 					List<BookOnShelf> booksOnShelf = new List<BookOnShelf>();
@@ -197,6 +200,20 @@ namespace BookSender.Controllers
 			}
 		}
 
+        [HttpPost]
+        public JsonResult SendComplaintAboutDisfiguredBook([FromBody] BookComplainModel complainModel)
+        {
+            try
+            {
+                GmailSender.SmtpClientLibrary.SendRequestAboutDisfiguredBook(complainModel.Email, complainModel.BookId);
+                return Json("Thanks, operation successed");
+            }
+            catch (Exception ex)
+            {
+                return Json("Enter right email");
+            }
+        }
+
 		[HttpPost]
 		public async Task<IActionResult> GetDetailedBookInfo([FromBody] Book incomingBook)
 		{
@@ -229,6 +246,39 @@ namespace BookSender.Controllers
 			}
 		}
 
+		[HttpPost]
+		public HttpResponseMessage BookUnusable([FromBody] int? bookId)
+		{
+			try
+			{
+				var book = _context.Books.FirstOrDefault(b => b.Id == bookId);
+
+				if (book == null)
+					return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user == null)
+					return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+
+				if (book.CurrentUserId != user.Id)
+					return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+
+				book.IsUsable = false;
+
+				_context.SaveChanges();
+
+				return new HttpResponseMessage(HttpStatusCode.OK);
+			}
+			catch (Exception ex)
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+
+		}
+
 		#region Edit UserData
 		public JsonResult GetUserInfo()
 		{
@@ -238,6 +288,7 @@ namespace BookSender.Controllers
 
 				var user = _context.Users.Where(u => u.Id == int.Parse(userId))
 										.Include(u => u.Picture)
+										.Include(u => u.RatingStatus)
 										.FirstOrDefault();
 
 				if (user != null)
@@ -673,8 +724,13 @@ namespace BookSender.Controllers
 
 				if (user != null)
 				{
+
 					List<Deal> userDeals = await _context.Deals.Where(
-												b => b.DonorId == user.Id || b.AcceptorId == user.Id)
+												b => (b.DonorId == user.Id || b.AcceptorId == user.Id)
+												&& b.DealStatusId != (int?)DealHelper.Status.DECLINED
+												&& b.DealStatusId != (int?)DealHelper.Status.CLOSED
+												&& b.DealStatusId != (int?)DealHelper.Status.BANNED
+												)
 												.Include(b => b.DealStatus)
 												.ToListAsync();
 

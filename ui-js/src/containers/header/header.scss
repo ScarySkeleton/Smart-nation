@@ -1,29 +1,22 @@
-.logo {
-	
-}
-
 .header {
 	height: 15%;
-}
-
-.header-nav {
-	display: flex;
-	flex: 0 0.2 100%;
-	flex-direction: row;
-	overflow: hidden;
 }
 
 .user-header-bar {
 	display: flex;
 	align-items: center;
 }
+
 .header-title-blockquote {
-	font-size: 3vw;
+	font-size: 2vw;
 	margin: 0.5em;
 }
-
 
 .header-title-author {
 	font-size: 0.6em;
 	text-align: right;
+}
+
+.header-nav-row{
+	padding: 2em 0;
 }

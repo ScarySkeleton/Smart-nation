@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import {
-    loginRequest
-} from './login.actions';
+import {loginRequest} from './login.actions';
 import { valid } from '../../../services/Utils';
-
+import {Facebook} from './Facebook/Facebook';
 import './login.scss';
 
 class LoginContainer extends PureComponent {
@@ -69,7 +67,9 @@ class LoginContainer extends PureComponent {
             <div className='login__page'>
                 <div className='container login'>
 
-                    <div className='login__title'><h2>Login</h2></div>
+                    <div className='login__title'>
+                        <h2>Login</h2>
+                    </div>
 
                     <div className='login__form'> 
                         <div className='login__block'>
@@ -89,6 +89,9 @@ class LoginContainer extends PureComponent {
                             LOGIN
                         </button>
                         <Link to='/registration' className='login__button__link'> Don't have account </Link>
+                        <div className='login__facebook'>
+                            <Facebook />
+                        </div>
                     </div>
                 </div>
             </div>

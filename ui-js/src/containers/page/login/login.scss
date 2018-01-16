@@ -7,8 +7,6 @@
 .login {
     background: rgba(255,255,255,0.7);
     margin-top: 10%;
-    margin-left: 10%;
-    margin-right: 10%;
     border: 1px solid brown;
     height: 30%;
     min-height: 350px;
@@ -80,8 +78,15 @@
                     letter-spacing: 2px;
                 }
             }
+        .login__facebook{
+            width: 10%;
+            display: inline-block;
+            margin-top: -5px;
+
+        }    
         .login__button__link{
             margin-left: 20px;
-        }    
+        
+        }
     }
 }

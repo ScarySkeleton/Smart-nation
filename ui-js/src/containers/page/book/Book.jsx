@@ -32,26 +32,36 @@ class Book extends PureComponent {
     
     render() {
         const book = this.props.bookPageData.book;
+        const picture = this.props.bookPageData.photoInBinary;
         const historyList = this.props.bookPageData.historyList;
         const commentsList = this.props.bookPageData.commentsList;
         return (
             <div className='container book-wrapper'>
 
+                <div className='book__controls_top'>
+                    <button className={`book__controls_order btn btn-success ${this.props.isLogined ? 'button-active' : 'button-unactive'}`}
+                        onClick={this.orderThisBook}>
+                        Order book now!
+                    </button>
+                </div>
+
                 <div className='book__info-wrapper'>
-                    <BookInfo book={book} />
+                    <BookInfo book={book} picture={picture} />
                 </div>
 
                 <div className='book__history-wrapper'>
                     <BookHistory historyList={historyList} />
                 </div>
 
+                    <h3>Comments</h3>
+                <div className='book__comment-wrapper-add'>
+                    <BookAddComment bookId={this.bookId} />
+                </div>
+
                 <div className='book__comment-wrapper'>
                     <BookCommentsList commentsList={commentsList} />
                 </div>
 
-                <div className='book__comment-wrapper-add'>
-                    <BookAddComment bookId={this.bookId} />
-                </div>
 
                 <div className='book__controls'>
                     <button className={`book__controls_order btn btn-success ${this.props.isLogined ? 'button-active' : 'button-unactive'}`}

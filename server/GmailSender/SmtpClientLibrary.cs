@@ -26,7 +26,7 @@ namespace GmailSender
 
             string key = RandomKeyGenerator();
 
-            mailMessage.Body = "Your password for authorization is" + key;
+            mailMessage.Body = "Your password for authorization is: " + key;
             mailMessage.Subject = "Your password for authorization";
             mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
             mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
@@ -75,5 +75,32 @@ namespace GmailSender
             mailMessage.Dispose();
         }
 
+        public static void SendRequestAboutDisfiguredBook(string email, int bookId)
+        {
+            string ourEmail = "";
+            string ourPassword = "";
+
+            SmtpClient client = new SmtpClient();
+
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential(ourEmail, ourPassword);
+
+            MailAddress mailFrom = new MailAddress(ourEmail, "Dear user", System.Text.Encoding.UTF8);
+            MailAddress mailTo = new MailAddress(ourEmail);
+            MailMessage mailMessage = new MailMessage(mailFrom, mailTo);
+
+            mailMessage.Body = $"This user complain that book {bookId} for being disfigured. Email for contacting {email}.";
+            mailMessage.Subject = "Claim about ";
+            mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            mailMessage.IsBodyHtml = true;
+            client.Send(mailMessage);
+            mailMessage.Dispose();
+        }
     }
 }
