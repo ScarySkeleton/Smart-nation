@@ -1,10 +1,26 @@
-.info-cabinet__container_description{
-    font-weight: 600;
-    padding: 5px 15px;
-}
+.info-cabinet {
 
-.info-cabinet__container_button {
-    margin-right: 15px;
+    &__container {
+
+        &_description {
+            font-weight: 600;
+            padding: 5px 15px;
+        }
+        
+        &_button {
+            margin-right: 15px;
+        }
+    }
+
+    &__rating {
+        
+        text-align: right;
+        padding: 5%;
+
+        &_mark {
+            font-weight: bold;
+        }
+    }
 }
 
 .user-picture{

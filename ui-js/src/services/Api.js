@@ -40,6 +40,7 @@ export function setBookAddComment(commentData) {
     }
 }
 
+
 /*
     =================================================================
                                 BOOK
@@ -191,4 +192,3 @@ export function changeDealStatus(dealObj) {
             })
     }
 }
-

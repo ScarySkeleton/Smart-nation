@@ -117,18 +117,34 @@ class Info extends PureComponent {
             return <div> Loading ... </div>
         }
 
-
         return (
             <div className='container info-cabinet'>
-                <div className='container info-cabinet__container'>
-                    {
-                        !!this.state.photoinBinary
-                        ? <img src={this.state.photoinBinary}
-                            alt={`${this.state.lastName} ${this.state.firstName}`}
-                            className="rounded img-fluid user-picture" />
-                        : <img src={defaultUserPicture} alt={'Default user picture'} />
-                    }
-                </div>
+                <div className='row'>
+                    <div className='col-xs-8 col-md-8 col-lg-7'>
+                        <div className='container info-cabinet__photo info-cabinet__container'>
+                        {
+                            !!this.state.photoinBinary
+                            ? <img src={this.state.photoinBinary}
+                                alt={`${this.state.lastName} ${this.state.firstName}`}
+                                className="rounded img-fluid user-picture" />
+                            : <img src={defaultUserPicture} alt={'Default user picture'} />
+                        }
+                        </div>
+                    </div>
+                    <div className='col-xs-4 col-md-4 col-lg-5'>
+                        <div className='container info-cabinet__rating'>
+                        {
+                            this.props.userInfo.ratingStatusName
+                            ? <div className='info-cabinet__rating_mark'>
+                                Your rank: <b>{ this.props.userInfo.ratingStatusName }</b>
+                                </div>
+                            : <div className='info-cabinet__rating_mark'>
+                                Your rank: You have not rank yet.
+                                </div>
+                        }
+                        </div>
+                    </div>
+                </div>               
 
                 <div className='form-group info-cabinet__container'>
                     <label className="info-cabinet__container_description"> FIO: </label>

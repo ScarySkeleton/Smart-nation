@@ -4,7 +4,6 @@ import {withRouter} from 'react-router';
 import './App.scss';
 import Header from '../containers/header/Header.jsx';
 import Content from './Content/Content';
-import Footer from '../containers/footer/Footer.jsx';
 
 class AppComponent extends PureComponent {
   
@@ -13,7 +12,6 @@ class AppComponent extends PureComponent {
       <div className="container-fluid data-reactroot">
           <Header />            
           <Content />
-          <Footer />
       </div>
     ); 
   }
