@@ -288,6 +288,7 @@ namespace BookSender.Controllers
 
 				var user = _context.Users.Where(u => u.Id == int.Parse(userId))
 										.Include(u => u.Picture)
+										.Include(u => u.RatingStatus)
 										.FirstOrDefault();
 
 				if (user != null)
