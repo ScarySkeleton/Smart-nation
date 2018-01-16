@@ -18,20 +18,22 @@ class HeaderContainer extends PureComponent {
                     <span className='header-title-author'>― Marcus Tullius Cicero</span>
                     </blockquote>
                 </div>
-                <div className='header-nav col-md-4 row'>
+                <div className='header-nav col-md-4 container'>
+                <div className='row header-nav-row'>
                     {
                         (this.props.isLogined)
                         ?   
-                            <div className='user-header-bar user-header-bar_logined '>
+                            <div className='user-header-bar user-header-bar_logined col-md-4'>
                                 Hello, {this.props.surname} {this.props.name}
                             </div>
                         :
-                            <div className='user-header-bar user-header-bar_unlogined'>
+                            <div className='user-header-bar user-header-bar_unlogined col-md-4'>
                                 Hello guest!
                             </div>
                     }
                     <Nav />
                 </div>
+                    </div>
                 
 
                
