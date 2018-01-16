@@ -20,7 +20,7 @@ namespace GmailSender
             client.UseDefaultCredentials = false;
             client.Credentials = new System.Net.NetworkCredential(messageFrom, passwordFrom);
 
-            MailAddress mailFrom = new MailAddress(messageFrom, passwordFrom, System.Text.Encoding.UTF8);
+            MailAddress mailFrom = new MailAddress(messageFrom, "Dear user", System.Text.Encoding.UTF8);
             MailAddress mailTo = new MailAddress(messageTo);
             MailMessage mailMessage = new MailMessage(mailFrom, mailTo);
 
