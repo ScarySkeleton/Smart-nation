@@ -53,7 +53,6 @@ namespace BookSender.Controllers
             try
             {
                 var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
-
                 var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
 
                 var book = _context.Books.FirstOrDefault(b => b.Id == bookId);
@@ -124,7 +123,14 @@ namespace BookSender.Controllers
         {
             try
             {
-                Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == theDeal.Dealid);
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user == null)
+					return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+
+				Deal deal = await _context.Deals.Where(d => d.Id == theDeal.Dealid).Include(d => d.Book).FirstOrDefaultAsync();
 
 				if(deal.DealStatusId == (int?)DealHelper.Status.RECIEVED)
 				{
@@ -136,17 +142,14 @@ namespace BookSender.Controllers
 					_context.BookHistoryRecords.Remove(bookHistoryRecords[0]);
 
 					bookHistoryRecords[1].GiveBookOn = null;
-
+					deal.Book.CurrentUserId = user.Id;
 
 				}
-
 
                 deal.DealStatusId = (int?)DealHelper.Status.DECLINED;
                 deal.ModifiedOn = DateTime.UtcNow;
                 deal.ExpiredOn = DateTime.UtcNow;
                 deal.EndedOn = DateTime.UtcNow;
-
-
 
                 _context.SaveChanges();
 
@@ -184,7 +187,6 @@ namespace BookSender.Controllers
                 deal.ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(s => s.Id == (int?)DealHelper.Status.SUBMITED).ExpirationTime);
 
                 _context.SaveChanges();
-				
 
                 var bookRecipient = _context.Users.FirstOrDefault(u => u.Id == deal.AcceptorId);
                 var bookOwner = _context.Users.FirstOrDefault(u => u.Id == deal.DonorId);
@@ -216,12 +218,23 @@ namespace BookSender.Controllers
 
 			try
 			{
-                Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == bookRecieved.DealId);
+				var userId = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value;
+
+				var user = _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
+
+				if (user == null)
+					return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+
+				Deal deal = await _context.Deals.Where(d => d.Id == bookRecieved.DealId).Include(d => d.Book).FirstOrDefaultAsync();
 
                 deal.DealStatusId = (int?)DealHelper.Status.RECIEVED;
                 deal.ModifiedOn = DateTime.UtcNow;
                 deal.ExpiredOn = DateTime.UtcNow.AddDays(_context.DealStatuses.FirstOrDefault(s => s.Id == (int?)DealHelper.Status.RECIEVED).ExpirationTime);
 
+				if (deal.Book == null)
+					return new HttpResponseMessage( HttpStatusCode.BadRequest);
+
+				deal.Book.CurrentUserId = user.Id;
 
 				var bookHistoryPrevous = await _context.BookHistoryRecords
 													   .Where(bh => bh.BookId == deal.BookId)
@@ -230,6 +243,7 @@ namespace BookSender.Controllers
 
 				if (bookHistoryPrevous == null)
 					return new HttpResponseMessage(HttpStatusCode.NotFound);
+
 
 				bookHistoryPrevous.GiveBookOn = DateTime.UtcNow;
 
@@ -265,12 +279,10 @@ namespace BookSender.Controllers
             {
                 Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == theDeal.Dealid);
 
-
                 deal.DealStatusId = (int?)DealHelper.Status.CLOSED;
                 deal.ModifiedOn = DateTime.UtcNow;
                 deal.ExpiredOn = DateTime.UtcNow;
                 deal.EndedOn = DateTime.UtcNow;
-
 
                 _context.SaveChanges();
 
