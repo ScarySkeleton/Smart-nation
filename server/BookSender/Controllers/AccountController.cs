@@ -125,7 +125,7 @@ namespace BookSender.Controllers
 			{
 				if (model != null)
 				{
-					string DefaultPassWord = SmtpClientLibrary.SendKey("","","");
+					string DefaultPassWord = SmtpClientLibrary.SendKey(model.email,"programmist5000@gmail.com","Zaebalo45809");
 					string DefaultPhone = "9379992";
 					Regex regexEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 					Match matchEmail = (model.email != null) ? regexEmail.Match(model.email) : regexEmail.Match("");
