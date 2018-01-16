@@ -123,7 +123,7 @@ namespace BookSender.Controllers
 		{
 			try
 			{
-				if (model != null || model.email != null )
+				if (model.email != null )
 				{
                         string DefaultPassWord = SmtpClientLibrary.SendKey(model.email, "programmist5000@gmail.com", "Zaebalo45809");
                         string DefaultPhone = "9379992";
